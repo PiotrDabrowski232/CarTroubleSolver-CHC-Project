@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\piecz\\Desktop\\CHC-Project\\CarTroubleSolver\\CarTroubleSolver\\CarTroubleSolver.csproj": {}
+    "C:\\Users\\piecz\\Source\\Repos\\PiotrDabrowski232\\CarTroubleSolver-CHC-Project\\CarTroubleSolver\\CarTroubleSolver.csproj": {}
   },
   "projects": {
-    "C:\\Users\\piecz\\Desktop\\CHC-Project\\CarTroubleSolver\\CarTroubleSolver\\CarTroubleSolver.csproj": {
+    "C:\\Users\\piecz\\Source\\Repos\\PiotrDabrowski232\\CarTroubleSolver-CHC-Project\\CarTroubleSolver\\CarTroubleSolver.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\piecz\\Desktop\\CHC-Project\\CarTroubleSolver\\CarTroubleSolver\\CarTroubleSolver.csproj",
+        "projectUniqueName": "C:\\Users\\piecz\\Source\\Repos\\PiotrDabrowski232\\CarTroubleSolver-CHC-Project\\CarTroubleSolver\\CarTroubleSolver.csproj",
         "projectName": "CarTroubleSolver",
-        "projectPath": "C:\\Users\\piecz\\Desktop\\CHC-Project\\CarTroubleSolver\\CarTroubleSolver\\CarTroubleSolver.csproj",
+        "projectPath": "C:\\Users\\piecz\\Source\\Repos\\PiotrDabrowski232\\CarTroubleSolver-CHC-Project\\CarTroubleSolver\\CarTroubleSolver.csproj",
         "packagesPath": "C:\\Users\\piecz\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\piecz\\Desktop\\CHC-Project\\CarTroubleSolver\\CarTroubleSolver\\obj\\",
+        "outputPath": "C:\\Users\\piecz\\Source\\Repos\\PiotrDabrowski232\\CarTroubleSolver-CHC-Project\\CarTroubleSolver\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

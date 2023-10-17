@@ -9,7 +9,5 @@ namespace TheCarMarket.Data.Models
         public Guid Id { get; set; }
         public CarBrand Brand { get; set; }
         public ICollection<CarModel> CarModels { get; set; }
-
-
     }
 }

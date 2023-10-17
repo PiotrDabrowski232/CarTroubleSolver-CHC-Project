@@ -11,9 +11,10 @@ namespace CarTroubleSolver.Data.Models
     public class Accident
     {
         public Guid Id { get; set; }
-        public User User { get; set; }
+        public Guid ReporterUserId { get; set; }
+        public Guid? AssigneeUserId { get; set; }
         public Car Car { get; set; }
         public CollisionSeverity CollisionSeverity { get; set; }
-        public string DescriptionOfAccident { get; set; }
+        public string AccidentDescription { get; set; }
     }
 }

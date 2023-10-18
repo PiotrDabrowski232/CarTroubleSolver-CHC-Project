@@ -8,7 +8,7 @@ namespace CarTroubleSolver.Data.ModelsConfiguration
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            builder.HasKey(x => x.Id);
+            builder.HasKey(u => u.Id);
         }
     }
 }

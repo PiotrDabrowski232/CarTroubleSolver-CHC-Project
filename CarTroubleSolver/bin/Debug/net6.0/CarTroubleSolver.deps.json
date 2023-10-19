@@ -9,6 +9,7 @@
       "CarTroubleSolver/1.0.0": {
         "dependencies": {
           "CarTroubleSolver.Data": "1.0.0",
+          "ConsoleTables": "2.5.0",
           "Microsoft.EntityFrameworkCore.Design": "7.0.12"
         },
         "runtime": {
@@ -46,6 +47,14 @@
           "lib/netstandard2.0/Azure.Identity.dll": {
             "assemblyVersion": "1.6.0.0",
             "fileVersion": "1.600.22.20503"
+          }
+        }
+      },
+      "ConsoleTables/2.5.0": {
+        "runtime": {
+          "lib/netstandard2.1/ConsoleTables.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.5.0.0"
           }
         }
       },
@@ -805,6 +814,13 @@
       "sha512": "sha512-EycyMsb6rD2PK9P0SyibFfEhvWWttdrYhyPF4f41uzdB/44yQlV+2Wehxyg489Rj6gbPvSPgbKq0xsHJBhipZA==",
       "path": "azure.identity/1.6.0",
       "hashPath": "azure.identity.1.6.0.nupkg.sha512"
+    },
+    "ConsoleTables/2.5.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-lfXLGH1coDInONveyIW5ufJWT/P5KbMRRV0cbR7CBnoZLNLZeTY51QUrAmtsX+gIWj7xlY9FSmg1sBYhXMmuuw==",
+      "path": "consoletables/2.5.0",
+      "hashPath": "consoletables.2.5.0.nupkg.sha512"
     },
     "EntityFramework/6.4.4": {
       "type": "package",

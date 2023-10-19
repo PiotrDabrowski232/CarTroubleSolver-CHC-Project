@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "UkCexXe1D1yYutERyWW3eKUowTTT+lz5aopLGoD1S+/vyfMDZ1zitC7YNt5VsW49PxHb+K0y8109rV7PbLUdjw==",
+  "dgSpecHash": "Uq9uNwYKlaxqewIZblInOTWgrRDfuCCaUGk0GL8aUQZjTWnxASdgyyUt5SO3xcxg0Q3NK/46kgnGwXEVC7UQBw==",
   "success": true,
   "projectFilePath": "C:\\Users\\piecz\\Source\\Repos\\PiotrDabrowski232\\CarTroubleSolver-CHC-Project\\CarTroubleSolver\\CarTroubleSolver.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\piecz\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\piecz\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
+    "C:\\Users\\piecz\\.nuget\\packages\\consoletables\\2.5.0\\consoletables.2.5.0.nupkg.sha512",
     "C:\\Users\\piecz\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
     "C:\\Users\\piecz\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\piecz\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",

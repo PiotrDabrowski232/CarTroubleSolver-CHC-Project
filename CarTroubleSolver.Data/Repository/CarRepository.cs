@@ -9,7 +9,7 @@ using TheCarMarket.Data.Models;
 
 namespace CarTroubleSolver.Data.Repository
 {
-    public class CarRepository : GenericRepository<Car>, IGenericRepository<Car>, IUserRepository
+    public class CarRepository : GenericRepository<Car>, IGenericRepository<Car>, ICarRepository
     {
         public CarRepository(CarTroubleSolverDbContext context) : base(context)
         {

@@ -23,7 +23,13 @@ int centerX = Console.WindowWidth / 2;
 bool userIsLogged = false;
 LogedInUserDto user = null;
 
+Console.OutputEncoding = System.Text.Encoding.UTF8;
 
+// ElementsPosition
+const int MENU_TOP = 3;
+const int LOGIN_MESSAGE_TOP = 5;
+const int INPUT_PROMPT_TOP = 7;
+var elementPositions = new Dictionary<string, int>();
 
 while (true)
 {
@@ -31,6 +37,9 @@ while (true)
     {
         Console.Clear();
         Console.WriteLine("Wybierz opcję:");
+
+        elementPositions["menu"] = Console.CursorTop;
+
         for (int i = 0; i < startingMenuOptions.Length; i++)
         {
             if (i == selectedOption)
@@ -38,6 +47,7 @@ while (true)
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.BackgroundColor = ConsoleColor.Blue;
             }
+            Console.SetCursorPosition(centerX - 40, MENU_TOP + i);
             Console.WriteLine($"{i + 1}. {startingMenuOptions[i]}");
             Console.ResetColor();
         }
@@ -58,12 +68,15 @@ while (true)
             {
                 #region Login
                 Console.Clear();
-                Console.WriteLine("Log In Panel:");
+                Console.SetCursorPosition(0, LOGIN_MESSAGE_TOP);
+                Console.WriteLine("Panel logowania:");
 
+                Console.SetCursorPosition(0, INPUT_PROMPT_TOP);
                 Console.WriteLine("Email: ");
                 var email = Console.ReadLine();
 
-                Console.WriteLine("Password: ");
+                Console.SetCursorPosition(0, INPUT_PROMPT_TOP + 2);
+                Console.WriteLine("Hasło: ");
                 var password = GetPasswordInput();
 
                 if (userService.VerifyUserInputs(email, password))
@@ -73,133 +86,55 @@ while (true)
                 }
                 else
                 {
-                    Console.Clear();
+                    Console.SetCursorPosition(0, INPUT_PROMPT_TOP + 2);
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Incorrect Email or Password");
+                    Console.WriteLine("Nieprawidłowy email lub hasło");
                     await Task.Delay(3500);
-                    Console.ForegroundColor = ConsoleColor.White;
-
+                    Console.ResetColor();
                 }
                 #endregion
             }
             else if (selectedOption == 1)
             {
-            StartOfRegister:
-                #region Register
+                Register:
+                #region
+                RegisterUserDto newUser = GetUserData();
+                bool registrationSuccessful = false;
 
-                Console.Clear();
-                Console.WriteLine("Wybrano rejestrację. Wprowadź dane rejestracyjne.");
-                try
+                do
                 {
-                    Console.WriteLine("Name: ");
-                    var name = Console.ReadLine();
-
-                    Console.WriteLine("Surname: ");
-                    var surname = Console.ReadLine();
-
-                    Console.WriteLine("Email: ");
-                    var email = Console.ReadLine();
-
-                    Console.WriteLine("Password: ");
-                    var password = GetPasswordInput();
-
-                    Console.WriteLine("Confirm Password: ");
-                    var confirmPassword = GetPasswordInput();
-
-                    Console.WriteLine("PhoneNumber: ");
-                    var phoneNumber = int.Parse(Console.ReadLine());
-
-                    Console.WriteLine("Date Of Birth{dd-mm-yyyy}: ");
-                    var DateOfBirth = DateTime.Parse(Console.ReadLine());
-
-                    var userWantBeCreated = new RegisterUserDto()
-                    {
-                        Name = name,
-                        Surname = surname,
-                        Email = email,
-                        ConfirmPassword = confirmPassword,
-                        Password = password,
-                        PhoneNumber = phoneNumber,
-                        DateOfBirth = DateOfBirth
-                    };
-
                     Console.Clear();
 
-                    var validator = new RegisterUserDtoValidator();
-                    var validationResult = validator.Validate(userWantBeCreated);
-
-                    if (validationResult.IsValid)
+                    if (registrationSuccessful)
                     {
                         Console.SetCursorPosition(centerX, 0);
                         Console.WriteLine("User is valid.");
                         Console.SetCursorPosition(centerX - 5, 1);
-                        Console.WriteLine("Congratulation You Have Created Account");
-                        userService.Add(userWantBeCreated);
+                        Console.WriteLine("Congratulations, you have created an account.");
                         await Task.Delay(3000);
                         Console.SetCursorPosition(0, 0);
+                        break;
                     }
                     else
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("User is not valid.");
-                        foreach (var error in validationResult.Errors)
-                        {
-                            Console.WriteLine($"Property: {error.PropertyName}, Error: {error.ErrorMessage}");
-                        }
+                        DisplayValidationErrors(newUser);
                         await Task.Delay(3500);
-
-
-                        while (true)
-                        {
-                            Console.Clear();
-
-                            Console.WriteLine("\n Do you want to try again create account?");
-                            for (int i = 0; i < tryAgainMenu.Length; i++)
-                            {
-                                if (i == selectedOptionTryAgainMenu)
-                                {
-                                    Console.ForegroundColor = ConsoleColor.White;
-                                    Console.BackgroundColor = ConsoleColor.Blue;
-                                }
-                                Console.WriteLine($"{i + 1}. {tryAgainMenu[i]}");
-                                Console.ResetColor();
-                            }
-                            ConsoleKeyInfo tryAgainKeyInfo = Console.ReadKey();
-
-                            if (tryAgainKeyInfo.Key == ConsoleKey.UpArrow)
-                            {
-                                selectedOptionTryAgainMenu = (selectedOptionTryAgainMenu - 1 + tryAgainMenu.Length) % tryAgainMenu.Length;
-                            }
-                            else if (tryAgainKeyInfo.Key == ConsoleKey.DownArrow)
-                            {
-                                selectedOptionTryAgainMenu = (selectedOptionTryAgainMenu + 1) % tryAgainMenu.Length;
-                            }
-                            else if (tryAgainKeyInfo.Key == ConsoleKey.Enter)
-                            {
-                                if (tryAgainKeyInfo.Key == ConsoleKey.Enter)
-                                {
-                                    if (selectedOptionTryAgainMenu == 0)
-                                    {
-                                        goto StartOfRegister;
-                                    }
-                                    else if (selectedOptionTryAgainMenu == 1)
-                                    {
-                                        break;
-                                    }
-                                }
-                            }
-
-                        }
-
+                        Console.ResetColor();
                     }
 
-                }
-                catch (Exception ex)
-                {
+                    if (ShowTryAgainMenu() == 0)
+                    {
+                        newUser = GetUserData();
+                    }
+                    else
+                    {
+                        break;
+                    }
 
-                }
+                } while (true);
                 #endregion
-
             }
             else if (selectedOption == 2)
             {
@@ -251,4 +186,86 @@ string GetPasswordInput()
     Console.WriteLine();
 
     return password;
+}
+RegisterUserDto GetUserData()
+{
+    Console.Clear();
+    Console.WriteLine("Welcome in register panel enter your data: ");
+
+    Console.WriteLine("Name: ");
+    var name = Console.ReadLine();
+
+    Console.WriteLine("Surname: ");
+    var surname = Console.ReadLine();
+
+    Console.WriteLine("Email: ");
+    var email = Console.ReadLine();
+
+    Console.WriteLine("Password: ");
+    var password = GetPasswordInput();
+
+    Console.WriteLine("Confirm Password: ");
+    var confirmPassword = GetPasswordInput();
+
+    Console.WriteLine("PhoneNumber: ");
+    var phoneNumber = int.Parse(Console.ReadLine());
+
+    Console.WriteLine("Date Of Birth (dd-mm-yyyy): ");
+    var DateOfBirth = DateTime.Parse(Console.ReadLine());
+
+    return new RegisterUserDto()
+    {
+        Name = name,
+        Surname = surname,
+        Email = email,
+        ConfirmPassword = confirmPassword,
+        Password = password,
+        PhoneNumber = phoneNumber,
+        DateOfBirth = DateOfBirth
+    };
+}
+int ShowTryAgainMenu()
+{
+    int selectedOptionTryAgainMenu = 0;
+
+    while (true)
+    {
+        Console.Clear();
+
+        Console.WriteLine("\nDo you want to try again to create an account?");
+        for (int i = 0; i < tryAgainMenu.Length; i++)
+        {
+            if (i == selectedOptionTryAgainMenu)
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.BackgroundColor = ConsoleColor.Blue;
+            }
+            Console.WriteLine($"{i + 1}. {tryAgainMenu[i]}");
+            Console.ResetColor();
+        }
+        ConsoleKeyInfo tryAgainKeyInfo = Console.ReadKey();
+
+        if (tryAgainKeyInfo.Key == ConsoleKey.UpArrow)
+        {
+            selectedOptionTryAgainMenu = (selectedOptionTryAgainMenu - 1 + tryAgainMenu.Length) % tryAgainMenu.Length;
+        }
+        else if (tryAgainKeyInfo.Key == ConsoleKey.DownArrow)
+        {
+            selectedOptionTryAgainMenu = (selectedOptionTryAgainMenu + 1) % tryAgainMenu.Length;
+        }
+        else if (tryAgainKeyInfo.Key == ConsoleKey.Enter)
+        {
+            return selectedOptionTryAgainMenu;
+        }
+    }
+}
+void DisplayValidationErrors(RegisterUserDto user)
+{
+    var validator = new RegisterUserDtoValidator();
+    var validationResult = validator.Validate(user);
+
+    foreach (var error in validationResult.Errors)
+    {
+        Console.WriteLine($"Property: {error.PropertyName}, Error: {error.ErrorMessage}");
+    }
 }

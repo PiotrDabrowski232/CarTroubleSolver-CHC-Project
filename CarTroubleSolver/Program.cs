@@ -219,6 +219,7 @@ while (true)
             Console.WriteLine(user.DateOfBirth);
             Console.WriteLine(user.PhoneNumber);
             await Task.Delay(3500);
+
         }
     }
 }

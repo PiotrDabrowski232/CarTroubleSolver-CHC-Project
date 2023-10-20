@@ -17,7 +17,9 @@ var userService = serviceProvider.GetRequiredService(typeof(IUserService)) as IU
 //Variables
 //bool wantEnd = false;
 int selectedOption = 0;
-string[] menuOptions = { "Logowanie", "Rejestracja", "Wyjście" };
+int selectedOptionTryAgainMenu = 0;
+string[] startingMenuOptions = { "Log In", "Register", "EndSession" };
+string[] tryAgainMenu = { "Try Again", "Quick" };
 int centerX = Console.WindowWidth / 2;
 int centerY = Console.WindowHeight / 2;
 
@@ -27,14 +29,14 @@ while (true)
 {
     Console.Clear();
     Console.WriteLine("Wybierz opcję:");
-    for (int i = 0; i < menuOptions.Length; i++)
+    for (int i = 0; i < startingMenuOptions.Length; i++)
     {
         if (i == selectedOption)
         {
             Console.ForegroundColor = ConsoleColor.White;
             Console.BackgroundColor = ConsoleColor.Blue;
         }
-        Console.WriteLine($"{i + 1}. {menuOptions[i]}");
+        Console.WriteLine($"{i + 1}. {startingMenuOptions[i]}");
         Console.ResetColor();
     }
 
@@ -42,11 +44,11 @@ while (true)
 
     if (keyInfo.Key == ConsoleKey.UpArrow)
     {
-        selectedOption = (selectedOption - 1 + menuOptions.Length) % menuOptions.Length;
+        selectedOption = (selectedOption - 1 + startingMenuOptions.Length) % startingMenuOptions.Length;
     }
     else if (keyInfo.Key == ConsoleKey.DownArrow)
     {
-        selectedOption = (selectedOption + 1) % menuOptions.Length;
+        selectedOption = (selectedOption + 1) % startingMenuOptions.Length;
     }
     else if (keyInfo.Key == ConsoleKey.Enter)
     {
@@ -60,6 +62,9 @@ while (true)
         }
         else if (selectedOption == 1)
         {
+        StartOfRegister:
+            #region Register
+
             Console.Clear();
             Console.WriteLine("Wybrano rejestrację. Wprowadź dane rejestracyjne.");
             try
@@ -113,13 +118,60 @@ while (true)
                     {
                         Console.WriteLine($"Property: {error.PropertyName}, Error: {error.ErrorMessage}");
                     }
+                    await Task.Delay(3500);
+
+
+                    while (true)
+                    {
+                        Console.Clear();
+
+                        Console.WriteLine("\n Do you want to try again create account?");
+                        for (int i = 0; i < tryAgainMenu.Length; i++)
+                        {
+                            if (i == selectedOptionTryAgainMenu)
+                            {
+                                Console.ForegroundColor = ConsoleColor.White;
+                                Console.BackgroundColor = ConsoleColor.Blue;
+                            }
+                            Console.WriteLine($"{i + 1}. {tryAgainMenu[i]}");
+                            Console.ResetColor();
+                        }
+                        ConsoleKeyInfo tryAgainKeyInfo = Console.ReadKey();
+
+                        if (tryAgainKeyInfo.Key == ConsoleKey.UpArrow)
+                        {
+                            selectedOptionTryAgainMenu = (selectedOptionTryAgainMenu - 1 + tryAgainMenu.Length) % tryAgainMenu.Length;
+                        }
+                        else if (tryAgainKeyInfo.Key == ConsoleKey.DownArrow)
+                        {
+                            selectedOptionTryAgainMenu = (selectedOptionTryAgainMenu + 1) % tryAgainMenu.Length;
+                        }
+                        else if (tryAgainKeyInfo.Key == ConsoleKey.Enter)
+                        {
+                            if (tryAgainKeyInfo.Key == ConsoleKey.Enter)
+                            {
+                                if (selectedOptionTryAgainMenu == 0)
+                                {
+                                    goto StartOfRegister;
+                                }
+                                else if (selectedOptionTryAgainMenu == 1)
+                                {
+                                    break;
+                                }
+                            }
+                        }
+
+                    }
+
                 }
-                Console.ReadKey();
+
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
             }
+            #endregion
+
         }
         else if (selectedOption == 2)
         {

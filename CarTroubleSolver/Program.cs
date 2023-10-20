@@ -1,5 +1,6 @@
 ﻿using CarTroubleSolver.Data.Configuration;
 using CarTroubleSolver.Logic.Configuration;
+using CarTroubleSolver.Logic.Dto;
 using CarTroubleSolver.Logic.Services.Interfaces;
 using CarTroubleSolver.Logic.Validation;
 using Microsoft.Extensions.DependencyInjection;
@@ -81,18 +82,21 @@ while (true)
                 Console.WriteLine("Password: ");
                 var password = GetPasswordInput();
 
+                Console.WriteLine("Password: ");
+                var confirmPassword = GetPasswordInput();
+
                 Console.WriteLine("PhoneNumber: ");
                 var phoneNumber = int.Parse(Console.ReadLine());
 
                 Console.WriteLine("Date Of Birth{dd-mm-yyyy}: ");
                 var DateOfBirth = DateTime.Parse(Console.ReadLine());
 
-                var user = new User()
+                var user = new RegisterUserDto()
                 {
-                    Id = Guid.NewGuid(),
                     Name = name,
                     Surname = surname,
                     Email = email,
+                    ConfirmPassword = confirmPassword,
                     Password = password,
                     PhoneNumber = phoneNumber,
                     DateOfBirth = DateOfBirth
@@ -100,7 +104,7 @@ while (true)
 
                 Console.Clear();
 
-                var validator = new UserValidator();
+                var validator = new RegisterUserDtoValidator();
                 var validationResult = validator.Validate(user);
 
                 if (validationResult.IsValid)
@@ -115,6 +119,7 @@ while (true)
                 }
                 else
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("User is not valid.");
                     foreach (var error in validationResult.Errors)
                     {

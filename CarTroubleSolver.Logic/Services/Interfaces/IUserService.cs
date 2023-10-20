@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CarTroubleSolver.Logic.Dto;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,6 @@ namespace CarTroubleSolver.Logic.Services.Interfaces
 {
     public interface IUserService
     {
-        public void Add(User user);
+        public void Add(RegisterUserDto user);
     }
 }

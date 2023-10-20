@@ -1,11 +1,12 @@
-﻿using FluentValidation;
+﻿using CarTroubleSolver.Logic.Dto;
+using FluentValidation;
 using TheCarMarket.Data.Models;
 
 namespace CarTroubleSolver.Logic.Validation
 {
-    public class UserValidator:AbstractValidator<User>
+    public class RegisterUserDtoValidator : AbstractValidator<RegisterUserDto>
     {
-        public UserValidator() 
+        public RegisterUserDtoValidator() 
         {
             RuleFor(x => x.Name)
                 .NotEmpty()
@@ -21,6 +22,10 @@ namespace CarTroubleSolver.Logic.Validation
                 .Matches("[A-Z]").WithMessage("Password should contain at least one uppercase letter")
                 .Matches("[a-z]").WithMessage("Password should contain at least one lowercase letter")
                 .Matches("[!@#$%^&*()_+{}|:;<>,.?~]").WithMessage("Password should contain at least one special character");
+
+            RuleFor(x => x.ConfirmPassword)
+                .Equal(e => e.Password)
+                .WithMessage("Both passwords should be the same");
 
             RuleFor(x => x.Email)
                 .NotEmpty()

@@ -1313,6 +1313,8 @@
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
           "EntityFramework": "6.4.4",
+          "MediatR": "12.1.1",
+          "MediatR.Extensions.Microsoft.DependencyInjection": "11.1.0",
           "Microsoft.EntityFrameworkCore": "7.0.9",
           "Microsoft.EntityFrameworkCore.SqlServer": "7.0.9"
         },
@@ -1321,6 +1323,22 @@
         },
         "runtime": {
           "bin/placeholder/CarTroubleSolver.Data.dll": {}
+        }
+      },
+      "CarTroubleSolver.Logic/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "CarTroubleSolver.Data": "1.0.0",
+          "MediatR": "12.1.1",
+          "MediatR.Extensions.Microsoft.DependencyInjection": "11.1.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "7.0.0"
+        },
+        "compile": {
+          "bin/placeholder/CarTroubleSolver.Logic.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/CarTroubleSolver.Logic.dll": {}
         }
       }
     }
@@ -4003,11 +4021,17 @@
       "type": "project",
       "path": "../CarTroubleSolver.Data/CarTroubleSolver.Data.csproj",
       "msbuildProject": "../CarTroubleSolver.Data/CarTroubleSolver.Data.csproj"
+    },
+    "CarTroubleSolver.Logic/1.0.0": {
+      "type": "project",
+      "path": "../CarTroubleSolver.Logic/CarTroubleSolver.Logic.csproj",
+      "msbuildProject": "../CarTroubleSolver.Logic/CarTroubleSolver.Logic.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
       "CarTroubleSolver.Data >= 1.0.0",
+      "CarTroubleSolver.Logic >= 1.0.0",
       "ConsoleTables >= 2.5.0",
       "MediatR >= 12.1.1",
       "MediatR.Extensions.Microsoft.DependencyInjection >= 11.1.0",
@@ -4049,6 +4073,9 @@
           "projectReferences": {
             "C:\\Users\\piecz\\Source\\Repos\\PiotrDabrowski232\\CarTroubleSolver-CHC-Project\\CarTroubleSolver.Data\\CarTroubleSolver.Data.csproj": {
               "projectPath": "C:\\Users\\piecz\\Source\\Repos\\PiotrDabrowski232\\CarTroubleSolver-CHC-Project\\CarTroubleSolver.Data\\CarTroubleSolver.Data.csproj"
+            },
+            "C:\\Users\\piecz\\Source\\Repos\\PiotrDabrowski232\\CarTroubleSolver-CHC-Project\\CarTroubleSolver.Logic\\CarTroubleSolver.Logic.csproj": {
+              "projectPath": "C:\\Users\\piecz\\Source\\Repos\\PiotrDabrowski232\\CarTroubleSolver-CHC-Project\\CarTroubleSolver.Logic\\CarTroubleSolver.Logic.csproj"
             }
           }
         }

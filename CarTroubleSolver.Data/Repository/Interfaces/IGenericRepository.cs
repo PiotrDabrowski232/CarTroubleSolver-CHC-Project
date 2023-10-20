@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace CarTroubleSolver.Data.Repository.Interfaces
 {
-    internal interface IGenericRepository<T>
+    public interface IGenericRepository<T>
     {
-        public Task Add(T entity);
+        public Task<T> Add(T entity);
         public T Get(Guid id);
         public void Update(T entity);
         public void Remove(T entity);

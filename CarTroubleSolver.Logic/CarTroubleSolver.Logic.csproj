@@ -17,9 +17,4 @@
     <ProjectReference Include="..\CarTroubleSolver.Data\CarTroubleSolver.Data.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Functions\Command\" />
-    <Folder Include="Functions\Queries\" />
-  </ItemGroup>
-
 </Project>

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "EUmLPmpL1dx8PZ+4BPsPvyEwmvlXldGHFNJXDkRrcvV4grLixbrRAQmaxG//icYWuYw2T4ssoZyZdpVeuVBcRA==",
+  "dgSpecHash": "jBrhc/cYOpNfvrCeup4ra2jurUpOHD5yNRytQeS03BOwN85yMb8i3LJ3uGy4pQ+y4sywgiskGzAVW3FHKeoUYw==",
   "success": true,
   "projectFilePath": "C:\\Users\\piecz\\Source\\Repos\\PiotrDabrowski232\\CarTroubleSolver-CHC-Project\\CarTroubleSolver\\CarTroubleSolver.csproj",
   "expectedPackageFiles": [
@@ -8,6 +8,7 @@
     "C:\\Users\\piecz\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
     "C:\\Users\\piecz\\.nuget\\packages\\consoletables\\2.5.0\\consoletables.2.5.0.nupkg.sha512",
     "C:\\Users\\piecz\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
+    "C:\\Users\\piecz\\.nuget\\packages\\fluentvalidation\\11.8.0\\fluentvalidation.11.8.0.nupkg.sha512",
     "C:\\Users\\piecz\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\piecz\\.nuget\\packages\\mediatr\\12.1.1\\mediatr.12.1.1.nupkg.sha512",
     "C:\\Users\\piecz\\.nuget\\packages\\mediatr.contracts\\2.0.1\\mediatr.contracts.2.0.1.nupkg.sha512",

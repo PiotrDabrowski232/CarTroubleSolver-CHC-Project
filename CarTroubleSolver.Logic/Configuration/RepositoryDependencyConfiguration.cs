@@ -13,7 +13,8 @@ namespace CarTroubleSolver.Logic.Configuration
             Services.AddScoped<IAccidentRepository, AccidentRepository>();
             Services.AddScoped<ICarRepository, CarRepository>();
 
-            Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
+
+
 
             return Services;
         }

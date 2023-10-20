@@ -1,20 +1,25 @@
-﻿using CarTroubleSolver.Logic.Configuration;
-using CarTroubleSolver.Logic.Functions.UserFunctions.Queries;
-using MediatR;
+﻿using CarTroubleSolver.Data.Configuration;
+using CarTroubleSolver.Logic.Configuration;
+using CarTroubleSolver.Logic.Services.Interfaces;
+using CarTroubleSolver.Logic.Validation;
 using Microsoft.Extensions.DependencyInjection;
 using TheCarMarket.Data.Models;
 
 //Services Configuration
 var serviceProvider = new ServiceCollection()
             .AddRepositories()
+            .AddServices()
             .BuildServiceProvider();
 
-var mediator = serviceProvider.GetRequiredService<IMediator>();
+var userService = serviceProvider.GetRequiredService(typeof(IUserService)) as IUserService;
+
 
 //Variables
-bool wantEnd = false;
+//bool wantEnd = false;
 int selectedOption = 0;
 string[] menuOptions = { "Logowanie", "Rejestracja", "Wyjście" };
+int centerX = Console.WindowWidth / 2;
+int centerY = Console.WindowHeight / 2;
 
 
 
@@ -57,39 +62,64 @@ while (true)
         {
             Console.Clear();
             Console.WriteLine("Wybrano rejestrację. Wprowadź dane rejestracyjne.");
-
-            Console.WriteLine("Name: ");
-            var name = Console.ReadLine();
-
-            Console.WriteLine("Surname: ");
-            var surname = Console.ReadLine();
-
-            Console.WriteLine("Email: ");
-            var email = Console.ReadLine();
-
-            Console.WriteLine("Password: ");
-            var password = Console.ReadLine();
-
-            Console.WriteLine("PhoneNumber: ");
-            var phoneNumber = int.Parse(Console.ReadLine());
-
-            Console.WriteLine("Email: ");
-            var DateOfBirth = DateTime.Parse(Console.ReadLine());
-
-            var user = new User()
+            try
             {
-                Id = Guid.NewGuid(),
-                Name = name,
-                Surname = surname,
-                Email = email,
-                Password = password,
-                PhoneNumber = phoneNumber,
-                DateOfBirth = DateOfBirth
-            };
+                Console.WriteLine("Name: ");
+                var name = Console.ReadLine();
 
-            var something = await mediator.Send(new CreateUserQuery { User = user });
+                Console.WriteLine("Surname: ");
+                var surname = Console.ReadLine();
 
-            Console.ReadKey();
+                Console.WriteLine("Email: ");
+                var email = Console.ReadLine();
+
+                Console.WriteLine("Password: ");
+                var password = Console.ReadLine();
+
+                Console.WriteLine("PhoneNumber: ");
+                var phoneNumber = int.Parse(Console.ReadLine());
+
+                Console.WriteLine("Date Of Birth{dd-mm-yyyy}: ");
+                var DateOfBirth = DateTime.Parse(Console.ReadLine());
+
+                var user = new User()
+                {
+                    Id = Guid.NewGuid(),
+                    Name = name,
+                    Surname = surname,
+                    Email = email,
+                    Password = password,
+                    PhoneNumber = phoneNumber,
+                    DateOfBirth = DateOfBirth
+                };
+
+                Console.Clear();
+
+                var validator = new UserValidator();
+                var validationResult = validator.Validate(user);
+
+                if (validationResult.IsValid)
+                {
+                    Console.SetCursorPosition(centerX, centerY);
+                    Console.WriteLine("User is valid.");
+                    Console.WriteLine("Congratulation You Have Created Account");
+                    userService.Add(user);
+                    Console.SetCursorPosition(0, 0);
+                }
+                else
+                {
+                    Console.WriteLine("User is not valid.");
+                    foreach (var error in validationResult.Errors)
+                    {
+                        Console.WriteLine($"Property: {error.PropertyName}, Error: {error.ErrorMessage}");
+                    }
+                }
+                Console.ReadKey();
+            }
+            catch(Exception ex)
+            {
+
+            }
         }
         else if (selectedOption == 2)
         {

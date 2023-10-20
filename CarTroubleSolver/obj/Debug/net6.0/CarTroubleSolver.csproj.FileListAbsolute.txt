@@ -91,3 +91,4 @@ C:\Users\piecz\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTr
 C:\Users\piecz\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver\bin\Debug\net6.0\CarTroubleSolver.Logic.exe
 C:\Users\piecz\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver\bin\Debug\net6.0\CarTroubleSolver.Logic.dll
 C:\Users\piecz\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver\bin\Debug\net6.0\CarTroubleSolver.Logic.pdb
+C:\Users\piecz\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver\bin\Debug\net6.0\FluentValidation.dll

@@ -1,5 +1,4 @@
-﻿using CarTroubleSolver.Data.Repository;
-using CarTroubleSolver.Data.Repository.Interfaces;
+﻿using CarTroubleSolver.Data.Repository.Interfaces;
 using CarTroubleSolver.Logic.Functions.UserFunctions.Queries;
 using MediatR;
 using TheCarMarket.Data.Models;

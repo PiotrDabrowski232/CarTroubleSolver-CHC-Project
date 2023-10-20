@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "clKGWEMNHHuu5X49Gr0+kMwlKB8hzDLpBdS5EdlVh8FFMDIuVs+BKSO/zyrBCnzW7nFdCFSY07g1HlOMtEp2Dw==",
+  "dgSpecHash": "L/uoK42byOQyRBYtlUfEOTNAxzbSaUKInFCfuFqWg65IMDXoCa5HdlsgAgTjrZ0Ux1uprsFJGqJBsY2Jvd1FwQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\piecz\\Source\\Repos\\PiotrDabrowski232\\CarTroubleSolver-CHC-Project\\CarTroubleSolver.Logic\\CarTroubleSolver.Logic.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\piecz\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\piecz\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
     "C:\\Users\\piecz\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
+    "C:\\Users\\piecz\\.nuget\\packages\\fluentvalidation\\11.8.0\\fluentvalidation.11.8.0.nupkg.sha512",
     "C:\\Users\\piecz\\.nuget\\packages\\mediatr\\12.1.1\\mediatr.12.1.1.nupkg.sha512",
     "C:\\Users\\piecz\\.nuget\\packages\\mediatr.contracts\\2.0.1\\mediatr.contracts.2.0.1.nupkg.sha512",
     "C:\\Users\\piecz\\.nuget\\packages\\mediatr.extensions.microsoft.dependencyinjection\\11.1.0\\mediatr.extensions.microsoft.dependencyinjection.11.1.0.nupkg.sha512",

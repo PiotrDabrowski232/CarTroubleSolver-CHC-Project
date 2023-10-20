@@ -12,13 +12,12 @@ namespace CarTroubleSolver.Data.Repository
         }
 
 
-        public async Task<T> Add(T entity)
+        public async Task Add(T entity)
         {
             _context.Set<T>().AddAsync(entity);
 
             _context.SaveChanges();
 
-            return entity;
         }
 
         public T Get(Guid id)
@@ -28,7 +27,7 @@ namespace CarTroubleSolver.Data.Repository
 
         public IEnumerable<T> GetAll()
         {
-            throw new NotImplementedException();
+            return _context.Set<T>();
         }
 
         public void Remove(T entity)

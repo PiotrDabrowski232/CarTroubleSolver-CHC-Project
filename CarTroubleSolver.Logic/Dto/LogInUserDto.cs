@@ -1,17 +1,11 @@
-﻿namespace TheCarMarket.Data.Models
+﻿
+namespace CarTroubleSolver.Logic.Dto
 {
-    public class User
+    public class LogedInUserDto
     {
-        public User()
-        {
-            Id = Guid.NewGuid();
-        }
-
-        public Guid Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Email { get; set; }
-        public string Password { get; set; }
         public int PhoneNumber { get; set; }
         public DateTime DateOfBirth { get; set; }
     }

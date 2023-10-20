@@ -1,6 +1,6 @@
-﻿using CarTroubleSolver.Logic.Dto;
+﻿using CarTroubleSolver.Data.Database;
+using CarTroubleSolver.Logic.Dto;
 using FluentValidation;
-using TheCarMarket.Data.Models;
 
 namespace CarTroubleSolver.Logic.Validation
 {

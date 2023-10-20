@@ -15,6 +15,10 @@ namespace CarTroubleSolver.Logic.Mapping
         {
             CreateMap<User, RegisterUserDto>();
             CreateMap<RegisterUserDto, User>();
+
+            CreateMap<User, LogedInUserDto>();
+            CreateMap<LogedInUserDto, User>();
+
         }
     }
 }

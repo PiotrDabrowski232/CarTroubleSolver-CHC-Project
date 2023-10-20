@@ -11,5 +11,7 @@ namespace CarTroubleSolver.Logic.Services.Interfaces
     public interface IUserService
     {
         public void Add(RegisterUserDto user);
+        public bool VerifyUserInputs(string email, string password);
+        public LogedInUserDto GetLoggedInUser(string email);
     }
 }

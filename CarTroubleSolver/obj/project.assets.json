@@ -4099,6 +4099,7 @@
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "AutoMapper >= 12.0.1",
       "CarTroubleSolver.Data >= 1.0.0",
       "CarTroubleSolver.Logic >= 1.0.0",
       "ConsoleTables >= 2.5.0",
@@ -4160,6 +4161,10 @@
       "net6.0": {
         "targetAlias": "net6.0",
         "dependencies": {
+          "AutoMapper": {
+            "target": "Package",
+            "version": "[12.0.1, )"
+          },
           "ConsoleTables": {
             "target": "Package",
             "version": "[2.5.0, )"

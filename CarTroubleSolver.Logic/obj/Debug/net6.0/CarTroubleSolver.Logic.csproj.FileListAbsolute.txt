@@ -79,3 +79,4 @@ C:\Users\piecz\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTr
 C:\Users\piecz\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver.Logic\obj\Debug\net6.0\CarTroubleSolver.Logic.genruntimeconfig.cache
 C:\Users\piecz\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver.Logic\obj\Debug\net6.0\ref\CarTroubleSolver.Logic.dll
 C:\Users\piecz\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver.Logic\bin\Debug\net6.0\FluentValidation.dll
+C:\Users\piecz\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver.Logic\bin\Debug\net6.0\AutoMapper.dll

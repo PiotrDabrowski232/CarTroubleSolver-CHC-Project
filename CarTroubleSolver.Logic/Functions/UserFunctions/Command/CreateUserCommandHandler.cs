@@ -5,7 +5,7 @@ using TheCarMarket.Data.Models;
 
 namespace CarTroubleSolver.Logic.Functions.UserFunctions.Command
 {
-    public class CreateUserCommandHandler : IRequestHandler<CreateUserQuery, Guid>
+    /*public class CreateUserCommandHandler : IRequestHandler<CreateUserQuery, Guid>
     {
         private readonly IUserRepository _userRepository;
 
@@ -24,5 +24,5 @@ namespace CarTroubleSolver.Logic.Functions.UserFunctions.Command
 
             return userId.Result.Id;
         }
-    }
+    }*/
 }

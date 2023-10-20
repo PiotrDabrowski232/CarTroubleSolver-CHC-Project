@@ -10,12 +10,8 @@ namespace CarTroubleSolver.Data.Database
         public DbSet<Accident> Accidents { get; set; }
         public DbSet<Car> Cars { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public CarTroubleSolverDbContext(DbContextOptions<CarTroubleSolverDbContext> options) : base(options)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=CarTroubleSolver;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
-            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

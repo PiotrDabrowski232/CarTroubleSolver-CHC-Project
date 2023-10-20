@@ -83,3 +83,13 @@ C:\Users\piecz\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTr
 C:\Users\piecz\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver\obj\Debug\net6.0\CarTroubleSolver.csproj.AssemblyReference.cache
 C:\Users\piecz\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver\obj\Debug\net6.0\CarTroubleSolver.csproj.CopyComplete
 C:\Users\piecz\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver\bin\Debug\net6.0\ConsoleTables.dll
+C:\Users\piecz\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver\bin\Debug\net6.0\MediatR.dll
+C:\Users\piecz\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver\bin\Debug\net6.0\MediatR.Contracts.dll
+C:\Users\piecz\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver\bin\Debug\net6.0\MediatR.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\piecz\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver\bin\Debug\net6.0\CarTroubleSolver.Logic.deps.json
+C:\Users\piecz\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver\bin\Debug\net6.0\CarTroubleSolver.Logic.runtimeconfig.json
+C:\Users\piecz\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver\bin\Debug\net6.0\CarTroubleSolver.Logic.exe
+C:\Users\piecz\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver\bin\Debug\net6.0\CarTroubleSolver.Logic.dll
+C:\Users\piecz\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver\bin\Debug\net6.0\CarTroubleSolver.Logic.pdb
+C:\Users\piecz\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver\bin\Debug\net6.0\FluentValidation.dll
+C:\Users\piecz\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver\bin\Debug\net6.0\AutoMapper.dll

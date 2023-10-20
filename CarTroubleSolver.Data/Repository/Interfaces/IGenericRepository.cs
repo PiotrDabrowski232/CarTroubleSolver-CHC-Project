@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CarTroubleSolver.Data.Repository.Interfaces
 {
-    internal interface IGenericRepository<T>
+    public interface IGenericRepository<T>
     {
         public Task Add(T entity);
         public T Get(Guid id);

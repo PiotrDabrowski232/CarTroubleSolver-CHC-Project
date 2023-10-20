@@ -1,12 +1,23 @@
-﻿using CarTroubleSolver.Data.Repository.Interfaces;
+﻿using CarTroubleSolver.Data.Database;
+using CarTroubleSolver.Data.Repository.Interfaces;
 
 namespace CarTroubleSolver.Data.Repository
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
-        public Task Add(T entity)
+        protected readonly CarTroubleSolverDbContext _context;
+        protected GenericRepository(CarTroubleSolverDbContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
+        }
+
+
+        public async Task Add(T entity)
+        {
+            _context.Set<T>().AddAsync(entity);
+
+            _context.SaveChanges();
+
         }
 
         public T Get(Guid id)
@@ -16,7 +27,7 @@ namespace CarTroubleSolver.Data.Repository
 
         public IEnumerable<T> GetAll()
         {
-            throw new NotImplementedException();
+            return _context.Set<T>();
         }
 
         public void Remove(T entity)

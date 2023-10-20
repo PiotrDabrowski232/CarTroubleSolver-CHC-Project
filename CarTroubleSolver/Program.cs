@@ -79,7 +79,7 @@ while (true)
                 var email = Console.ReadLine();
 
                 Console.WriteLine("Password: ");
-                var password = Console.ReadLine();
+                var password = GetPasswordInput();
 
                 Console.WriteLine("PhoneNumber: ");
                 var phoneNumber = int.Parse(Console.ReadLine());
@@ -105,10 +105,12 @@ while (true)
 
                 if (validationResult.IsValid)
                 {
-                    Console.SetCursorPosition(centerX, centerY);
+                    Console.SetCursorPosition(centerX, 0);
                     Console.WriteLine("User is valid.");
+                    Console.SetCursorPosition(centerX -5, 1);
                     Console.WriteLine("Congratulation You Have Created Account");
                     userService.Add(user);
+                    await Task.Delay(3000);
                     Console.SetCursorPosition(0, 0);
                 }
                 else
@@ -182,3 +184,31 @@ while (true)
     }
 }
 serviceProvider.Dispose();
+
+
+
+string GetPasswordInput()
+{
+    string password = "";
+    ConsoleKeyInfo keyInfo;
+
+    do
+    {
+        keyInfo = Console.ReadKey(intercept: true); // Pojedyńcze znaki są zczytywane ale nie są wyświetlane
+
+        if (keyInfo.Key != ConsoleKey.Backspace && keyInfo.Key != ConsoleKey.Enter)
+        {
+            password += keyInfo.KeyChar;
+            Console.Write("*");
+        }
+        else if (keyInfo.Key == ConsoleKey.Backspace && password.Length > 0)
+        {
+            password = password.Remove(password.Length - 1);
+            Console.Write("\b \b");
+        }
+    } while (keyInfo.Key != ConsoleKey.Enter);
+
+    Console.WriteLine(); 
+
+    return password;
+}

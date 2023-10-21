@@ -4,6 +4,7 @@ using CarTroubleSolver.Logic.Dto;
 using CarTroubleSolver.Logic.Services.Interfaces;
 using CarTroubleSolver.Logic.Validation;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 
 //Services Configuration
 var serviceProvider = new ServiceCollection()
@@ -19,6 +20,7 @@ int selectedOption = 0;
 int selectedOptionTryAgainMenu = 0;
 string[] startingMenuOptions = { "Log In", "Register", "EndSession" };
 string[] tryAgainMenu = { "Try Again", "Quick" };
+string[] logedUserMenu = { "Log Out" };
 int centerX = Console.WindowWidth / 2;
 bool userIsLogged = false;
 LogedInUserDto user = null;
@@ -29,7 +31,6 @@ Console.OutputEncoding = System.Text.Encoding.UTF8;
 const int MENU_TOP = 3;
 const int LOGIN_MESSAGE_TOP = 5;
 const int INPUT_PROMPT_TOP = 7;
-var elementPositions = new Dictionary<string, int>();
 
 while (true)
 {
@@ -38,7 +39,6 @@ while (true)
         Console.Clear();
         Console.WriteLine("Wybierz opcję:");
 
-        elementPositions["menu"] = Console.CursorTop;
 
         for (int i = 0; i < startingMenuOptions.Length; i++)
         {
@@ -86,7 +86,7 @@ while (true)
                 }
                 else
                 {
-                    Console.SetCursorPosition(0, INPUT_PROMPT_TOP + 2);
+                    Console.SetCursorPosition(0, INPUT_PROMPT_TOP + 10);
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Nieprawidłowy email lub hasło");
                     await Task.Delay(3500);
@@ -96,32 +96,34 @@ while (true)
             }
             else if (selectedOption == 1)
             {
-                Register:
+            Register:
                 #region
                 RegisterUserDto newUser = GetUserData();
-                bool registrationSuccessful = false;
 
                 do
                 {
                     Console.Clear();
+                    string validationMessages = DisplayValidationErrors(newUser);
 
-                    if (registrationSuccessful)
+                    if (validationMessages.IsNullOrEmpty())
                     {
                         Console.SetCursorPosition(centerX, 0);
                         Console.WriteLine("User is valid.");
                         Console.SetCursorPosition(centerX - 5, 1);
                         Console.WriteLine("Congratulations, you have created an account.");
                         await Task.Delay(3000);
+                        userService.Add(newUser);
                         Console.SetCursorPosition(0, 0);
                         break;
                     }
                     else
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("User is not valid.");
-                        DisplayValidationErrors(newUser);
-                        await Task.Delay(3500);
+                        Console.WriteLine("Invalid Model.\n\n");
+
+                        Console.WriteLine(validationMessages);
                         Console.ResetColor();
+                        await Task.Delay(3500);
                     }
 
                     if (ShowTryAgainMenu() == 0)
@@ -223,7 +225,8 @@ RegisterUserDto GetUserData()
         PhoneNumber = phoneNumber,
         DateOfBirth = DateOfBirth
     };
-}
+
+}//Dodać try catch w podawaniu inputach
 int ShowTryAgainMenu()
 {
     int selectedOptionTryAgainMenu = 0;
@@ -259,13 +262,23 @@ int ShowTryAgainMenu()
         }
     }
 }
-void DisplayValidationErrors(RegisterUserDto user)
+string DisplayValidationErrors(RegisterUserDto user)
 {
     var validator = new RegisterUserDtoValidator();
     var validationResult = validator.Validate(user);
-
-    foreach (var error in validationResult.Errors)
+    if (validationResult.IsValid)
     {
-        Console.WriteLine($"Property: {error.PropertyName}, Error: {error.ErrorMessage}");
+        return string.Empty;
     }
+    else
+    {
+        var output = "";
+        foreach (var error in validationResult.Errors)
+        {
+            output += $"\nProperty: {error.PropertyName}, Error: {error.ErrorMessage}";
+        }
+        return output;
+    }
+    
+    
 }

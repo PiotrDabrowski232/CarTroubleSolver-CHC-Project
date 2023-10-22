@@ -20,7 +20,7 @@ int selectedOption = 0;
 int selectedOptionTryAgainMenu = 0;
 string[] startingMenuOptions = { "Log In", "Register", "EndSession" };
 string[] tryAgainMenu = { "Try Again", "Quick" };
-string[] logedUserMenu = { "user information", "Somecosnwm","Log Out" };
+string[] logedUserMenu = { "User Information", "Find Help" , "Try Help Somebody", "Log Out" };
 int centerX = Console.WindowWidth / 2;
 bool userIsLogged = false;
 LogedInUserDto user = null;
@@ -179,7 +179,12 @@ while (true)
             {
                 if (selectedOption == 0)
                 {
-                    
+                    Console.WriteLine("Atrybut\tWartość");
+                    Console.WriteLine($"Name\t{user.Name}");
+                    Console.WriteLine($"Surname\t{user.Surname}");
+                    Console.WriteLine($"Email\t{user.Email}");
+
+                    Console.ReadKey();
                 }
                 else if (selectedOption == 1)
                 {

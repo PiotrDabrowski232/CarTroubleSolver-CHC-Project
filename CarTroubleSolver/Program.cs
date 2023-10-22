@@ -5,6 +5,7 @@ using CarTroubleSolver.Logic.Services.Interfaces;
 using CarTroubleSolver.Logic.Validation;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using ConsoleTables;
 
 //Services Configuration
 var serviceProvider = new ServiceCollection()
@@ -179,10 +180,16 @@ while (true)
             {
                 if (selectedOption == 0)
                 {
-                    Console.WriteLine("Atrybut\tWartość");
-                    Console.WriteLine($"Name\t{user.Name}");
-                    Console.WriteLine($"Surname\t{user.Surname}");
-                    Console.WriteLine($"Email\t{user.Email}");
+                    Console.Clear();
+
+                    var table = new ConsoleTable("Property Name", "Value")
+                        .AddRow("Name:", user.Name)
+                        .AddRow("Surname:", user.Surname)
+                        .AddRow("Email:", user.Email)
+                        .AddRow("Phone Nummber:", user.PhoneNumber)
+                        .AddRow("Date Of Birth:", user.DateOfBirth.ToShortDateString());
+
+                    Console.WriteLine(table);
 
                     Console.ReadKey();
                 }

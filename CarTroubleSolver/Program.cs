@@ -20,7 +20,7 @@ int selectedOption = 0;
 int selectedOptionTryAgainMenu = 0;
 string[] startingMenuOptions = { "Log In", "Register", "EndSession" };
 string[] tryAgainMenu = { "Try Again", "Quick" };
-string[] logedUserMenu = { "Log Out" };
+string[] logedUserMenu = { "user information", "Somecosnwm","Log Out" };
 int centerX = Console.WindowWidth / 2;
 bool userIsLogged = false;
 LogedInUserDto user = null;
@@ -28,8 +28,8 @@ LogedInUserDto user = null;
 Console.OutputEncoding = System.Text.Encoding.UTF8;
 
 // ElementsPosition
-const int MENU_TOP = 3;
 const int LOGIN_MESSAGE_TOP = 5;
+const int MENU_TOP = 3;
 const int INPUT_PROMPT_TOP = 7;
 
 while (true)
@@ -147,15 +147,51 @@ while (true)
     }
     else
     {
+        Console.Clear();
+
         while (true)
         {
-            Console.Clear();
-            Console.WriteLine(user.Name);
-            Console.WriteLine(user.Surname);
-            Console.WriteLine(user.Email);
-            Console.WriteLine(user.DateOfBirth);
-            Console.WriteLine(user.PhoneNumber);
-            await Task.Delay(3500);
+            for (int i = 0; i < logedUserMenu.Length; i++)
+            {
+                if (i == selectedOption)
+                {
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.BackgroundColor = ConsoleColor.Blue;
+                }
+                    
+                
+                Console.SetCursorPosition(centerX - 40, MENU_TOP + i);
+                Console.WriteLine($"{i + 1}. {logedUserMenu[i]}");
+                Console.ResetColor();
+            }
+
+            ConsoleKeyInfo keyInfo = Console.ReadKey();
+
+            if (keyInfo.Key == ConsoleKey.UpArrow)
+            {
+                selectedOption = (selectedOption - 1 + logedUserMenu.Length) % logedUserMenu.Length;
+            }
+            else if (keyInfo.Key == ConsoleKey.DownArrow)
+            {
+                selectedOption = (selectedOption + 1) % logedUserMenu.Length;
+            }
+            else if (keyInfo.Key == ConsoleKey.Enter)
+            {
+                if (selectedOption == 0)
+                {
+                    
+                }
+                else if (selectedOption == 1)
+                {
+
+                }
+                else if (selectedOption == 2)
+                {
+                    userIsLogged = false;
+                    break;
+                }
+            }
+
 
         }
     }

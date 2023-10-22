@@ -182,14 +182,18 @@ while (true)
                 {
                     Console.Clear();
 
-                    var table = new ConsoleTable("Property Name", "Value")
+                    var userTable = new ConsoleTable("Property Name", "Value")
                         .AddRow("Name:", user.Name)
                         .AddRow("Surname:", user.Surname)
                         .AddRow("Email:", user.Email)
                         .AddRow("Phone Nummber:", user.PhoneNumber)
                         .AddRow("Date Of Birth:", user.DateOfBirth.ToShortDateString());
 
-                    Console.WriteLine(table);
+                    Console.WriteLine(userTable);
+
+                    var userCarsTable = new ConsoleTable("Brand", "Model", "Fuel", "Engine Type", "Mileage", "Doors");
+
+
 
                     Console.ReadKey();
                 }

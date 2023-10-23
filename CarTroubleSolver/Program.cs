@@ -1,5 +1,6 @@
 ﻿using CarTroubleSolver.Data.Configuration;
 using CarTroubleSolver.Logic.Configuration;
+using CarTroubleSolver.Logic.Dto.Cars;
 using CarTroubleSolver.Logic.Dto.User;
 using CarTroubleSolver.Logic.Services.Interfaces;
 using CarTroubleSolver.Logic.Validation;
@@ -14,6 +15,8 @@ var serviceProvider = new ServiceCollection()
             .BuildServiceProvider();
 
 var userService = serviceProvider.GetRequiredService(typeof(IUserService)) as IUserService;
+var carService = serviceProvider.GetRequiredService(typeof(ICarService)) as ICarService;
+
 
 
 
@@ -22,6 +25,8 @@ int selectedOption = 0;
 int selectedOptionTryAgainMenu = 0;
 bool userIsLogged = false;
 LogedInUserDto user = null;
+CarDto carHolder = null;
+
 
 string[] startingMenuOptions = { "Log In", "Register", "EndSession" };
 string[] tryAgainMenu = { "Try Again", "Quick" };

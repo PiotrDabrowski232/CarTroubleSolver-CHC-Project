@@ -20,7 +20,7 @@ namespace CarTroubleSolver.Data.Configuration
             var mapperConfig = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile<UserMapper>();
-                cfg.AddProfile<UserMapper>();
+                cfg.AddProfile<CarMapper>();
             });
 
             IMapper mapper = mapperConfig.CreateMapper();

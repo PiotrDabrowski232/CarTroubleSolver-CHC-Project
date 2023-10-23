@@ -62,6 +62,15 @@
           }
         }
       },
+      "ConsoleMenu/0.1.1": {
+        "type": "package",
+        "compile": {
+          "lib/net40/ConsoleMenu.dll": {}
+        },
+        "runtime": {
+          "lib/net40/ConsoleMenu.dll": {}
+        }
+      },
       "ConsoleTables/2.5.0": {
         "type": "package",
         "compile": {
@@ -769,6 +778,17 @@
           "lib/netstandard2.0/Mono.TextTemplating.dll": {}
         }
       },
+      "NCurses/1.2.0": {
+        "type": "package",
+        "compile": {
+          "lib/NCurses.dll": {},
+          "lib/_._": {}
+        },
+        "runtime": {
+          "lib/NCurses.dll": {},
+          "lib/_._": {}
+        }
+      },
       "runtime.native.System.Data.SqlClient.sni/4.7.0": {
         "type": "package",
         "dependencies": {
@@ -1426,6 +1446,18 @@
         "azureicon.png",
         "lib/netstandard2.0/Azure.Identity.dll",
         "lib/netstandard2.0/Azure.Identity.xml"
+      ]
+    },
+    "ConsoleMenu/0.1.1": {
+      "sha512": "pETSesBtE940Pz11uroY/s7npcwX68B/G4bfHvmUcxPWoNwiXW7Tztfl4y4lwN2nQzY0pi4pfACevYHTkQrjyg==",
+      "type": "package",
+      "path": "consolemenu/0.1.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "consolemenu.0.1.1.nupkg.sha512",
+        "consolemenu.nuspec",
+        "lib/net40/ConsoleMenu.dll"
       ]
     },
     "ConsoleTables/2.5.0": {
@@ -2472,6 +2504,20 @@
         "lib/netstandard2.0/Mono.TextTemplating.dll",
         "mono.texttemplating.2.2.1.nupkg.sha512",
         "mono.texttemplating.nuspec"
+      ]
+    },
+    "NCurses/1.2.0": {
+      "sha512": "dmWgtVDuSl4tmSPpYm2EIrdN+DyARG3Zy0lcpjiO1+Jl+fKEfOKDE0tPOC6qx663mQl/egcne+alHysNrVpC0Q==",
+      "type": "package",
+      "path": "ncurses/1.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/NCurses.dll",
+        "lib/NCurses.pdb",
+        "lib/_._",
+        "ncurses.1.2.0.nupkg.sha512",
+        "ncurses.nuspec"
       ]
     },
     "runtime.native.System.Data.SqlClient.sni/4.7.0": {
@@ -4102,11 +4148,13 @@
       "AutoMapper >= 12.0.1",
       "CarTroubleSolver.Data >= 1.0.0",
       "CarTroubleSolver.Logic >= 1.0.0",
+      "ConsoleMenu >= 0.1.1",
       "ConsoleTables >= 2.5.0",
       "FluentValidation >= 11.8.0",
       "MediatR >= 12.1.1",
       "MediatR.Extensions.Microsoft.DependencyInjection >= 11.1.0",
-      "Microsoft.EntityFrameworkCore.Design >= 7.0.12"
+      "Microsoft.EntityFrameworkCore.Design >= 7.0.12",
+      "NCurses >= 1.2.0"
     ]
   },
   "packageFolders": {
@@ -4165,6 +4213,10 @@
             "target": "Package",
             "version": "[12.0.1, )"
           },
+          "ConsoleMenu": {
+            "target": "Package",
+            "version": "[0.1.1, )"
+          },
           "ConsoleTables": {
             "target": "Package",
             "version": "[2.5.0, )"
@@ -4186,6 +4238,10 @@
             "suppressParent": "All",
             "target": "Package",
             "version": "[7.0.12, )"
+          },
+          "NCurses": {
+            "target": "Package",
+            "version": "[1.2.0, )"
           }
         },
         "imports": [
@@ -4215,6 +4271,26 @@
       "warningLevel": 1,
       "message": "Detected package version outside of dependency constraint: MediatR.Extensions.Microsoft.DependencyInjection 11.1.0 requires MediatR (>= 11.0.0 && < 12.0.0) but version MediatR 12.1.1 was resolved.",
       "libraryId": "MediatR",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'ConsoleMenu 0.1.1' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0'. This package may not be fully compatible with your project.",
+      "libraryId": "ConsoleMenu",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'NCurses 1.2.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0'. This package may not be fully compatible with your project.",
+      "libraryId": "NCurses",
       "targetGraphs": [
         "net6.0"
       ]

@@ -7,6 +7,9 @@ using CarTroubleSolver.Logic.Validation;
 using ConsoleTables;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using TheCarMarket.Data.Models.Enums;
+using ConsoleMenu;
+
 
 //Services Configuration
 var serviceProvider = new ServiceCollection()
@@ -201,7 +204,7 @@ while (true)
 
                     Console.WriteLine(userTable);
 
-                    var userCarsTable = new ConsoleTable("Brand", "Model", "Fuel", "Engine Type", "Mileage", "Doors");// skonczyc tu
+                    var userCarsTable = new ConsoleTable("Brand", "Model", "Fuel", "Engine Type", "Mileage", "Doors");
 
                     Console.WriteLine(userCarsTable);
 
@@ -236,7 +239,7 @@ while (true)
                         {
                             if (selectedOption == 0)
                             {
-                                //Add Car
+                                AddCarProfile();
                             }
                             else if (selectedOption == 1)
                             {
@@ -392,4 +395,79 @@ string DisplayValidationErrors(RegisterUserDto user)
     }
 
 
+}
+
+CarDto AddCarProfile()
+{
+    Console.Clear();
+
+    CarDto car = null;
+
+    int selectedBrandIndex = 0;
+
+    ConsoleKey key;
+    do
+    {
+        Console.Clear();
+        Console.WriteLine("Wybierz markę samochodu:");
+
+        int columnWidth = 20;
+        int columnsPerRow = 5;
+
+        for (int i = 0; i < Enum.GetNames(typeof(CarBrand)).Length; i++)
+        {
+            if (i == selectedBrandIndex)
+            {
+                Console.BackgroundColor = ConsoleColor.White;
+                Console.ForegroundColor = ConsoleColor.Black;
+            }
+
+            Console.Write($"{i + 1}. {((CarBrand)i),-15}\t"); // Ustal szerokość kolumny na 15 znaków (lub dostosuj do potrzeb)
+
+            if (i == selectedBrandIndex)
+            {
+                Console.ResetColor();
+            }
+
+            if ((i + 1) % columnsPerRow == 0)
+            {
+                Console.WriteLine(); // Przejdź do nowego wiersza po każdych 5 wartościach enum
+            }
+        }
+
+        key = Console.ReadKey(true).Key;
+
+        if (key == ConsoleKey.UpArrow && selectedBrandIndex > 0)
+        {
+            selectedBrandIndex--;
+        }
+        else if (key == ConsoleKey.DownArrow && selectedBrandIndex < Enum.GetNames(typeof(CarBrand)).Length - 1)
+        {
+            selectedBrandIndex++;
+        }
+    } while (key != ConsoleKey.Enter);
+
+    CarBrand selectedBrand = (CarBrand)selectedBrandIndex;
+    Console.Clear();
+    Console.WriteLine($"Wybrano markę: {selectedBrand}");
+
+
+
+
+    Console.WriteLine("Car Model: ");
+    car.CarModels = Console.ReadLine();
+
+    Console.WriteLine("Type Car Engine Type (For Example V12): ");
+    car.EngineType = Console.ReadLine();
+
+    Console.WriteLine("How many doors your car has: ");
+    car.DoorCount = int.Parse(Console.ReadLine());
+
+    Console.WriteLine("Type Mileage: ");
+    car.Mileage = int.Parse(Console.ReadLine());
+
+    Console.WriteLine("Car Color: ");
+    car.Color = Console.ReadLine();
+
+    return car;
 }

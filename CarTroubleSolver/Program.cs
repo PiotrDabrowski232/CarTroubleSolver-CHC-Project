@@ -3,9 +3,9 @@ using CarTroubleSolver.Logic.Configuration;
 using CarTroubleSolver.Logic.Dto;
 using CarTroubleSolver.Logic.Services.Interfaces;
 using CarTroubleSolver.Logic.Validation;
+using ConsoleTables;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using ConsoleTables;
 
 //Services Configuration
 var serviceProvider = new ServiceCollection()
@@ -24,8 +24,8 @@ LogedInUserDto user = null;
 
 string[] startingMenuOptions = { "Log In", "Register", "EndSession" };
 string[] tryAgainMenu = { "Try Again", "Quick" };
-string[] logedUserMenu = { "User Information", "Find Help" , "Try Help Somebody", "Log Out" };
-string[] userCarCRUD = { "Add Car", "Update Car Info.", "Delete Cars"};
+string[] logedUserMenu = { "User Information", "Find Help", "Try Help Somebody", "Log Out" };
+string[] userCarCRUD = { "Add Car", "Update Car Info.", "Delete Cars", "Quit" };
 
 int centerX = Console.WindowWidth / 2;
 
@@ -163,8 +163,8 @@ while (true)
                     Console.ForegroundColor = ConsoleColor.White;
                     Console.BackgroundColor = ConsoleColor.Blue;
                 }
-                    
-                
+
+
                 Console.SetCursorPosition(centerX - 40, MENU_TOP + i);
                 Console.WriteLine($"{i + 1}. {logedUserMenu[i]}");
                 Console.ResetColor();
@@ -199,8 +199,55 @@ while (true)
 
                     Console.WriteLine(userCarsTable);
 
+                    while (true)
+                    {
 
-                    Console.ReadKey();
+                        for (int i = 0; i < userCarCRUD.Length; i++)
+                        {
+                            if (i == selectedOption)
+                            {
+                                Console.ForegroundColor = ConsoleColor.White;
+                                Console.BackgroundColor = ConsoleColor.Blue;
+                            }
+
+
+                            Console.SetCursorPosition(centerX + 12, MENU_TOP + i);
+                            Console.WriteLine($"{i + 1}. {userCarCRUD[i]}");
+                            Console.ResetColor();
+                        }
+
+                        keyInfo = Console.ReadKey();
+
+                        if (keyInfo.Key == ConsoleKey.UpArrow)
+                        {
+                            selectedOption = (selectedOption - 1 + logedUserMenu.Length) % logedUserMenu.Length;
+                        }
+                        else if (keyInfo.Key == ConsoleKey.DownArrow)
+                        {
+                            selectedOption = (selectedOption + 1) % logedUserMenu.Length;
+                        }
+                        else if (keyInfo.Key == ConsoleKey.Enter)
+                        {
+                            if (selectedOption == 0)
+                            {
+                                //Add Car
+                            }
+                            else if (selectedOption == 1)
+                            {
+                                //UpdateCar
+                            }
+                            else if (selectedOption == 2)
+                            {
+                                //DeleteCar
+                            }
+                            else if (selectedOption == 3)
+                            {
+                                break;
+                            }
+                        }
+
+                    }
+
                 }
                 else if (selectedOption == 1)
                 {
@@ -336,6 +383,6 @@ string DisplayValidationErrors(RegisterUserDto user)
         }
         return output;
     }
-    
-    
+
+
 }

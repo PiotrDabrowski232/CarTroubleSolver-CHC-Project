@@ -15,9 +15,7 @@ namespace CarTroubleSolver.Data.Configuration
         {
             Services.AddScoped<IUserService, UserService>();
 
-           // Services.AddDbContext<CarTroubleSolverDbContext>(options =>
-           // options.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=CarTroubleSolver;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False"));
-
+           
             var mapperConfig = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile<UserMapper>();
@@ -25,6 +23,10 @@ namespace CarTroubleSolver.Data.Configuration
 
             IMapper mapper = mapperConfig.CreateMapper();
             Services.AddSingleton(mapper);
+
+            Services.AddDbContext<CarTroubleSolverDbContext>(options =>
+            options.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=CarTroubleSolver;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False"));
+
 
             return Services;
         }

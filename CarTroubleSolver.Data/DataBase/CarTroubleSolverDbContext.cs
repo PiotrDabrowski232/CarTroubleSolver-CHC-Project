@@ -11,6 +11,8 @@ namespace CarTroubleSolver.Data.Database
         public DbSet<Accident> Accidents { get; set; }
         public DbSet<Car> Cars { get; set; }
 
+        public CarTroubleSolverDbContext(DbContextOptions<CarTroubleSolverDbContext> options) : base(options) { }
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

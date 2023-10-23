@@ -1,6 +1,6 @@
 ﻿using CarTroubleSolver.Data.Configuration;
 using CarTroubleSolver.Logic.Configuration;
-using CarTroubleSolver.Logic.Dto;
+using CarTroubleSolver.Logic.Dto.User;
 using CarTroubleSolver.Logic.Services.Interfaces;
 using CarTroubleSolver.Logic.Validation;
 using ConsoleTables;
@@ -14,6 +14,7 @@ var serviceProvider = new ServiceCollection()
             .BuildServiceProvider();
 
 var userService = serviceProvider.GetRequiredService(typeof(IUserService)) as IUserService;
+
 
 
 //Variables
@@ -247,6 +248,7 @@ while (true)
                         }
 
                     }
+                    Console.Clear();
 
                 }
                 else if (selectedOption == 1)

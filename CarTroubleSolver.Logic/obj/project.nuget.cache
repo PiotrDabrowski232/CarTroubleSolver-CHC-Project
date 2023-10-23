@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "XylFNQic52Ryf3E1vgd1pa8M3YaA6Z1jz8vT454ZOlk2NKmsq+NehdiUkj/r7jaOHHwk0NOPUA8Co5onoxNPzw==",
+  "dgSpecHash": "FUy+GV7vQYyTg5xrcye1xICVxvYEtUjoNrp/OUSYquhANl6GWQVFCRiamYZ5X/FJfITxaTetCMV25nXeCqVhsA==",
   "success": true,
   "projectFilePath": "C:\\Users\\piecz\\Source\\Repos\\PiotrDabrowski232\\CarTroubleSolver-CHC-Project\\CarTroubleSolver.Logic\\CarTroubleSolver.Logic.csproj",
   "expectedPackageFiles": [
@@ -16,9 +16,9 @@
     "C:\\Users\\piecz\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\piecz\\.nuget\\packages\\microsoft.data.sqlclient\\5.0.2\\microsoft.data.sqlclient.5.0.2.nupkg.sha512",
     "C:\\Users\\piecz\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\5.0.1\\microsoft.data.sqlclient.sni.runtime.5.0.1.nupkg.sha512",
-    "C:\\Users\\piecz\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.9\\microsoft.entityframeworkcore.7.0.9.nupkg.sha512",
-    "C:\\Users\\piecz\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\7.0.9\\microsoft.entityframeworkcore.abstractions.7.0.9.nupkg.sha512",
-    "C:\\Users\\piecz\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\7.0.9\\microsoft.entityframeworkcore.analyzers.7.0.9.nupkg.sha512",
+    "C:\\Users\\piecz\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.12\\microsoft.entityframeworkcore.7.0.12.nupkg.sha512",
+    "C:\\Users\\piecz\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\7.0.12\\microsoft.entityframeworkcore.abstractions.7.0.12.nupkg.sha512",
+    "C:\\Users\\piecz\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\7.0.12\\microsoft.entityframeworkcore.analyzers.7.0.12.nupkg.sha512",
     "C:\\Users\\piecz\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\7.0.9\\microsoft.entityframeworkcore.relational.7.0.9.nupkg.sha512",
     "C:\\Users\\piecz\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver\\7.0.9\\microsoft.entityframeworkcore.sqlserver.7.0.9.nupkg.sha512",
     "C:\\Users\\piecz\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\7.0.0\\microsoft.extensions.caching.abstractions.7.0.0.nupkg.sha512",

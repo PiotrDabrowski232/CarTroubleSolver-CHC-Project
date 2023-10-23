@@ -19,12 +19,16 @@ var userService = serviceProvider.GetRequiredService(typeof(IUserService)) as IU
 //Variables
 int selectedOption = 0;
 int selectedOptionTryAgainMenu = 0;
+bool userIsLogged = false;
+LogedInUserDto user = null;
+
 string[] startingMenuOptions = { "Log In", "Register", "EndSession" };
 string[] tryAgainMenu = { "Try Again", "Quick" };
 string[] logedUserMenu = { "User Information", "Find Help" , "Try Help Somebody", "Log Out" };
+string[] userCarCRUD = { "Add Car", "Update Car Info.", "Delete Cars"};
+
 int centerX = Console.WindowWidth / 2;
-bool userIsLogged = false;
-LogedInUserDto user = null;
+
 
 Console.OutputEncoding = System.Text.Encoding.UTF8;
 
@@ -191,8 +195,9 @@ while (true)
 
                     Console.WriteLine(userTable);
 
-                    var userCarsTable = new ConsoleTable("Brand", "Model", "Fuel", "Engine Type", "Mileage", "Doors");
+                    var userCarsTable = new ConsoleTable("Brand", "Model", "Fuel", "Engine Type", "Mileage", "Doors");// skonczyc tu
 
+                    Console.WriteLine(userCarsTable);
 
 
                     Console.ReadKey();

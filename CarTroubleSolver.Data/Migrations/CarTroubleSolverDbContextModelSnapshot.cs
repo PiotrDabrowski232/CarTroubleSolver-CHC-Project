@@ -48,7 +48,7 @@ namespace CarTroubleSolver.Data.Migrations
 
                     b.HasIndex("CarId");
 
-                    b.ToTable("Accidents");
+                    b.ToTable("Accidents", (string)null);
                 });
 
             modelBuilder.Entity("TheCarMarket.Data.Models.Car", b =>
@@ -75,7 +75,7 @@ namespace CarTroubleSolver.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cars");
+                    b.ToTable("Cars", (string)null);
                 });
 
             modelBuilder.Entity("TheCarMarket.Data.Models.User", b =>
@@ -108,7 +108,7 @@ namespace CarTroubleSolver.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("CarTroubleSolver.Data.Models.Accident", b =>

@@ -1344,7 +1344,7 @@
           "EntityFramework": "6.4.4",
           "MediatR": "12.1.1",
           "MediatR.Extensions.Microsoft.DependencyInjection": "11.1.0",
-          "Microsoft.EntityFrameworkCore": "7.0.9",
+          "Microsoft.EntityFrameworkCore": "7.0.12",
           "Microsoft.EntityFrameworkCore.SqlServer": "7.0.9"
         },
         "compile": {

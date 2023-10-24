@@ -204,10 +204,16 @@ while (true)
 
                     Console.WriteLine(userTable);
 
-                    var userCarsTable = new ConsoleTable("Brand", "Model", "Fuel", "Engine Type", "Mileage", "Doors");
+                    var userCars = carService.GetUserCars(user.Email);
+
+                    var userCarsTable = new ConsoleTable("Brand", "Model", "Engine Type", "Fuel", "Mileage", "Doors", "Color");
+
+                    foreach(var car in userCars)
+                    {
+                        userCarsTable.AddRow(car.Brand, car.CarModels, car.EngineType, car.FuelType, car.Mileage, car.DoorCount, car.Color);
+                    }
 
                     Console.WriteLine(userCarsTable);
-
                     while (true)
                     {
 
@@ -239,7 +245,8 @@ while (true)
                         {
                             if (selectedOption == 0)
                             {
-                                AddCarProfile();
+                                carService.Add(AddCarProfile(), user.Email);
+                                break;
                             }
                             else if (selectedOption == 1)
                             {
@@ -265,7 +272,12 @@ while (true)
                 }
                 else if (selectedOption == 2)
                 {
+                    //
+                }
+                else if (selectedOption == 3)
+                {
                     userIsLogged = false;
+                    selectedOption = 0;
                     break;
                 }
             }

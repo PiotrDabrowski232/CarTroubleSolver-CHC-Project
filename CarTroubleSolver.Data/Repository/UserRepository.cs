@@ -14,5 +14,10 @@ namespace CarTroubleSolver.Data.Repository
         public UserRepository(CarTroubleSolverDbContext context) : base(context)
         {
         }
+
+        public User GetUserByEmail(string email)
+        {
+            return _context.Users.FirstOrDefault(u => u.Email == email);
+        }
     }
 }

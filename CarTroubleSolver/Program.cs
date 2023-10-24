@@ -1,4 +1,5 @@
 ﻿using CarTroubleSolver.Data.Configuration;
+using CarTroubleSolver.Data.Models.Enums;
 using CarTroubleSolver.Logic.Configuration;
 using CarTroubleSolver.Logic.Dto.Cars;
 using CarTroubleSolver.Logic.Dto.User;
@@ -8,7 +9,6 @@ using ConsoleTables;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using TheCarMarket.Data.Models.Enums;
-using ConsoleMenu;
 
 
 //Services Configuration
@@ -396,22 +396,21 @@ string DisplayValidationErrors(RegisterUserDto user)
 
 
 }
-
 CarDto AddCarProfile()
 {
     Console.Clear();
 
-    CarDto car = null;
+    CarDto car = new CarDto();
 
     int selectedBrandIndex = 0;
 
     ConsoleKey key;
+    #region Brand
     do
     {
         Console.Clear();
-        Console.WriteLine("Wybierz markę samochodu:");
-
-        int columnWidth = 20;
+        Console.WriteLine("Select Car Brand:");
+        
         int columnsPerRow = 5;
 
         for (int i = 0; i < Enum.GetNames(typeof(CarBrand)).Length; i++)
@@ -431,43 +430,98 @@ CarDto AddCarProfile()
 
             if ((i + 1) % columnsPerRow == 0)
             {
-                Console.WriteLine(); // Przejdź do nowego wiersza po każdych 5 wartościach enum
+                Console.WriteLine();
             }
         }
 
         key = Console.ReadKey(true).Key;
 
-        if (key == ConsoleKey.UpArrow && selectedBrandIndex > 0)
+        if (key == ConsoleKey.LeftArrow && selectedBrandIndex > 0)
         {
             selectedBrandIndex--;
         }
-        else if (key == ConsoleKey.DownArrow && selectedBrandIndex < Enum.GetNames(typeof(CarBrand)).Length - 1)
+        else if (key == ConsoleKey.RightArrow && selectedBrandIndex < Enum.GetNames(typeof(CarBrand)).Length - 1)
         {
             selectedBrandIndex++;
         }
+        else if (key == ConsoleKey.UpArrow && (selectedBrandIndex - 5) >= 0)
+        {
+            selectedBrandIndex -= 5;
+        }
+        else if (key == ConsoleKey.DownArrow && (selectedBrandIndex + 5) <= Enum.GetNames(typeof(CarBrand)).Length - 1)
+        {
+            selectedBrandIndex += 5;
+        }
     } while (key != ConsoleKey.Enter);
+    #endregion
 
-    CarBrand selectedBrand = (CarBrand)selectedBrandIndex;
+    car.Brand = (CarBrand)selectedBrandIndex;
     Console.Clear();
-    Console.WriteLine($"Wybrano markę: {selectedBrand}");
 
+    Console.WriteLine($"Selected Brand: {car.Brand}");
 
-
-
-    Console.WriteLine("Car Model: ");
+    Console.Write("Car Model: ");
     car.CarModels = Console.ReadLine();
 
-    Console.WriteLine("Type Car Engine Type (For Example V12): ");
+    Console.Write("Type Car Engine Type (For Example V12): ");
     car.EngineType = Console.ReadLine();
 
-    Console.WriteLine("How many doors your car has: ");
+    #region FuelType
+    int selectedFuelIndex = 0;
+    do
+    {
+        Console.Clear();
+        Console.WriteLine("Select Fuel Type:");
+        for (int i = 0; i < Enum.GetNames(typeof(FuelType)).Length; i++)
+        {
+            if (i == selectedFuelIndex)
+            {
+                Console.BackgroundColor = ConsoleColor.White;
+                Console.ForegroundColor = ConsoleColor.Black;
+            }
+
+            Console.WriteLine($"{i + 1}. {((FuelType)i)}");
+
+            if (i == selectedFuelIndex)
+            {
+                Console.ResetColor();
+            }
+        }
+
+        key = Console.ReadKey(true).Key;
+
+        if (key == ConsoleKey.UpArrow && selectedFuelIndex > 0)
+        {
+            selectedFuelIndex--;
+        }
+        else if (key == ConsoleKey.DownArrow && selectedFuelIndex < Enum.GetNames(typeof(FuelType)).Length - 1)
+        {
+            selectedFuelIndex++;
+        }
+
+    } while (key != ConsoleKey.Enter);
+
+    #endregion
+
+
+    car.FuelType = (FuelType)selectedFuelIndex;
+    Console.Clear();
+
+    Console.WriteLine($"Selected Brand: {car.Brand}");
+    Console.WriteLine($"\nCar Model: {car.CarModels}");
+    Console.WriteLine($"\nType Car Engine Type (For Example V12): {car.EngineType}");
+
+    Console.WriteLine($"\nSelected Fuel: {car.FuelType}");
+
+    Console.Write("\nHow many doors your car has: ");
     car.DoorCount = int.Parse(Console.ReadLine());
 
-    Console.WriteLine("Type Mileage: ");
+    Console.Write("\nType Mileage: ");
     car.Mileage = int.Parse(Console.ReadLine());
 
-    Console.WriteLine("Car Color: ");
+    Console.Write("\nCar Color: ");
     car.Color = Console.ReadLine();
 
+    Console.Clear();
     return car;
 }

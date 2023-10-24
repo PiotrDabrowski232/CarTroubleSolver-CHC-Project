@@ -1,5 +1,6 @@
 ﻿using CarTroubleSolver.Data.Database;
 using CarTroubleSolver.Data.Repository.Interfaces;
+using System.Data.Entity;
 
 namespace CarTroubleSolver.Data.Repository
 {
@@ -14,9 +15,23 @@ namespace CarTroubleSolver.Data.Repository
 
         public async Task Add(T entity)
         {
-             _context.Set<T>().AddAsync(entity);
+            try
+            {
+                
+                _context.Set<T>().AddAsync(entity);
+                
+                _context.SaveChanges();
+                _context.Entry(entity).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
+                var trackedEntities = _context.ChangeTracker.Entries()
+    .Where(e => e.State != Microsoft.EntityFrameworkCore.EntityState.Detached)
+    .Select(e => e.Entity)
+    .ToList();
+            }
+            catch (Exception ex)
+            {
 
-            _context.SaveChanges();
+            }
+
 
         }
 

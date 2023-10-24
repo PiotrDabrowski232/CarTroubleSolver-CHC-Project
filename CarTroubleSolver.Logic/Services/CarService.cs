@@ -28,6 +28,7 @@ namespace CarTroubleSolver.Logic.Services
             var car = _mapper.Map<Car>(carDto);
             car.Owner = _userRepository.GetUserByEmail(userEmail);
             _carRepository.Add(car);
+            _userRepository.AddCarForUser(car, userEmail);
         }
 
         public IEnumerable<CarDto> GetUserCars(string userEmail)

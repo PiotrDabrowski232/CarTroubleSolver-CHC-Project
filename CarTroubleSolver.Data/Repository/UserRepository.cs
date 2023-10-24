@@ -19,5 +19,22 @@ namespace CarTroubleSolver.Data.Repository
         {
             return _context.Users.FirstOrDefault(u => u.Email == email);
         }
+
+        public void AddCarForUser(Car car, string userEmail)
+        {
+
+            
+            var user = _context.Users.FirstOrDefault(u => u.Email == userEmail);
+            _context.Entry(user).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
+            var trackedEntities = _context.ChangeTracker.Entries()
+.Where(e => e.State != Microsoft.EntityFrameworkCore.EntityState.Detached)
+.Select(e => e.Entity)
+.ToList();
+            user.Cars.Add(car);
+            _context.Users.Update(user);
+            _context.SaveChanges();
+
+            
+        }
     }
 }

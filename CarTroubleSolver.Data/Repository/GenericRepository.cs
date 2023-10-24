@@ -14,7 +14,7 @@ namespace CarTroubleSolver.Data.Repository
 
         public async Task Add(T entity)
         {
-            _context.Set<T>().AddAsync(entity);
+             _context.Set<T>().AddAsync(entity);
 
             _context.SaveChanges();
 

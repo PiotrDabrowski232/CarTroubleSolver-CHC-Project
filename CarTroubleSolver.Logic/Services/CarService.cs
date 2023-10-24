@@ -32,7 +32,9 @@ namespace CarTroubleSolver.Logic.Services
 
         public IEnumerable<CarDto> GetUserCars(string userEmail)
         {
-            var cars = GetAll().Where(u => u.Owner.Id == _userRepository.GetUserByEmail(userEmail).Id);
+            var cars = GetAll();
+            var user = _userRepository.GetUserByEmail(userEmail);
+            cars = cars.Where(u => u.Owner.Id == user.Id);
             return _mapper.Map<IEnumerable<CarDto>>(cars);
         }
     }

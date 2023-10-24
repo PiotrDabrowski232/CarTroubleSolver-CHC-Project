@@ -205,7 +205,7 @@ while (true)
                     Console.WriteLine(userTable);
 
                     var userCars = carService.GetUserCars(user.Email);
-
+                    
                     var userCarsTable = new ConsoleTable("Brand", "Model", "Engine Type", "Fuel", "Mileage", "Doors", "Color");
 
                     foreach(var car in userCars)

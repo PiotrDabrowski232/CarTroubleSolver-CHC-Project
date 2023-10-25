@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using CarTroubleSolver.Data.Models;
 using CarTroubleSolver.Data.Repository.Interfaces;
+using CarTroubleSolver.Logic.Dto.Accident;
 using CarTroubleSolver.Logic.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -21,5 +23,12 @@ namespace CarTroubleSolver.Logic.Services
             _userRepository = userRepository;
         }
 
+        public void AddAccident(AccidentDto accidentDto, string userEmail)
+        {
+            var mappedAccident = _mapper.Map<Accident>(accidentDto);
+            mappedAccident.Id = Guid.NewGuid();
+            mappedAccident.ApplicantUserId =  _userRepository.GetUserByEmail(userEmail).Id;
+            _accidentRepository.Add(mappedAccident);
+        }
     }
 }

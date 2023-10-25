@@ -283,12 +283,17 @@ while (true)
 
                     var accidentHappened = SendAccidentRequest(carService.GetUserCars(user.Email).ToList());
 
+                    accidentService.AddAccident(accidentHappened, user.Email);
+
+                    Console.Clear();
                 }
                 #endregion
+                #region HelpSomebody
                 else if (selectedOption == 2)
                 {
                     //Try Help Somebody
                 }
+                #endregion
                 else if (selectedOption == 3)
                 {
                     userIsLogged = false;

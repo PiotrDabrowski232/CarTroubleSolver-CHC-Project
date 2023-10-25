@@ -32,6 +32,9 @@ namespace CarTroubleSolver.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("ApplicantUserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid?>("AssigneeUserId")
                         .HasColumnType("uniqueidentifier");
 
@@ -41,12 +44,14 @@ namespace CarTroubleSolver.Data.Migrations
                     b.Property<int>("CollisionSeverity")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("ReporterUserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
 
+                    b.HasIndex("ApplicantUserId");
+
                     b.HasIndex("CarId");
+
+                    b.HasIndex("Id")
+                        .IsUnique();
 
                     b.ToTable("Accidents");
                 });
@@ -64,8 +69,16 @@ namespace CarTroubleSolver.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Color")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("DoorCount")
                         .HasColumnType("int");
+
+                    b.Property<string>("EngineType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("FuelType")
                         .HasColumnType("int");
@@ -73,7 +86,20 @@ namespace CarTroubleSolver.Data.Migrations
                     b.Property<int>("Mileage")
                         .HasColumnType("int");
 
+                    b.Property<Guid>("OwnerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("Id")
+                        .IsUnique();
+
+                    b.HasIndex("OwnerId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Cars");
                 });
@@ -108,18 +134,56 @@ namespace CarTroubleSolver.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Id")
+                        .IsUnique();
+
                     b.ToTable("Users");
                 });
 
             modelBuilder.Entity("CarTroubleSolver.Data.Models.Accident", b =>
                 {
+                    b.HasOne("TheCarMarket.Data.Models.User", "Applicant")
+                        .WithMany("Accident")
+                        .HasForeignKey("ApplicantUserId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.HasOne("TheCarMarket.Data.Models.Car", "Car")
-                        .WithMany()
+                        .WithMany("Accidents")
                         .HasForeignKey("CarId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Applicant");
+
+                    b.Navigation("Car");
+                });
+
+            modelBuilder.Entity("TheCarMarket.Data.Models.Car", b =>
+                {
+                    b.HasOne("TheCarMarket.Data.Models.User", "Owner")
+                        .WithMany()
+                        .HasForeignKey("OwnerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Car");
+                    b.HasOne("TheCarMarket.Data.Models.User", null)
+                        .WithMany("Cars")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Owner");
+                });
+
+            modelBuilder.Entity("TheCarMarket.Data.Models.Car", b =>
+                {
+                    b.Navigation("Accidents");
+                });
+
+            modelBuilder.Entity("TheCarMarket.Data.Models.User", b =>
+                {
+                    b.Navigation("Accident");
+
+                    b.Navigation("Cars");
                 });
 #pragma warning restore 612, 618
         }

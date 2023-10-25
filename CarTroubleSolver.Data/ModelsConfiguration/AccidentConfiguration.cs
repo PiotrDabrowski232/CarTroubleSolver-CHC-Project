@@ -8,7 +8,13 @@ namespace CarTroubleSolver.Data.ModelsConfiguration
     {
         public void Configure(EntityTypeBuilder<Accident> builder)
         {
-            builder.HasKey(x => x.Id);
+            builder.HasKey(a => a.Id);
+
+            builder.HasIndex(a => a.Id).IsUnique();
+
+            builder.HasOne(a => a.Car)
+                .WithMany()  // You can specify the navigation property here if you have one
+                .HasForeignKey(a => a.CarId);
         }
     }
 }

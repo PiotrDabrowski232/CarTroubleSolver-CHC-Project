@@ -1,4 +1,4 @@
-﻿using CarTroubleSolver.Logic.Dto;
+﻿using CarTroubleSolver.Logic.Dto.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;

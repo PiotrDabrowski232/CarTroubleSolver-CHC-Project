@@ -8,7 +8,19 @@ namespace CarTroubleSolver.Data.ModelsConfiguration
     {
         public void Configure(EntityTypeBuilder<Car> builder)
         {
-            builder.HasKey(x => x.Id);
+            builder.HasKey(c => c.Id);
+
+            builder.HasIndex(c => c.Id).IsUnique();
+
+            builder.HasOne(c => c.Owner)
+                .WithMany()
+                .HasForeignKey(c => c.OwnerId);
+
+            builder.HasMany(c => c.Accidents)
+                .WithOne(a => a.Car)
+                .HasForeignKey(a => a.CarId)
+                .OnDelete(DeleteBehavior.NoAction);
+
         }
     }
 }

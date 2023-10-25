@@ -273,7 +273,13 @@ while (true)
                 #region AddHelpRequest
                 else if (selectedOption == 1)
                 {
+                    Console.Clear();
+
                     Console.WriteLine("Add a request for assistance");
+
+                    carService.GetUserCars(user.Email);
+
+
                 }
                 #endregion
                 else if (selectedOption == 2)

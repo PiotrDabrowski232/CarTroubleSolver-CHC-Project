@@ -21,7 +21,7 @@ namespace CarTroubleSolver.Data.Configuration
             {
                 cfg.AddProfile<CarMapper>();
                 cfg.AddProfile<UserMapper>();
-                
+                cfg.AddProfile<AccidentMapper>();
             });
 
             IMapper mapper = mapperConfig.CreateMapper();

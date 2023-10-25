@@ -14,7 +14,7 @@ namespace CarTroubleSolver.Data.Configuration
         public static IServiceCollection AddServices(this IServiceCollection Services)
         {
             Services.AddScoped<IUserService, UserService>();
-            Services.AddTransient<ICarService, CarService>();
+            Services.AddScoped<ICarService, CarService>();
 
 
             var mapperConfig = new MapperConfiguration(cfg =>

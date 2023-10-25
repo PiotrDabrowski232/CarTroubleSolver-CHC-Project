@@ -1,4 +1,5 @@
 ﻿using CarTroubleSolver.Data.Database;
+using CarTroubleSolver.Logic.Dto;
 using CarTroubleSolver.Logic.Dto.User;
 using FluentValidation;
 
@@ -37,6 +38,7 @@ namespace CarTroubleSolver.Logic.Validation
                 .Must(BeValidDate)
                 .WithMessage("Data urodzenia musi być prawidłową datą.");
         }
+
         private bool BeValidDate(DateTime date)
         {
             return date is DateTime;

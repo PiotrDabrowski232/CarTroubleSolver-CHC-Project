@@ -6,14 +6,12 @@ using CarTroubleSolver.Logic.Dto.User;
 using CarTroubleSolver.Logic.Services.Interfaces;
 using CarTroubleSolver.Logic.Validation;
 using ConsoleTables;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using System.Collections.Generic;
-using TheCarMarket.Data.Models;
 using TheCarMarket.Data.Models.Enums;
+using CarTroubleSolver.Logic.Dto.User;
 
-
+#region ServicesConfiguration
 //Services Configuration
 var serviceProvider = new ServiceCollection()
             .AddRepositories()
@@ -22,11 +20,11 @@ var serviceProvider = new ServiceCollection()
 
 var userService = serviceProvider.GetRequiredService(typeof(IUserService)) as IUserService;
 var carService = serviceProvider.GetRequiredService(typeof(ICarService)) as ICarService;
+#endregion
 
 
 
-
-//Variables
+#region Variables
 int selectedOption = 0;
 int selectedOptionTryAgainMenu = 0;
 bool userIsLogged = false;
@@ -48,6 +46,9 @@ Console.OutputEncoding = System.Text.Encoding.UTF8;
 const int LOGIN_MESSAGE_TOP = 5;
 const int MENU_TOP = 3;
 const int INPUT_PROMPT_TOP = 7;
+#endregion
+
+
 
 while (true)
 {
@@ -268,6 +269,7 @@ while (true)
 
                 }
                 #endregion
+
                 #region AddHelpRequest
                 else if (selectedOption == 1)
                 {

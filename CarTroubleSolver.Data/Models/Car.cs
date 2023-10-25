@@ -7,13 +7,9 @@ namespace TheCarMarket.Data.Models
 {
     public class Car
     {
-        public Car()
-        {
-            Id = Guid.NewGuid();
-        }
         public Guid Id { get; set; }
         public Guid OwnerId { get; set; }
-        public User Owner { get; set; }
+        public virtual User Owner { get; set; }
         public CarBrand Brand { get; set; }
         public string CarModels { get; set; }
         public string EngineType { get; set; }

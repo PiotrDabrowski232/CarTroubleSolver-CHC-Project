@@ -30,7 +30,8 @@ namespace CarTroubleSolver.Data.Repository
 
         public void Remove(T entity)
         {
-            throw new NotImplementedException();
+            _context.Set<T>().Remove(entity);
+            _context.SaveChanges();
         }
 
         public void Update(T entity)

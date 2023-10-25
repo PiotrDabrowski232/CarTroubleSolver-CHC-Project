@@ -6,8 +6,11 @@ using CarTroubleSolver.Logic.Dto.User;
 using CarTroubleSolver.Logic.Services.Interfaces;
 using CarTroubleSolver.Logic.Validation;
 using ConsoleTables;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using System.Collections.Generic;
+using TheCarMarket.Data.Models;
 using TheCarMarket.Data.Models.Enums;
 
 
@@ -34,7 +37,7 @@ CarDto carHolder = null;
 string[] startingMenuOptions = { "Log In", "Register", "EndSession" };
 string[] tryAgainMenu = { "Try Again", "Quick" };
 string[] logedUserMenu = { "User Information", "Find Help", "Try Help Somebody", "Log Out" };
-string[] userCarCRUD = { "Add Car", "Update Car Info.", "Delete Cars", "Quit" };
+string[] userCarCRUD = { "Add Car", "Delete Cars", "Quit" };
 
 int centerX = Console.WindowWidth / 2;
 
@@ -205,10 +208,10 @@ while (true)
                     Console.WriteLine(userTable);
 
                     var userCars = carService.GetUserCars(user.Email);
-                    
+
                     var userCarsTable = new ConsoleTable("Brand", "Model", "Engine Type", "Fuel", "Mileage", "Doors", "Color");
 
-                    foreach(var car in userCars)
+                    foreach (var car in userCars)
                     {
                         userCarsTable.AddRow(car.Brand, car.CarModels, car.EngineType, car.FuelType, car.Mileage, car.DoorCount, car.Color);
                     }
@@ -250,15 +253,12 @@ while (true)
                             }
                             else if (selectedOption == 1)
                             {
-                                //UpdateCar
+                                SelectCarFromTable(userCars.ToList());//DeleteCar
+                                break;
                             }
                             else if (selectedOption == 2)
                             {
-                                //DeleteCar
-                            }
-                            else if (selectedOption == 3)
-                            {
-                                break;
+                                
                             }
                         }
 
@@ -281,8 +281,6 @@ while (true)
                     break;
                 }
             }
-
-
         }
     }
 }
@@ -422,7 +420,7 @@ CarDto AddCarProfile()
     {
         Console.Clear();
         Console.WriteLine("Select Car Brand:");
-        
+
         int columnsPerRow = 5;
 
         for (int i = 0; i < Enum.GetNames(typeof(CarBrand)).Length; i++)
@@ -536,4 +534,91 @@ CarDto AddCarProfile()
 
     Console.Clear();
     return car;
+}
+void SelectCarFromTable(IList<CarDto> cars)
+{
+    
+    Console.Clear();
+    selectedOption = 0;
+    while (true)
+    {
+        Console.SetCursorPosition(centerX - 10, MENU_TOP - 3);
+        Console.WriteLine($"Select Car To delete");
+
+        for (int i = 0; i < cars.Count(); i++)
+        {
+            if (i == selectedOption)
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.BackgroundColor = ConsoleColor.Blue;
+            }
+
+
+            Console.SetCursorPosition(centerX - 10, MENU_TOP + i);
+            Console.WriteLine($"{i + 1}. {cars[i].Brand} {cars[i].CarModels}");
+            Console.ResetColor();
+        }
+
+        ConsoleKeyInfo keyInfo = Console.ReadKey();
+
+        if (keyInfo.Key == ConsoleKey.UpArrow)
+        {
+            selectedOption = (selectedOption - 1 + cars.Count()) % cars.Count();
+        }
+        else if (keyInfo.Key == ConsoleKey.DownArrow)
+        {
+            selectedOption = (selectedOption + 1) % cars.Count();
+        }
+        else if (keyInfo.Key == ConsoleKey.Enter)
+        {
+            var carToDelete = cars[selectedOption];
+            string[] yesNoAnswer = new string[] { "Yes", "No" };
+            selectedOption = 0;
+            while (true)
+            {
+                Console.Clear();
+                Console.SetCursorPosition(0, MENU_TOP - 3);
+                Console.WriteLine("Are you sure that wyou want Delete car " +
+                    $"({carToDelete.Brand} {carToDelete.CarModels} {carToDelete.FuelType} {carToDelete.EngineType}) ?");
+                
+                for (int i = 0; i < yesNoAnswer.Length; i++)
+                {
+                    if (i == selectedOption)
+                    {
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.BackgroundColor = ConsoleColor.Blue;
+                    }
+
+
+                    Console.SetCursorPosition(centerX - 10, MENU_TOP + i);
+                    Console.WriteLine($"{i + 1}. {yesNoAnswer[i]}");
+                    Console.ResetColor();
+                }
+
+                keyInfo = Console.ReadKey();
+
+                if (keyInfo.Key == ConsoleKey.UpArrow)
+                {
+                    selectedOption = 0;
+                }
+                else if (keyInfo.Key == ConsoleKey.DownArrow)
+                {
+                    selectedOption = 1;
+                }
+                else if (keyInfo.Key == ConsoleKey.Enter)
+                {
+                    if (selectedOption == 1)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        carService.DeleteCarFromUserCollection(carToDelete, user.Email);
+                        break;
+                    }
+                }
+            }
+            break;
+        }
+    }
 }

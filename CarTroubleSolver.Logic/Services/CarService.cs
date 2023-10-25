@@ -27,6 +27,7 @@ namespace CarTroubleSolver.Logic.Services
         {
             var car = _mapper.Map<Car>(carDto);
             car.OwnerId = _userRepository.GetUserByEmail(userEmail).Id;
+            car.Id = Guid.NewGuid();
             _carRepository.Add(car);
         }
 
@@ -36,6 +37,13 @@ namespace CarTroubleSolver.Logic.Services
             var user = _userRepository.GetUserByEmail(userEmail);
             cars = cars.Where(u => u.OwnerId == user.Id);
             return _mapper.Map<IEnumerable<CarDto>>(cars);
+        }
+
+        public void DeleteCarFromUserCollection(CarDto carToDelete, string userEmail)
+        {
+            var user = _userRepository.GetUserByEmail(userEmail);
+            var car = GetAll().Where(u => u.OwnerId == user.Id).FirstOrDefault(c => c.Brand == carToDelete.Brand && c.CarModels == carToDelete.CarModels && c.Mileage == carToDelete.Mileage);
+            _carRepository.Remove(car);
         }
     }
 }

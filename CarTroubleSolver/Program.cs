@@ -253,12 +253,12 @@ while (true)
                             }
                             else if (selectedOption == 1)
                             {
-                                SelectCarFromTable(userCars.ToList());//DeleteCar
+                                SelectCarFromTable(userCars.ToList());
                                 break;
                             }
                             else if (selectedOption == 2)
                             {
-                                
+                                break;
                             }
                         }
 

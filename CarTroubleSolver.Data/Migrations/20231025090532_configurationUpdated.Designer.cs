@@ -4,6 +4,7 @@ using CarTroubleSolver.Data.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarTroubleSolver.Data.Migrations
 {
     [DbContext(typeof(CarTroubleSolverDbContext))]
-    partial class CarTroubleSolverDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231025090532_configurationUpdated")]
+    partial class configurationUpdated
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,7 +54,7 @@ namespace CarTroubleSolver.Data.Migrations
                     b.HasIndex("Id")
                         .IsUnique();
 
-                    b.ToTable("Accidents", (string)null);
+                    b.ToTable("Accidents");
                 });
 
             modelBuilder.Entity("TheCarMarket.Data.Models.Car", b =>
@@ -99,7 +102,7 @@ namespace CarTroubleSolver.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Cars", (string)null);
+                    b.ToTable("Cars");
                 });
 
             modelBuilder.Entity("TheCarMarket.Data.Models.User", b =>
@@ -135,7 +138,7 @@ namespace CarTroubleSolver.Data.Migrations
                     b.HasIndex("Id")
                         .IsUnique();
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("CarTroubleSolver.Data.Models.Accident", b =>

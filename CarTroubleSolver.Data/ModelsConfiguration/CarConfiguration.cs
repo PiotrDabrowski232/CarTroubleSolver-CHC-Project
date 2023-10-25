@@ -10,9 +10,11 @@ namespace CarTroubleSolver.Data.ModelsConfiguration
         {
             builder.HasKey(c => c.Id);
 
+            builder.HasIndex(c => c.Id).IsUnique();
+
             builder.HasOne(c => c.Owner)
-                .WithMany(c => c.Cars)
-                .HasForeignKey(c => c.Id);
+                .WithMany()
+                .HasForeignKey(c => c.OwnerId);
         }
     }
 }

@@ -9,6 +9,8 @@ namespace CarTroubleSolver.Data.ModelsConfiguration
         public void Configure(EntityTypeBuilder<Accident> builder)
         {
             builder.HasKey(x => x.Id);
+
+            builder.HasIndex(x => x.Id).IsUnique();
         }
     }
 }

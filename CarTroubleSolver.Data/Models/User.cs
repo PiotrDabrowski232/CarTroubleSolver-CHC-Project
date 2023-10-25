@@ -14,6 +14,6 @@
         public string Password { get; set; }
         public int PhoneNumber { get; set; }
         public DateTime DateOfBirth { get; set; }
-        public ICollection<Car> Cars { get; set; }
+        public virtual ICollection<Car> Cars { get; set; }
     }
 }

@@ -26,16 +26,15 @@ namespace CarTroubleSolver.Logic.Services
         public void Add(CarDto carDto, string userEmail)
         {
             var car = _mapper.Map<Car>(carDto);
-            car.Owner = _userRepository.GetUserByEmail(userEmail);
+            car.OwnerId = _userRepository.GetUserByEmail(userEmail).Id;
             _carRepository.Add(car);
-            _userRepository.AddCarForUser(car, userEmail);
         }
 
         public IEnumerable<CarDto> GetUserCars(string userEmail)
         {
             var cars = GetAll();
             var user = _userRepository.GetUserByEmail(userEmail);
-            cars = cars.Where(u => u.Owner.Id == user.Id);
+            cars = cars.Where(u => u.OwnerId == user.Id);
             return _mapper.Map<IEnumerable<CarDto>>(cars);
         }
     }

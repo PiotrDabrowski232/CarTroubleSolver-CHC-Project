@@ -4,6 +4,7 @@ using CarTroubleSolver.Data.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarTroubleSolver.Data.Migrations
 {
     [DbContext(typeof(CarTroubleSolverDbContext))]
-    partial class CarTroubleSolverDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231025083725_uniqueIndex")]
+    partial class uniqueIndex
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,13 +54,12 @@ namespace CarTroubleSolver.Data.Migrations
                     b.HasIndex("Id")
                         .IsUnique();
 
-                    b.ToTable("Accidents", (string)null);
+                    b.ToTable("Accidents");
                 });
 
             modelBuilder.Entity("TheCarMarket.Data.Models.Car", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Brand")
@@ -84,22 +86,12 @@ namespace CarTroubleSolver.Data.Migrations
                     b.Property<int>("Mileage")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("OwnerId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
 
                     b.HasIndex("Id")
                         .IsUnique();
 
-                    b.HasIndex("OwnerId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Cars", (string)null);
+                    b.ToTable("Cars");
                 });
 
             modelBuilder.Entity("TheCarMarket.Data.Models.User", b =>
@@ -135,7 +127,7 @@ namespace CarTroubleSolver.Data.Migrations
                     b.HasIndex("Id")
                         .IsUnique();
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("CarTroubleSolver.Data.Models.Accident", b =>
@@ -152,14 +144,10 @@ namespace CarTroubleSolver.Data.Migrations
             modelBuilder.Entity("TheCarMarket.Data.Models.Car", b =>
                 {
                     b.HasOne("TheCarMarket.Data.Models.User", "Owner")
-                        .WithMany()
-                        .HasForeignKey("OwnerId")
+                        .WithMany("Cars")
+                        .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("TheCarMarket.Data.Models.User", null)
-                        .WithMany("Cars")
-                        .HasForeignKey("UserId");
 
                     b.Navigation("Owner");
                 });

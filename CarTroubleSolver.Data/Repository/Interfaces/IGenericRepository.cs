@@ -8,7 +8,7 @@ namespace CarTroubleSolver.Data.Repository.Interfaces
 {
     public interface IGenericRepository<T>
     {
-        public Task Add(T entity);
+        public void Add(T entity);
         public T Get(Guid id);
         public void Update(T entity);
         public void Remove(T entity);

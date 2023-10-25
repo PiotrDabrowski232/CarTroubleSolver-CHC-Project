@@ -5,6 +5,5 @@ namespace CarTroubleSolver.Data.Repository.Interfaces
     public interface IUserRepository : IGenericRepository<User>
     {
         public User GetUserByEmail(string email);
-        public void AddCarForUser(Car car, string userEmail);
     }
 }

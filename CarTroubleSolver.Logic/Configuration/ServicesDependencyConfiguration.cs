@@ -15,6 +15,8 @@ namespace CarTroubleSolver.Data.Configuration
         {
             Services.AddScoped<IUserService, UserService>();
             Services.AddScoped<ICarService, CarService>();
+            Services.AddScoped<IAccidentService, AccidentService>();
+
 
 
             var mapperConfig = new MapperConfiguration(cfg =>

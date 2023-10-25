@@ -45,5 +45,12 @@ namespace CarTroubleSolver.Logic.Services
             var car = GetAll().Where(u => u.OwnerId == user.Id).FirstOrDefault(c => c.Brand == carToDelete.Brand && c.CarModels == carToDelete.CarModels && c.Mileage == carToDelete.Mileage);
             _carRepository.Remove(car);
         }
+
+        public Guid GetCarId(CarDto car, string userEmail)
+        {
+            var user = _userRepository.GetUserByEmail(userEmail);
+            var carId = GetAll().Where(u => u.OwnerId == user.Id).FirstOrDefault(c => c.Brand == car.Brand && c.CarModels == car.CarModels && c.Mileage == car.Mileage).Id;
+            return carId;
+        }
     }
 }

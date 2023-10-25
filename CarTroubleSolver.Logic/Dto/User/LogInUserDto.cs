@@ -1,5 +1,4 @@
-﻿
-namespace CarTroubleSolver.Logic.Dto
+﻿namespace CarTroubleSolver.Logic.Dto.User
 {
     public class LogedInUserDto
     {

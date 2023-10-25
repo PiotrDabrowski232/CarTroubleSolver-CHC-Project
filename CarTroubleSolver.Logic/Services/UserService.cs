@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using CarTroubleSolver.Data.Repository.Interfaces;
-using CarTroubleSolver.Logic.Dto;
+using CarTroubleSolver.Logic.Dto.User;
 using CarTroubleSolver.Logic.Services.Interfaces;
 using TheCarMarket.Data.Models;
 

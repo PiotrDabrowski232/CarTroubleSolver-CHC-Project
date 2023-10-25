@@ -11,11 +11,13 @@
           "AutoMapper": "12.0.1",
           "CarTroubleSolver.Data": "1.0.0",
           "CarTroubleSolver.Logic": "1.0.0",
+          "ConsoleMenu": "0.1.1",
           "ConsoleTables": "2.5.0",
           "FluentValidation": "11.8.0",
           "MediatR": "12.1.1",
           "MediatR.Extensions.Microsoft.DependencyInjection": "11.1.0",
-          "Microsoft.EntityFrameworkCore.Design": "7.0.12"
+          "Microsoft.EntityFrameworkCore.Design": "7.0.12",
+          "NCurses": "1.2.0"
         },
         "runtime": {
           "CarTroubleSolver.dll": {}
@@ -63,6 +65,14 @@
           "lib/netstandard2.0/Azure.Identity.dll": {
             "assemblyVersion": "1.6.0.0",
             "fileVersion": "1.600.22.20503"
+          }
+        }
+      },
+      "ConsoleMenu/0.1.1": {
+        "runtime": {
+          "lib/net40/ConsoleMenu.dll": {
+            "assemblyVersion": "0.1.1.57",
+            "fileVersion": "0.1.1.57"
           }
         }
       },
@@ -526,6 +536,14 @@
           }
         }
       },
+      "NCurses/1.2.0": {
+        "runtime": {
+          "lib/NCurses.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
       "runtime.native.System.Data.SqlClient.sni/4.7.0": {
         "dependencies": {
           "runtime.win-arm64.runtime.native.System.Data.SqlClient.sni": "4.4.0",
@@ -893,6 +911,13 @@
       "path": "azure.identity/1.6.0",
       "hashPath": "azure.identity.1.6.0.nupkg.sha512"
     },
+    "ConsoleMenu/0.1.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-pETSesBtE940Pz11uroY/s7npcwX68B/G4bfHvmUcxPWoNwiXW7Tztfl4y4lwN2nQzY0pi4pfACevYHTkQrjyg==",
+      "path": "consolemenu/0.1.1",
+      "hashPath": "consolemenu.0.1.1.nupkg.sha512"
+    },
     "ConsoleTables/2.5.0": {
       "type": "package",
       "serviceable": true,
@@ -1179,6 +1204,13 @@
       "sha512": "sha512-KZYeKBET/2Z0gY1WlTAK7+RHTl7GSbtvTLDXEZZojUdAPqpQNDL6tHv7VUpqfX5VEOh+uRGKaZXkuD253nEOBQ==",
       "path": "mono.texttemplating/2.2.1",
       "hashPath": "mono.texttemplating.2.2.1.nupkg.sha512"
+    },
+    "NCurses/1.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-dmWgtVDuSl4tmSPpYm2EIrdN+DyARG3Zy0lcpjiO1+Jl+fKEfOKDE0tPOC6qx663mQl/egcne+alHysNrVpC0Q==",
+      "path": "ncurses/1.2.0",
+      "hashPath": "ncurses.1.2.0.nupkg.sha512"
     },
     "runtime.native.System.Data.SqlClient.sni/4.7.0": {
       "type": "package",

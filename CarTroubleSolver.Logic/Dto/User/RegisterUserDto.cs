@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CarTroubleSolver.Logic.Dto
+namespace CarTroubleSolver.Logic.Dto.User
 {
     public class RegisterUserDto
     {

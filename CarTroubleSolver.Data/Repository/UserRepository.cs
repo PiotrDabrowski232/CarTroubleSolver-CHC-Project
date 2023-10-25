@@ -1,5 +1,6 @@
 ﻿using CarTroubleSolver.Data.Database;
 using CarTroubleSolver.Data.Repository.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,11 @@ namespace CarTroubleSolver.Data.Repository
     {
         public UserRepository(CarTroubleSolverDbContext context) : base(context)
         {
+        }
+
+        public User GetUserByEmail(string email)
+        {
+            return _context.Users.FirstOrDefault(u => u.Email == email);
         }
     }
 }

@@ -12,12 +12,10 @@ namespace CarTroubleSolver.Data.Repository
         }
 
 
-        public async Task Add(T entity)
+        public void Add(T entity)
         {
-            _context.Set<T>().AddAsync(entity);
-
+            _context.Set<T>().Add(entity);
             _context.SaveChanges();
-
         }
 
         public T Get(Guid id)
@@ -32,7 +30,8 @@ namespace CarTroubleSolver.Data.Repository
 
         public void Remove(T entity)
         {
-            throw new NotImplementedException();
+            _context.Set<T>().Remove(entity);
+            _context.SaveChanges();
         }
 
         public void Update(T entity)

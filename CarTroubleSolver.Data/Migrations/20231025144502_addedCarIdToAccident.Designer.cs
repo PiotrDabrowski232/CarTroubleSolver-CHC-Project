@@ -4,6 +4,7 @@ using CarTroubleSolver.Data.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarTroubleSolver.Data.Migrations
 {
     [DbContext(typeof(CarTroubleSolverDbContext))]
-    partial class CarTroubleSolverDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231025144502_addedCarIdToAccident")]
+    partial class addedCarIdToAccident
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,8 +48,6 @@ namespace CarTroubleSolver.Data.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ApplicantUserId");
 
                     b.HasIndex("CarId");
 
@@ -142,19 +143,11 @@ namespace CarTroubleSolver.Data.Migrations
 
             modelBuilder.Entity("CarTroubleSolver.Data.Models.Accident", b =>
                 {
-                    b.HasOne("TheCarMarket.Data.Models.User", "Applicant")
-                        .WithMany("Accident")
-                        .HasForeignKey("ApplicantUserId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.HasOne("TheCarMarket.Data.Models.Car", "Car")
-                        .WithMany("Accidents")
+                        .WithMany()
                         .HasForeignKey("CarId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Applicant");
 
                     b.Navigation("Car");
                 });
@@ -174,15 +167,8 @@ namespace CarTroubleSolver.Data.Migrations
                     b.Navigation("Owner");
                 });
 
-            modelBuilder.Entity("TheCarMarket.Data.Models.Car", b =>
-                {
-                    b.Navigation("Accidents");
-                });
-
             modelBuilder.Entity("TheCarMarket.Data.Models.User", b =>
                 {
-                    b.Navigation("Accident");
-
                     b.Navigation("Cars");
                 });
 #pragma warning restore 612, 618

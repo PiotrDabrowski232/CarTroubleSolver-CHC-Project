@@ -194,6 +194,7 @@ while (true)
             }
             else if (keyInfo.Key == ConsoleKey.Enter)
             {
+                #region UserView
                 if (selectedOption == 0)
                 {
                     Console.Clear();
@@ -266,13 +267,16 @@ while (true)
                     Console.Clear();
 
                 }
+                #endregion
+                #region AddHelpRequest
                 else if (selectedOption == 1)
                 {
-
+                    Console.WriteLine("Add a request for assistance");
                 }
+                #endregion
                 else if (selectedOption == 2)
                 {
-                    //
+                    //Try Help Somebody
                 }
                 else if (selectedOption == 3)
                 {

@@ -15,6 +15,12 @@ namespace CarTroubleSolver.Data.ModelsConfiguration
             builder.HasOne(c => c.Owner)
                 .WithMany()
                 .HasForeignKey(c => c.OwnerId);
+
+            builder.HasMany(c => c.Accidents)
+                .WithOne(a => a.Car)
+                .HasForeignKey(a => a.CarId)
+                .OnDelete(DeleteBehavior.NoAction);
+
         }
     }
 }

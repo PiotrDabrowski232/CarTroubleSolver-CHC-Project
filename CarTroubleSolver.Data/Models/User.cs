@@ -1,4 +1,6 @@
-﻿namespace TheCarMarket.Data.Models
+﻿using CarTroubleSolver.Data.Models;
+
+namespace TheCarMarket.Data.Models
 {
     public class User
     {
@@ -15,5 +17,6 @@
         public int PhoneNumber { get; set; }
         public DateTime DateOfBirth { get; set; }
         public virtual ICollection<Car> Cars { get; set; }
+        public virtual ICollection<Accident> Accident { get; set; }
     }
 }

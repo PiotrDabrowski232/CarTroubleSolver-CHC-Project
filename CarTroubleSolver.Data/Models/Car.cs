@@ -1,5 +1,6 @@
 ﻿
 
+using CarTroubleSolver.Data.Models;
 using CarTroubleSolver.Data.Models.Enums;
 using TheCarMarket.Data.Models.Enums;
 
@@ -17,5 +18,6 @@ namespace TheCarMarket.Data.Models
         public int DoorCount { get; set; }
         public int Mileage { get; set; }
         public string Color { get; set; }
+        public virtual ICollection<Accident> Accidents { get; set; }
     }
 }

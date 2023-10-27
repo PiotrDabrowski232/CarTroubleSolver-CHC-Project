@@ -742,8 +742,6 @@ AccidentDto SendAccidentRequest(IList<CarDto> cars)
 }
 void DisplayAccidents(IList<AccidentAdvertisementDto> accidents)
 {
-    selectedOption = 0;
-
     int selectedAdvertisement = 0;
 
     while (true)
@@ -752,8 +750,6 @@ void DisplayAccidents(IList<AccidentAdvertisementDto> accidents)
         do
         {
             Console.Clear();
-
-            int columnsPerRow = 5;
 
             for (int i = 0; i < accidents.Count(); i++)
             {
@@ -802,6 +798,7 @@ void DisplayAccidents(IList<AccidentAdvertisementDto> accidents)
 void DisplayAccidentDetails(AccidentAdvertisementDto accident)
 {
     string[] accidentMenu = { "Commitment of aid", "Quit" };
+
     int selectedOption = 0;
 
     while (true)

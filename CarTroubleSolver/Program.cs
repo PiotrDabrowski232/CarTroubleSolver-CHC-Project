@@ -1,4 +1,5 @@
 ﻿using CarTroubleSolver.Data.Configuration;
+using CarTroubleSolver.Data.Models;
 using CarTroubleSolver.Data.Models.Enums;
 using CarTroubleSolver.Logic.Configuration;
 using CarTroubleSolver.Logic.Dto.Accident;
@@ -796,9 +797,47 @@ void DisplayAccidents(IList<AccidentAdvertisementDto> accidents)
         } while (key != ConsoleKey.Enter);
 
     }
+}
 
+void DisplayAccidentDetails(AccidentAdvertisementDto accident)
+{
+    string[] accidentMenu = { "Commitment of aid", "Quit" };
+    int selectedOption = 0;
 
+    while (true)
+    {
+        ConsoleKey key;
+        do
+        {
+            Console.Clear();
 
+            Console.Write($"User: {accident.ApplicantUserInfo.Name} {accident.ApplicantUserInfo.Surname}\n" +
+                    $"Car:\n" +
+                    $"Brand: {accident.CarInfo.Brand}\n" +
+                    $"Model: {accident.CarInfo.CarModels}\n" +
+                    $"Engine: {accident.CarInfo.EngineType}\n" +
+                    $"Mileage {accident.CarInfo.Mileage}\n\n\n");
 
+            for (int i = 0; i < accidentMenu.Length; i++)
+            {
+                if (i == selectedOption)
+                {
+                    Console.BackgroundColor = ConsoleColor.White;
+                    Console.ForegroundColor = ConsoleColor.Black;
+                }
+                Console.ResetColor();
+            }
+            key = Console.ReadKey(true).Key;
 
+            if (key == ConsoleKey.UpArrow && selectedOption > 0)
+            {
+                selectedOption--;
+            }
+            else if (key == ConsoleKey.DownArrow && selectedOption < accidentMenu.Length - 1)
+            {
+                selectedOption++;
+            }
+        } while (key != ConsoleKey.Enter);
+
+    }
 }

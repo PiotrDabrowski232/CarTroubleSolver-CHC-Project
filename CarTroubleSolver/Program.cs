@@ -1,5 +1,4 @@
 ﻿using CarTroubleSolver.Data.Configuration;
-using CarTroubleSolver.Data.Models;
 using CarTroubleSolver.Data.Models.Enums;
 using CarTroubleSolver.Logic.Configuration;
 using CarTroubleSolver.Logic.Dto.Accident;
@@ -743,60 +742,56 @@ AccidentDto SendAccidentRequest(IList<CarDto> cars)
 void DisplayAccidents(IList<AccidentAdvertisementDto> accidents)
 {
     int selectedAdvertisement = 0;
-
-    while (true)
+    // dodać oznaczenie kolorów co jaki kolor jakie seveity oznacza
+    ConsoleKey key;
+    do
     {
-        ConsoleKey key;
-        do
+        Console.Clear();
+
+        for (int i = 0; i < accidents.Count(); i++)
         {
-            Console.Clear();
-
-            for (int i = 0; i < accidents.Count(); i++)
+            if (i == selectedAdvertisement)
             {
-                if (i == selectedAdvertisement)
-                {
-                    Console.BackgroundColor = ConsoleColor.White;
-                    Console.ForegroundColor = ConsoleColor.Black;
-                }
-                else if (accidents[i].CollisionSeverity == CollisionSeverity.Severe)
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                }
-                else if (accidents[i].CollisionSeverity == CollisionSeverity.Moderate)
-                {
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                }
-                else if (accidents[i].CollisionSeverity == CollisionSeverity.Minor)
-                {
-                    Console.ForegroundColor = ConsoleColor.Blue;
-                }
-
-                Console.Write($"User: {accidents[i].ApplicantUserInfo.Name} {accidents[i].ApplicantUserInfo.Surname}\n" +
-                    $"Car:\n" +
-                    $"Brand: {accidents[i].CarInfo.Brand}\n" +
-                    $"Model: {accidents[i].CarInfo.CarModels}\n" +
-                    $"Engine: {accidents[i].CarInfo.EngineType}\n" +
-                    $"Mileage {accidents[i].CarInfo.Mileage}\n\n\n");
-
-                Console.ResetColor();
+                Console.BackgroundColor = ConsoleColor.White;
+                Console.ForegroundColor = ConsoleColor.Black;
             }
-            key = Console.ReadKey(true).Key;
-
-            if (key == ConsoleKey.UpArrow && selectedAdvertisement > 0)
+            else if (accidents[i].CollisionSeverity == CollisionSeverity.Severe)
             {
-                selectedAdvertisement--;
+                Console.ForegroundColor = ConsoleColor.Red;
             }
-            else if (key == ConsoleKey.DownArrow && selectedAdvertisement < accidents.Count() - 1)
+            else if (accidents[i].CollisionSeverity == CollisionSeverity.Moderate)
             {
-                selectedAdvertisement++;
+                Console.ForegroundColor = ConsoleColor.Yellow;
             }
-        } while (key != ConsoleKey.Enter);
+            else if (accidents[i].CollisionSeverity == CollisionSeverity.Minor)
+            {
+                Console.ForegroundColor = ConsoleColor.Blue;
+            }
 
-    }
+            Console.SetCursorPosition(centerX - 30, MENU_TOP + i);
+            Console.WriteLine(accidents[i].ToString());
+            Console.WriteLine();
+
+            Console.ResetColor();
+        }
+        key = Console.ReadKey(true).Key;
+
+        if (key == ConsoleKey.UpArrow && selectedAdvertisement > 0)
+        {
+            selectedAdvertisement--;
+        }
+        else if (key == ConsoleKey.DownArrow && selectedAdvertisement < accidents.Count() - 1)
+        {
+            selectedAdvertisement++;
+        }
+    } while (key != ConsoleKey.Enter);
+
+
+    DisplayAccidentDetails(accidents[selectedAdvertisement]);
 }
 
 void DisplayAccidentDetails(AccidentAdvertisementDto accident)
-{
+{//dodać wystylizowanie i wiecej detali o sytuacji
     string[] accidentMenu = { "Commitment of aid", "Quit" };
 
     int selectedOption = 0;
@@ -822,6 +817,9 @@ void DisplayAccidentDetails(AccidentAdvertisementDto accident)
                     Console.BackgroundColor = ConsoleColor.White;
                     Console.ForegroundColor = ConsoleColor.Black;
                 }
+                Console.SetCursorPosition(centerX, MENU_TOP + i);
+
+                Console.WriteLine(accidentMenu[i]);
                 Console.ResetColor();
             }
             key = Console.ReadKey(true).Key;

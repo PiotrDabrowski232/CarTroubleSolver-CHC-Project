@@ -1,14 +1,12 @@
-﻿using CarTroubleSolver.Logic.Dto.Accident;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CarTroubleSolver.Data.Models;
+using CarTroubleSolver.Logic.Dto.Accident;
 
 namespace CarTroubleSolver.Logic.Services.Interfaces
 {
     public interface IAccidentService
     {
         public void AddAccident(AccidentDto accident, string userEmail);
+
+        public IEnumerable<Accident> GetAllFreeAccidents(string userEmail);
     }
 }

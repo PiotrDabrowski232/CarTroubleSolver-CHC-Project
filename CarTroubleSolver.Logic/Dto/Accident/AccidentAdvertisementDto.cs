@@ -1,17 +1,16 @@
 ﻿using CarTroubleSolver.Data.Models.Enums;
-using TheCarMarket.Data.Models;
+using CarTroubleSolver.Logic.Dto.Cars;
+using CarTroubleSolver.Logic.Dto.User;
 
-namespace CarTroubleSolver.Data.Models
+namespace CarTroubleSolver.Logic.Dto.Accident
 {
-    public class Accident
+    public class AccidentAdvertisementDto
     {
         public Guid Id { get; set; }
         public Guid ApplicantUserId { get; set; }
-        public virtual User Applicant { get; set; }
-        public Guid? AssigneeUserId { get; set; }
-        public virtual User? Assignee { get; set; }
+        public UserInformationDto ApplicantUserInfo { get; set; }
         public Guid CarId { get; set; }
-        public virtual Car Car { get; set; }
+        public CarDto CarInfo { get; set; }
         public CollisionSeverity CollisionSeverity { get; set; }
         public string AccidentDescription { get; set; }
     }

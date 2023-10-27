@@ -7,8 +7,6 @@ using CarTroubleSolver.Logic.Dto.User;
 using CarTroubleSolver.Logic.Services.Interfaces;
 using CarTroubleSolver.Logic.Validation;
 using ConsoleTables;
-using FluentValidation;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using TheCarMarket.Data.Models;
@@ -291,7 +289,7 @@ while (true)
                 #region HelpSomebody
                 else if (selectedOption == 2)
                 {
-                    //Try Help Somebody
+                    var accidents = accidentService.GetAllFreeAccidents(user.Email);
                 }
                 #endregion
                 else if (selectedOption == 3)

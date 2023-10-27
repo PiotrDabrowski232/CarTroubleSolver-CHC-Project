@@ -3,11 +3,6 @@ using CarTroubleSolver.Data.Models;
 using CarTroubleSolver.Data.Repository.Interfaces;
 using CarTroubleSolver.Logic.Dto.Accident;
 using CarTroubleSolver.Logic.Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CarTroubleSolver.Logic.Services
 {
@@ -29,6 +24,16 @@ namespace CarTroubleSolver.Logic.Services
             mappedAccident.Id = Guid.NewGuid();
             mappedAccident.ApplicantUserId =  _userRepository.GetUserByEmail(userEmail).Id;
             _accidentRepository.Add(mappedAccident);
+        }
+
+
+        public IEnumerable<Accident> GetAllFreeAccidents(string userEmail)
+        {
+            var loggedUserId = _userRepository.GetUserByEmail(userEmail).Id;
+
+            var accidents = _accidentRepository.GetAll().Where(a => a.ApplicantUserId != loggedUserId && a.AssigneeUserId == null);
+
+            return accidents;
         }
     }
 }

@@ -9,7 +9,6 @@ namespace CarTroubleSolver.Data.Models
         public Guid ApplicantUserId { get; set; }
         public virtual User Applicant { get; set; }
         public Guid? AssigneeUserId { get; set; }
-        public virtual User? Assignee { get; set; }
         public Guid CarId { get; set; }
         public virtual Car Car { get; set; }
         public CollisionSeverity CollisionSeverity { get; set; }

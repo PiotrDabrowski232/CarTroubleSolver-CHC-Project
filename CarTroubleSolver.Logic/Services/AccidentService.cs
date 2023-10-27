@@ -2,6 +2,8 @@
 using CarTroubleSolver.Data.Models;
 using CarTroubleSolver.Data.Repository.Interfaces;
 using CarTroubleSolver.Logic.Dto.Accident;
+using CarTroubleSolver.Logic.Dto.Cars;
+using CarTroubleSolver.Logic.Dto.User;
 using CarTroubleSolver.Logic.Services.Interfaces;
 
 namespace CarTroubleSolver.Logic.Services
@@ -10,12 +12,14 @@ namespace CarTroubleSolver.Logic.Services
     {
         private readonly IAccidentRepository _accidentRepository;
         private readonly IUserRepository _userRepository;
+        private readonly ICarRepository _carRepository;
         private readonly IMapper _mapper;
-        public AccidentService(IAccidentRepository accidentRepository, IMapper mapper, IUserRepository userRepository)
+        public AccidentService(IAccidentRepository accidentRepository, IMapper mapper, IUserRepository userRepository, ICarRepository carRepository)
         {
             _accidentRepository = accidentRepository;
             _mapper = mapper;
             _userRepository = userRepository;
+            _carRepository = carRepository;
         }
 
         public void AddAccident(AccidentDto accidentDto, string userEmail)
@@ -32,6 +36,13 @@ namespace CarTroubleSolver.Logic.Services
             var loggedUserId = _userRepository.GetUserByEmail(userEmail).Id;
 
             var accidents = _accidentRepository.GetAll().Where(a => a.ApplicantUserId != loggedUserId && a.AssigneeUserId == null);
+
+            var result = _mapper.Map<IEnumerable<AccidentAdvertisementDto>>(accidents);
+
+            result.ToList().ForEach(a => {
+                a.ApplicantUserInfo = _mapper.Map<UserInformationDto>(_userRepository.Get(a.ApplicantUserId));
+                a.CarInfo = _mapper.Map<CarDto>(_carRepository.Get(a.CarId));
+            });
 
             return accidents;
         }

@@ -31,7 +31,7 @@ namespace CarTroubleSolver.Logic.Services
         }
 
 
-        public IEnumerable<Accident> GetAllFreeAccidents(string userEmail)
+        public IEnumerable<AccidentAdvertisementDto> GetAllFreeAccidents(string userEmail)
         {
             var loggedUserId = _userRepository.GetUserByEmail(userEmail).Id;
 
@@ -44,7 +44,7 @@ namespace CarTroubleSolver.Logic.Services
                 a.CarInfo = _mapper.Map<CarDto>(_carRepository.Get(a.CarId));
             });
 
-            return accidents;
+            return result;
         }
     }
 }

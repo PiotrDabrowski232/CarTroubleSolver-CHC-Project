@@ -9,7 +9,6 @@ using CarTroubleSolver.Logic.Validation;
 using ConsoleTables;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using TheCarMarket.Data.Models;
 using TheCarMarket.Data.Models.Enums;
 
 #region ServicesConfiguration
@@ -276,7 +275,7 @@ while (true)
                 else if (selectedOption == 1)
                 {
                     Console.Clear();
-                    Console.SetCursorPosition(centerX -14, MENU_TOP-3);
+                    Console.SetCursorPosition(centerX - 14, MENU_TOP - 3);
                     Console.WriteLine("Add a request for assistance");
 
                     var accidentHappened = SendAccidentRequest(carService.GetUserCars(user.Email).ToList());
@@ -290,6 +289,12 @@ while (true)
                 else if (selectedOption == 2)
                 {
                     var accidents = accidentService.GetAllFreeAccidents(user.Email);
+
+                    Console.Clear();
+
+
+                    DisplayAccidents(accidents.ToList());
+
                 }
                 #endregion
                 else if (selectedOption == 3)
@@ -302,8 +307,8 @@ while (true)
         }
     }
 }
-serviceProvider.Dispose();
 
+serviceProvider.Dispose();
 
 
 string GetPasswordInput()
@@ -732,5 +737,68 @@ AccidentDto SendAccidentRequest(IList<CarDto> cars)
             return accident;
         }
     }
+
+}
+void DisplayAccidents(IList<AccidentAdvertisementDto> accidents)
+{
+    selectedOption = 0;
+
+    int selectedAdvertisement = 0;
+
+    while (true)
+    {
+        ConsoleKey key;
+        do
+        {
+            Console.Clear();
+
+            int columnsPerRow = 5;
+
+            for (int i = 0; i < accidents.Count(); i++)
+            {
+                if (i == selectedAdvertisement)
+                {
+                    Console.BackgroundColor = ConsoleColor.White;
+                    Console.ForegroundColor = ConsoleColor.Black;
+                }
+                else if (accidents[i].CollisionSeverity == CollisionSeverity.Severe)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                }
+                else if (accidents[i].CollisionSeverity == CollisionSeverity.Moderate)
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                }
+                else if (accidents[i].CollisionSeverity == CollisionSeverity.Minor)
+                {
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                }
+
+                Console.Write($"User: {accidents[i].ApplicantUserInfo.Name} {accidents[i].ApplicantUserInfo.Surname}\n" +
+                    $"Car:\n" +
+                    $"Brand: {accidents[i].CarInfo.Brand}\n" +
+                    $"Model: {accidents[i].CarInfo.CarModels}\n" +
+                    $"Engine: {accidents[i].CarInfo.EngineType}\n" +
+                    $"Mileage {accidents[i].CarInfo.Mileage}\n\n\n");
+
+                Console.ResetColor();
+            }
+            key = Console.ReadKey(true).Key;
+
+            if (key == ConsoleKey.UpArrow && selectedAdvertisement > 0)
+            {
+                selectedAdvertisement--;
+            }
+            else if (key == ConsoleKey.DownArrow && selectedAdvertisement < accidents.Count() - 1)
+            {
+                selectedAdvertisement++;
+            }
+        } while (key != ConsoleKey.Enter);
+
+    }
+
+
+
+
 
 }

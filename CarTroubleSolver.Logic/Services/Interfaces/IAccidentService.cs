@@ -7,6 +7,6 @@ namespace CarTroubleSolver.Logic.Services.Interfaces
     {
         public void AddAccident(AccidentDto accident, string userEmail);
 
-        public IEnumerable<Accident> GetAllFreeAccidents(string userEmail);
+        public IEnumerable<AccidentAdvertisementDto> GetAllFreeAccidents(string userEmail);
     }
 }

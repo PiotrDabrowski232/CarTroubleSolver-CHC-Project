@@ -36,7 +36,7 @@ CarDto carHolder = null;
 string[] startingMenuOptions = { "Log In", "Register", "EndSession" };
 string[] tryAgainMenu = { "Try Again", "Quick" };
 string[] logedUserMenu = { "User Information", "Find Help", "Try Help Somebody", "Log Out" };
-string[] userCarCRUD = { "Add Car", "Delete Cars", "Quit" };
+string[] userCarCRUD = { "Add Car", "Delete Cars", "Accident History", "Quit" };
 
 int centerX = Console.WindowWidth / 2;
 
@@ -261,6 +261,10 @@ while (true)
                             }
                             else if (selectedOption == 2)
                             {
+                                UserAccidentHistory();
+                            }
+                            else if (selectedOption == 3)
+                            {
                                 break;
                             }
                         }
@@ -270,7 +274,6 @@ while (true)
 
                 }
                 #endregion
-
                 #region AddHelpRequest
                 else if (selectedOption == 1)
                 {
@@ -296,12 +299,14 @@ while (true)
                     break;
                 }
                 #endregion
+                #region Logout
                 else if (selectedOption == 3)
                 {
                     userIsLogged = false;
                     selectedOption = 0;
                     break;
                 }
+                #endregion
             }
         }
     }
@@ -741,7 +746,7 @@ AccidentDto SendAccidentRequest(IList<CarDto> cars)
 void DisplayAccidents(IList<AccidentAdvertisementDto> accidents)
 {
     int selectedAdvertisement = 0;
-    
+
     ConsoleKey key;
     do
     {
@@ -779,7 +784,7 @@ void DisplayAccidents(IList<AccidentAdvertisementDto> accidents)
                 Console.ForegroundColor = ConsoleColor.Blue;
             }
 
-            Console.SetCursorPosition(centerX - 35, MENU_TOP + i+12);
+            Console.SetCursorPosition(centerX - 35, MENU_TOP + i + 12);
             Console.WriteLine(accidents[i].ToString());
             Console.WriteLine();
 
@@ -836,9 +841,9 @@ void DisplayAccidentDetails(AccidentAdvertisementDto accident)
 
 
                 if (i > 0)
-                    Console.SetCursorPosition(centerX + accidentMenu[i-1].Length+3-20, MENU_TOP + 20);
+                    Console.SetCursorPosition(centerX + accidentMenu[i - 1].Length + 3 - 20, MENU_TOP + 20);
                 else
-                    Console.SetCursorPosition(centerX-20, MENU_TOP + 20);
+                    Console.SetCursorPosition(centerX - 20, MENU_TOP + 20);
 
                 Console.WriteLine(accidentMenu[i]);
                 Console.ResetColor();
@@ -855,9 +860,9 @@ void DisplayAccidentDetails(AccidentAdvertisementDto accident)
             }
         } while (key != ConsoleKey.Enter);
 
-        if(selectedOption == 0)
+        if (selectedOption == 0)
         {
-            accidentService.HelpInAccident(user.Email,accident.Id);
+            accidentService.HelpInAccident(user.Email, accident.Id);
             break;
         }
         else
@@ -867,3 +872,71 @@ void DisplayAccidentDetails(AccidentAdvertisementDto accident)
 
     }
 }
+void UserAccidentHistory()
+{
+    Console.Clear();
+    string[] userHistory = { "Applicant History", "Assignee History", "Quit" };
+    ConsoleKeyInfo keyInfo;
+
+    while (true)
+    {
+
+        for (int i = 0; i < userHistory.Length; i++)
+        {
+            if (i == selectedOption)
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.BackgroundColor = ConsoleColor.Blue;
+            }
+
+            if (i == 1)
+                Console.SetCursorPosition(centerX + centerX / 2, MENU_TOP / 2);
+            else if (i == 0)
+                Console.SetCursorPosition(centerX - centerX / 2, MENU_TOP / 2);
+            else
+                Console.SetCursorPosition(centerX, MENU_TOP / 2 + 4);
+
+
+            Console.WriteLine($"{i + 1}. {userHistory[i]}");
+            Console.ResetColor();
+
+            keyInfo = Console.ReadKey();
+
+            if (keyInfo.Key == ConsoleKey.UpArrow || keyInfo.Key == ConsoleKey.LeftArrow)
+            {
+                selectedOption = 0;
+            }
+            else if (keyInfo.Key == ConsoleKey.DownArrow)
+            {
+                selectedOption = 2;
+            }
+            else if (keyInfo.Key == ConsoleKey.RightArrow)
+            {
+                selectedOption = 1;
+            }
+            else if (keyInfo.Key == ConsoleKey.Enter)
+            {
+                if (selectedOption == 0)
+                {
+                    ShowHistory("Applicant");
+                    break;
+                }
+                else if (selectedOption == 1)
+                {
+                    ShowHistory("Asignee");
+                    break;
+                }
+                else if (selectedOption == 2)
+                {
+                    break;
+                }
+            }
+        }
+    }
+}
+
+void ShowHistory(string type)
+{
+    //depends of string user should see result with his accidents
+}
+

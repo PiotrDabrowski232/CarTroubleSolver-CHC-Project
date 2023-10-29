@@ -36,7 +36,9 @@ namespace CarTroubleSolver.Data.Repository
 
         public void Update(T entity)
         {
-            throw new NotImplementedException();
+            _context.Set<T>().Update(entity);
+
+            _context.SaveChanges();
         }
     }
 }

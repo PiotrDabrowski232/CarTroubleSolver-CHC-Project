@@ -292,9 +292,8 @@ while (true)
 
                     Console.Clear();
 
-
                     DisplayAccidents(accidents.ToList());
-
+                    break;
                 }
                 #endregion
                 else if (selectedOption == 3)
@@ -742,11 +741,23 @@ AccidentDto SendAccidentRequest(IList<CarDto> cars)
 void DisplayAccidents(IList<AccidentAdvertisementDto> accidents)
 {
     int selectedAdvertisement = 0;
-    // dodać oznaczenie kolorów co jaki kolor jakie seveity oznacza
+    
     ConsoleKey key;
     do
     {
         Console.Clear();
+
+        Console.SetCursorPosition(12, 5);
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.Write("Immediate assistance needed");
+
+        Console.SetCursorPosition(12, 7);
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.Write("Moderate Severity");
+
+        Console.SetCursorPosition(12, 9);
+        Console.ForegroundColor = ConsoleColor.Blue;
+        Console.Write("Minor Severity");
 
         for (int i = 0; i < accidents.Count(); i++)
         {
@@ -768,7 +779,7 @@ void DisplayAccidents(IList<AccidentAdvertisementDto> accidents)
                 Console.ForegroundColor = ConsoleColor.Blue;
             }
 
-            Console.SetCursorPosition(centerX - 30, MENU_TOP + i);
+            Console.SetCursorPosition(centerX - 35, MENU_TOP + i+12);
             Console.WriteLine(accidents[i].ToString());
             Console.WriteLine();
 
@@ -789,9 +800,8 @@ void DisplayAccidents(IList<AccidentAdvertisementDto> accidents)
 
     DisplayAccidentDetails(accidents[selectedAdvertisement]);
 }
-
 void DisplayAccidentDetails(AccidentAdvertisementDto accident)
-{//dodać wystylizowanie i wiecej detali o sytuacji
+{
     string[] accidentMenu = { "Commitment of aid", "Quit" };
 
     int selectedOption = 0;
@@ -803,12 +813,18 @@ void DisplayAccidentDetails(AccidentAdvertisementDto accident)
         {
             Console.Clear();
 
-            Console.Write($"User: {accident.ApplicantUserInfo.Name} {accident.ApplicantUserInfo.Surname}\n" +
-                    $"Car:\n" +
-                    $"Brand: {accident.CarInfo.Brand}\n" +
-                    $"Model: {accident.CarInfo.CarModels}\n" +
-                    $"Engine: {accident.CarInfo.EngineType}\n" +
-                    $"Mileage {accident.CarInfo.Mileage}\n\n\n");
+            Console.Write($"\n\n\t\t\t\tUser: {accident.ApplicantUserInfo.Name} {accident.ApplicantUserInfo.Surname}\n" +
+                    $"\t\t\t\tTelephone Number: {accident.ApplicantUserInfo.PhoneNumber}\n" +
+                    $"\n\t\t\t\tCar:\n" +
+                    $"\t\t\t\tBrand: {accident.CarInfo.Brand}\n" +
+                    $"\t\t\t\tModel: {accident.CarInfo.CarModels}\n" +
+                    $"\t\t\t\tEngine: {accident.CarInfo.EngineType}\n" +
+                    $"\t\t\t\tMileage {accident.CarInfo.Mileage}\n" +
+                    $"\t\t\t\tFuel Type: {accident.CarInfo.FuelType}\n" +
+                    $"\t\t\t\tDoor Count: {accident.CarInfo.DoorCount}\n" +
+                    $"\n\t\t\t\tAccident Description:\n" +
+                    $"\t\t\t\tColison Severity: {accident.CollisionSeverity}\n" +
+                    $"\t\t\t\tColision Description: {accident.AccidentDescription}");
 
             for (int i = 0; i < accidentMenu.Length; i++)
             {
@@ -817,22 +833,37 @@ void DisplayAccidentDetails(AccidentAdvertisementDto accident)
                     Console.BackgroundColor = ConsoleColor.White;
                     Console.ForegroundColor = ConsoleColor.Black;
                 }
-                Console.SetCursorPosition(centerX, MENU_TOP + i);
+
+
+                if (i > 0)
+                    Console.SetCursorPosition(centerX + accidentMenu[i-1].Length+3-20, MENU_TOP + 20);
+                else
+                    Console.SetCursorPosition(centerX-20, MENU_TOP + 20);
 
                 Console.WriteLine(accidentMenu[i]);
                 Console.ResetColor();
             }
             key = Console.ReadKey(true).Key;
 
-            if (key == ConsoleKey.UpArrow && selectedOption > 0)
+            if (key == ConsoleKey.LeftArrow && selectedOption > 0)
             {
                 selectedOption--;
             }
-            else if (key == ConsoleKey.DownArrow && selectedOption < accidentMenu.Length - 1)
+            else if (key == ConsoleKey.RightArrow && selectedOption < accidentMenu.Length - 1)
             {
                 selectedOption++;
             }
         } while (key != ConsoleKey.Enter);
+
+        if(selectedOption == 0)
+        {
+            accidentService.HelpInAccident(user.Email,accident.Id);
+            break;
+        }
+        else
+        {
+            break;
+        }
 
     }
 }

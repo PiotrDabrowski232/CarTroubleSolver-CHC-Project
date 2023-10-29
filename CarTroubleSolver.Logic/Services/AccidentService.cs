@@ -46,5 +46,17 @@ namespace CarTroubleSolver.Logic.Services
 
             return result;
         }
+
+        public void HelpInAccident(string email, Guid id)
+        {
+            var userId = _userRepository.GetUserByEmail(email).Id;
+
+            var accidentToUpdate = _accidentRepository.Get(id);
+
+            accidentToUpdate.AssigneeUserId = userId;
+
+            _accidentRepository.Update(accidentToUpdate);
+
+        }
     }
 }

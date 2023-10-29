@@ -1,19 +1,17 @@
 ﻿using CarTroubleSolver.Data.Configuration;
 using CarTroubleSolver.Data.Models.Enums;
 using CarTroubleSolver.Logic.Configuration;
+using CarTroubleSolver.Logic.Dto.Accident;
 using CarTroubleSolver.Logic.Dto.Cars;
 using CarTroubleSolver.Logic.Dto.User;
 using CarTroubleSolver.Logic.Services.Interfaces;
 using CarTroubleSolver.Logic.Validation;
 using ConsoleTables;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using System.Collections.Generic;
-using TheCarMarket.Data.Models;
 using TheCarMarket.Data.Models.Enums;
 
-
+#region ServicesConfiguration
 //Services Configuration
 var serviceProvider = new ServiceCollection()
             .AddRepositories()
@@ -22,11 +20,12 @@ var serviceProvider = new ServiceCollection()
 
 var userService = serviceProvider.GetRequiredService(typeof(IUserService)) as IUserService;
 var carService = serviceProvider.GetRequiredService(typeof(ICarService)) as ICarService;
+var accidentService = serviceProvider.GetRequiredService(typeof(IAccidentService)) as IAccidentService;
+#endregion
 
 
 
-
-//Variables
+#region Variables
 int selectedOption = 0;
 int selectedOptionTryAgainMenu = 0;
 bool userIsLogged = false;
@@ -48,6 +47,9 @@ Console.OutputEncoding = System.Text.Encoding.UTF8;
 const int LOGIN_MESSAGE_TOP = 5;
 const int MENU_TOP = 3;
 const int INPUT_PROMPT_TOP = 7;
+#endregion
+
+
 
 while (true)
 {
@@ -268,16 +270,32 @@ while (true)
 
                 }
                 #endregion
+
                 #region AddHelpRequest
                 else if (selectedOption == 1)
                 {
+                    Console.Clear();
+                    Console.SetCursorPosition(centerX - 14, MENU_TOP - 3);
                     Console.WriteLine("Add a request for assistance");
+
+                    var accidentHappened = SendAccidentRequest(carService.GetUserCars(user.Email).ToList());
+
+                    accidentService.AddAccident(accidentHappened, user.Email);
+
+                    Console.Clear();
                 }
                 #endregion
+                #region HelpSomebody
                 else if (selectedOption == 2)
                 {
-                    //Try Help Somebody
+                    var accidents = accidentService.GetAllFreeAccidents(user.Email);
+
+                    Console.Clear();
+
+                    DisplayAccidents(accidents.ToList());
+                    break;
                 }
+                #endregion
                 else if (selectedOption == 3)
                 {
                     userIsLogged = false;
@@ -288,8 +306,8 @@ while (true)
         }
     }
 }
-serviceProvider.Dispose();
 
+serviceProvider.Dispose();
 
 
 string GetPasswordInput()
@@ -435,7 +453,7 @@ CarDto AddCarProfile()
                 Console.ForegroundColor = ConsoleColor.Black;
             }
 
-            Console.Write($"{i + 1}. {((CarBrand)i),-15}\t"); // Ustal szerokość kolumny na 15 znaków (lub dostosuj do potrzeb)
+            Console.Write($"{i + 1}. {((CarBrand)i),-15}\t");
 
             if (i == selectedBrandIndex)
             {
@@ -541,7 +559,7 @@ CarDto AddCarProfile()
 }
 void SelectCarFromTable(IList<CarDto> cars)
 {
-    
+
     Console.Clear();
     selectedOption = 0;
     while (true)
@@ -584,7 +602,7 @@ void SelectCarFromTable(IList<CarDto> cars)
                 Console.SetCursorPosition(0, MENU_TOP - 3);
                 Console.WriteLine("Are you sure that wyou want Delete car " +
                     $"({carToDelete.Brand} {carToDelete.CarModels} {carToDelete.FuelType} {carToDelete.EngineType}) ?");
-                
+
                 for (int i = 0; i < yesNoAnswer.Length; i++)
                 {
                     if (i == selectedOption)
@@ -624,5 +642,228 @@ void SelectCarFromTable(IList<CarDto> cars)
             }
             break;
         }
+    }
+}
+AccidentDto SendAccidentRequest(IList<CarDto> cars)
+{
+    AccidentDto accident = new AccidentDto();
+
+    selectedOption = 0;
+
+    while (true)
+    {
+        Console.SetCursorPosition(centerX - 10, MENU_TOP - 1);
+        Console.WriteLine($"Select Car:");
+
+        for (int i = 0; i < cars.Count(); i++)
+        {
+            if (i == selectedOption)
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.BackgroundColor = ConsoleColor.Blue;
+            }
+
+
+            Console.SetCursorPosition(centerX - 10, MENU_TOP + i);
+            Console.WriteLine($"{i + 1}. {cars[i].Brand} {cars[i].CarModels}");
+            Console.ResetColor();
+        }
+
+        ConsoleKeyInfo keyInfo = Console.ReadKey();
+
+        if (keyInfo.Key == ConsoleKey.UpArrow)
+        {
+            selectedOption = (selectedOption - 1 + cars.Count()) % cars.Count();
+        }
+        else if (keyInfo.Key == ConsoleKey.DownArrow)
+        {
+            selectedOption = (selectedOption + 1) % cars.Count();
+        }
+        else if (keyInfo.Key == ConsoleKey.Enter)
+        {
+            var carFromAccident = cars[selectedOption];
+
+            accident.CarId = carService.GetCarId(carFromAccident, user.Email);
+
+            int selectedSeverityIndex = 0;
+
+            ConsoleKey key;
+            do
+            {
+                Console.Clear();
+                Console.WriteLine("Select Severity:");
+                for (int i = 0; i < Enum.GetNames(typeof(CollisionSeverity)).Length; i++)
+                {
+                    if (i == selectedSeverityIndex)
+                    {
+                        Console.BackgroundColor = ConsoleColor.White;
+                        Console.ForegroundColor = ConsoleColor.Black;
+                    }
+
+                    Console.WriteLine($"{i + 1}. {((CollisionSeverity)i)}");
+
+                    if (i == selectedSeverityIndex)
+                    {
+                        Console.ResetColor();
+                    }
+                }
+
+                key = Console.ReadKey(true).Key;
+
+                if (key == ConsoleKey.UpArrow && selectedSeverityIndex > 0)
+                {
+                    selectedSeverityIndex--;
+                }
+                else if (key == ConsoleKey.DownArrow && selectedSeverityIndex < Enum.GetNames(typeof(CollisionSeverity)).Length - 1)
+                {
+                    selectedSeverityIndex++;
+                }
+
+            } while (key != ConsoleKey.Enter);
+
+            accident.CollisionSeverity = (CollisionSeverity)selectedSeverityIndex;
+            Console.Clear();
+
+            Console.WriteLine($"Vehicle involved in the accident: " +
+                $"\nBrand: {carFromAccident.Brand}\nModel: {carFromAccident.CarModels}\n" +
+                $"Engine Type: {carFromAccident.EngineType}\nMileage: {carFromAccident.Mileage}");
+
+            Console.WriteLine($"Collision Severity: {accident.CollisionSeverity}");
+
+            Console.WriteLine("\nWrite here Description of Accident: ");
+            accident.AccidentDescription = Console.ReadLine();
+
+            return accident;
+        }
+    }
+
+}
+void DisplayAccidents(IList<AccidentAdvertisementDto> accidents)
+{
+    int selectedAdvertisement = 0;
+    
+    ConsoleKey key;
+    do
+    {
+        Console.Clear();
+
+        Console.SetCursorPosition(12, 5);
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.Write("Immediate assistance needed");
+
+        Console.SetCursorPosition(12, 7);
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.Write("Moderate Severity");
+
+        Console.SetCursorPosition(12, 9);
+        Console.ForegroundColor = ConsoleColor.Blue;
+        Console.Write("Minor Severity");
+
+        for (int i = 0; i < accidents.Count(); i++)
+        {
+            if (i == selectedAdvertisement)
+            {
+                Console.BackgroundColor = ConsoleColor.White;
+                Console.ForegroundColor = ConsoleColor.Black;
+            }
+            else if (accidents[i].CollisionSeverity == CollisionSeverity.Severe)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+            }
+            else if (accidents[i].CollisionSeverity == CollisionSeverity.Moderate)
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+            }
+            else if (accidents[i].CollisionSeverity == CollisionSeverity.Minor)
+            {
+                Console.ForegroundColor = ConsoleColor.Blue;
+            }
+
+            Console.SetCursorPosition(centerX - 35, MENU_TOP + i+12);
+            Console.WriteLine(accidents[i].ToString());
+            Console.WriteLine();
+
+            Console.ResetColor();
+        }
+        key = Console.ReadKey(true).Key;
+
+        if (key == ConsoleKey.UpArrow && selectedAdvertisement > 0)
+        {
+            selectedAdvertisement--;
+        }
+        else if (key == ConsoleKey.DownArrow && selectedAdvertisement < accidents.Count() - 1)
+        {
+            selectedAdvertisement++;
+        }
+    } while (key != ConsoleKey.Enter);
+
+
+    DisplayAccidentDetails(accidents[selectedAdvertisement]);
+}
+void DisplayAccidentDetails(AccidentAdvertisementDto accident)
+{
+    string[] accidentMenu = { "Commitment of aid", "Quit" };
+
+    int selectedOption = 0;
+
+    while (true)
+    {
+        ConsoleKey key;
+        do
+        {
+            Console.Clear();
+
+            Console.Write($"\n\n\t\t\t\tUser: {accident.ApplicantUserInfo.Name} {accident.ApplicantUserInfo.Surname}\n" +
+                    $"\t\t\t\tTelephone Number: {accident.ApplicantUserInfo.PhoneNumber}\n" +
+                    $"\n\t\t\t\tCar:\n" +
+                    $"\t\t\t\tBrand: {accident.CarInfo.Brand}\n" +
+                    $"\t\t\t\tModel: {accident.CarInfo.CarModels}\n" +
+                    $"\t\t\t\tEngine: {accident.CarInfo.EngineType}\n" +
+                    $"\t\t\t\tMileage {accident.CarInfo.Mileage}\n" +
+                    $"\t\t\t\tFuel Type: {accident.CarInfo.FuelType}\n" +
+                    $"\t\t\t\tDoor Count: {accident.CarInfo.DoorCount}\n" +
+                    $"\n\t\t\t\tAccident Description:\n" +
+                    $"\t\t\t\tColison Severity: {accident.CollisionSeverity}\n" +
+                    $"\t\t\t\tColision Description: {accident.AccidentDescription}");
+
+            for (int i = 0; i < accidentMenu.Length; i++)
+            {
+                if (i == selectedOption)
+                {
+                    Console.BackgroundColor = ConsoleColor.White;
+                    Console.ForegroundColor = ConsoleColor.Black;
+                }
+
+
+                if (i > 0)
+                    Console.SetCursorPosition(centerX + accidentMenu[i-1].Length+3-20, MENU_TOP + 20);
+                else
+                    Console.SetCursorPosition(centerX-20, MENU_TOP + 20);
+
+                Console.WriteLine(accidentMenu[i]);
+                Console.ResetColor();
+            }
+            key = Console.ReadKey(true).Key;
+
+            if (key == ConsoleKey.LeftArrow && selectedOption > 0)
+            {
+                selectedOption--;
+            }
+            else if (key == ConsoleKey.RightArrow && selectedOption < accidentMenu.Length - 1)
+            {
+                selectedOption++;
+            }
+        } while (key != ConsoleKey.Enter);
+
+        if(selectedOption == 0)
+        {
+            accidentService.HelpInAccident(user.Email,accident.Id);
+            break;
+        }
+        else
+        {
+            break;
+        }
+
     }
 }

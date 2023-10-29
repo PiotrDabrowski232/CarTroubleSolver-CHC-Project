@@ -20,7 +20,7 @@ namespace CarTroubleSolver.Data.Repository
 
         public T Get(Guid id)
         {
-            throw new NotImplementedException();
+            return _context.Set<T>().Find(id);
         }
 
         public IEnumerable<T> GetAll()
@@ -36,7 +36,9 @@ namespace CarTroubleSolver.Data.Repository
 
         public void Update(T entity)
         {
-            throw new NotImplementedException();
+            _context.Set<T>().Update(entity);
+
+            _context.SaveChanges();
         }
     }
 }

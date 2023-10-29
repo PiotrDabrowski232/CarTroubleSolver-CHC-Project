@@ -10,6 +10,6 @@ namespace CarTroubleSolver.Data.Models.Enums
     {
         Minor,
         Moderate,
-        Serve,
+        Severe,
     }
 }

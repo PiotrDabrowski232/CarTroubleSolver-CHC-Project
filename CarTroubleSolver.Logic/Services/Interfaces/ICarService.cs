@@ -13,5 +13,6 @@ namespace CarTroubleSolver.Logic.Services.Interfaces
         public void Add(CarDto user, string userEmail);
         public void DeleteCarFromUserCollection(CarDto carToDelete, string userEmail);
         public IEnumerable<CarDto> GetUserCars(string userEmail);
+        public Guid GetCarId(CarDto car, string userEmail);
     }
 }

@@ -14,14 +14,16 @@ namespace CarTroubleSolver.Data.Configuration
         public static IServiceCollection AddServices(this IServiceCollection Services)
         {
             Services.AddScoped<IUserService, UserService>();
-            Services.AddTransient<ICarService, CarService>();
+            Services.AddScoped<ICarService, CarService>();
+            Services.AddScoped<IAccidentService, AccidentService>();
+
 
 
             var mapperConfig = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile<CarMapper>();
                 cfg.AddProfile<UserMapper>();
-                
+                cfg.AddProfile<AccidentMapper>();
             });
 
             IMapper mapper = mapperConfig.CreateMapper();

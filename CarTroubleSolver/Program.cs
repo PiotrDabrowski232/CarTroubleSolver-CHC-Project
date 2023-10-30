@@ -937,6 +937,8 @@ void UserAccidentHistory()
 
 void ShowHistory(string type)
 {
-    //depends of string user should see result with his accidents
+    //depends of string user should see result with his accidents, make service method for this 
+
+    var history = accidentService.ShowHistoryOfAccidents(type, user.Email);
 }
 

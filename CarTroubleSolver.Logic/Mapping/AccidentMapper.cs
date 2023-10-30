@@ -13,6 +13,9 @@ namespace CarTroubleSolver.Logic.Mapping
 
             CreateMap<Accident, AccidentAdvertisementDto>();
             CreateMap<AccidentAdvertisementDto, Accident>();
+
+            CreateMap<Accident, AccidentHistoryDto>();
+            CreateMap<AccidentHistoryDto, Accident>();
         }
     }
 }

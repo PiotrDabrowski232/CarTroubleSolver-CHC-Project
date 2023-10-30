@@ -58,5 +58,20 @@ namespace CarTroubleSolver.Logic.Services
             _accidentRepository.Update(accidentToUpdate);
 
         }
+
+        public IEnumerable<AccidentHistoryDto> ShowHistoryOfAccidents(string type, string email)
+        {
+            var userId = _userRepository.GetUserByEmail(email).Id;
+
+            var accidentsResult = _mapper.Map<IEnumerable<AccidentHistoryDto>>(_accidentRepository.GetAll());
+
+            if (type == "Applicant")
+                accidentsResult = accidentsResult.Where(a => a.ApplicantUserId == userId);
+            if (type == "Asignee")
+                accidentsResult = accidentsResult.Where(a =>  a.AssigneeUserId == userId);
+
+
+            return accidentsResult;
+        }
     }
 }

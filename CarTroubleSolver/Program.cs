@@ -9,6 +9,7 @@ using CarTroubleSolver.Logic.Validation;
 using ConsoleTables;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using System.Drawing;
 using TheCarMarket.Data.Models.Enums;
 
 #region ServicesConfiguration
@@ -262,6 +263,7 @@ while (true)
                             else if (selectedOption == 2)
                             {
                                 UserAccidentHistory();
+                                break;
                             }
                             else if (selectedOption == 3)
                             {
@@ -878,6 +880,8 @@ void UserAccidentHistory()
     string[] userHistory = { "Applicant History", "Assignee History", "Quit" };
     ConsoleKeyInfo keyInfo;
 
+    selectedOption = 0;
+
     while (true)
     {
 
@@ -899,8 +903,9 @@ void UserAccidentHistory()
 
             Console.WriteLine($"{i + 1}. {userHistory[i]}");
             Console.ResetColor();
+        }
 
-            keyInfo = Console.ReadKey();
+        keyInfo = Console.ReadKey();
 
             if (keyInfo.Key == ConsoleKey.UpArrow || keyInfo.Key == ConsoleKey.LeftArrow)
             {
@@ -931,14 +936,49 @@ void UserAccidentHistory()
                     break;
                 }
             }
-        }
+        
     }
 }
-
 void ShowHistory(string type)
 {
-    //depends of string user should see result with his accidents, make service method for this 
+    Console.Clear();
 
     var history = accidentService.ShowHistoryOfAccidents(type, user.Email);
+
+    if(type == "Asignee")
+    {
+        var assigneeHistory = new ConsoleTable("Applicant Name", "Applicant Surname", "Applicant Telephone", "Car Brand", "Car Model", "Severity");
+
+        foreach (var accident in history)
+        {
+            assigneeHistory.AddRow(accident.ApplicantUserInfo.Name, accident.ApplicantUserInfo.Surname, accident.ApplicantUserInfo.PhoneNumber, accident.CarInfo.Brand, accident.CarInfo.CarModels, accident.CollisionSeverity);
+        }
+
+        Console.WriteLine(assigneeHistory);
+    }
+    else
+    {
+        var applicantHistory = new ConsoleTable( "Car Brand", "Car Model", "Severity");
+
+        foreach (var accident in history)
+        {
+            applicantHistory.AddRow(accident.CarInfo.Brand, accident.CarInfo.CarModels, accident.CollisionSeverity);
+        }
+
+        Console.WriteLine(applicantHistory);
+    }
+
+    Console.SetCursorPosition(centerX+10, MENU_TOP+5);
+
+    Console.ForegroundColor = ConsoleColor.White;
+    Console.BackgroundColor = ConsoleColor.DarkCyan;
+
+    Console.WriteLine("Press anything to Quit");
+    Console.ResetColor();
+
+    Console.ReadKey();
+
+    Console.Clear();
+    
 }
 

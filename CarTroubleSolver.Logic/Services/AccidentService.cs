@@ -65,6 +65,11 @@ namespace CarTroubleSolver.Logic.Services
 
             var accidentsResult = _mapper.Map<IEnumerable<AccidentHistoryDto>>(_accidentRepository.GetAll());
 
+            accidentsResult.ToList().ForEach(a => {
+                a.ApplicantUserInfo = _mapper.Map<UserInformationDto>(_userRepository.Get(a.ApplicantUserId));
+                a.CarInfo = _mapper.Map<CarDto>(_carRepository.Get(a.CarId));
+            });
+
             if (type == "Applicant")
                 accidentsResult = accidentsResult.Where(a => a.ApplicantUserId == userId);
             if (type == "Asignee")

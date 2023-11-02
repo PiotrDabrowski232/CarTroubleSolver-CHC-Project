@@ -168,10 +168,13 @@ while (true)
     {
         Console.Clear();
         bool tablclicked = false;
-        int selectedAdvertisement = 0;
+        int selectedAdvertisement = int.MaxValue;
         var accidents = accidentService.GetAllFreeAccidents(user.Email).ToList();
+        
         while (true)
         {
+            Console.SetCursorPosition(centerX - 10, MENU_TOP - 3);
+            Console.WriteLine("Click Tab To Change Menu");
             for (int i = 0; i < logedUserMenu.Length; i++)
             {
                 if (i == selectedOption)
@@ -186,12 +189,7 @@ while (true)
                 Console.ResetColor();
             }
 
-
-
             Console.SetCursorPosition(0, MENU_TOP + 5);
-
-
-
 
             ConsoleKey key;
 
@@ -206,6 +204,8 @@ while (true)
             Console.SetCursorPosition(12, 9);
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.Write("Minor Severity");
+
+            Console.ResetColor();
 
             for (int i = 0; i < accidents.Count(); i++)
             {
@@ -258,7 +258,19 @@ while (true)
             }
             else if (keyInfo.Key == ConsoleKey.Tab)
             {
-                tablclicked = !tablclicked;
+                    tablclicked = !tablclicked;
+
+                    if (tablclicked)
+                    {
+                        selectedAdvertisement = 0;
+                        selectedOption = int.MaxValue;
+                    }
+                    else
+                    {
+                        selectedAdvertisement = int.MaxValue;
+                        selectedOption = 0;
+                    }
+                
             }
             else if (keyInfo.Key == ConsoleKey.Enter)
             {

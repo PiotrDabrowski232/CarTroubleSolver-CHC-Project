@@ -1391,6 +1391,19 @@
         "runtime": {
           "bin/placeholder/CarTroubleSolver.Logic.dll": {}
         }
+      },
+      "CarTroubleSolver.Web/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/CarTroubleSolver.Web.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/CarTroubleSolver.Web.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
       }
     }
   },
@@ -4141,6 +4154,11 @@
       "type": "project",
       "path": "../CarTroubleSolver.Logic/CarTroubleSolver.Logic.csproj",
       "msbuildProject": "../CarTroubleSolver.Logic/CarTroubleSolver.Logic.csproj"
+    },
+    "CarTroubleSolver.Web/1.0.0": {
+      "type": "project",
+      "path": "../CarTroubleSolver.Web/CarTroubleSolver.Web.csproj",
+      "msbuildProject": "../CarTroubleSolver.Web/CarTroubleSolver.Web.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -4148,6 +4166,7 @@
       "AutoMapper >= 12.0.1",
       "CarTroubleSolver.Data >= 1.0.0",
       "CarTroubleSolver.Logic >= 1.0.0",
+      "CarTroubleSolver.Web >= 1.0.0",
       "ConsoleMenu >= 0.1.1",
       "ConsoleTables >= 2.5.0",
       "FluentValidation >= 11.8.0",
@@ -4195,6 +4214,9 @@
             },
             "C:\\Users\\piecz\\Source\\Repos\\PiotrDabrowski232\\CarTroubleSolver-CHC-Project\\CarTroubleSolver.Logic\\CarTroubleSolver.Logic.csproj": {
               "projectPath": "C:\\Users\\piecz\\Source\\Repos\\PiotrDabrowski232\\CarTroubleSolver-CHC-Project\\CarTroubleSolver.Logic\\CarTroubleSolver.Logic.csproj"
+            },
+            "C:\\Users\\piecz\\Source\\Repos\\PiotrDabrowski232\\CarTroubleSolver-CHC-Project\\CarTroubleSolver.Web\\CarTroubleSolver.Web.csproj": {
+              "projectPath": "C:\\Users\\piecz\\Source\\Repos\\PiotrDabrowski232\\CarTroubleSolver-CHC-Project\\CarTroubleSolver.Web\\CarTroubleSolver.Web.csproj"
             }
           }
         }

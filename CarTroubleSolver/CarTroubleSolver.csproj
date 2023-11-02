@@ -24,6 +24,7 @@
   <ItemGroup>
     <ProjectReference Include="..\CarTroubleSolver.Data\CarTroubleSolver.Data.csproj" />
     <ProjectReference Include="..\CarTroubleSolver.Logic\CarTroubleSolver.Logic.csproj" />
+    <ProjectReference Include="..\CarTroubleSolver.Web\CarTroubleSolver.Web.csproj" />
   </ItemGroup>
 
 </Project>

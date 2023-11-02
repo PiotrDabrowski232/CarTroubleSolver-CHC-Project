@@ -262,7 +262,7 @@ while (true)
                             }
                             else if (selectedOption == 2)
                             {
-                                UserAccidentHistory();
+                                ShowHistory();
                                 break;
                             }
                             else if (selectedOption == 3)
@@ -874,99 +874,34 @@ void DisplayAccidentDetails(AccidentAdvertisementDto accident)
 
     }
 }
-void UserAccidentHistory()
-{
-    Console.Clear();
-    string[] userHistory = { "Applicant History", "Assignee History", "Quit" };
-    ConsoleKeyInfo keyInfo;
-
-    selectedOption = 0;
-
-    while (true)
-    {
-
-        for (int i = 0; i < userHistory.Length; i++)
-        {
-            if (i == selectedOption)
-            {
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.BackgroundColor = ConsoleColor.Blue;
-            }
-
-            if (i == 1)
-                Console.SetCursorPosition(centerX + centerX / 2, MENU_TOP / 2);
-            else if (i == 0)
-                Console.SetCursorPosition(centerX - centerX / 2, MENU_TOP / 2);
-            else
-                Console.SetCursorPosition(centerX, MENU_TOP / 2 + 4);
-
-
-            Console.WriteLine($"{i + 1}. {userHistory[i]}");
-            Console.ResetColor();
-        }
-
-        keyInfo = Console.ReadKey();
-
-            if (keyInfo.Key == ConsoleKey.UpArrow || keyInfo.Key == ConsoleKey.LeftArrow)
-            {
-                selectedOption = 0;
-            }
-            else if (keyInfo.Key == ConsoleKey.DownArrow)
-            {
-                selectedOption = 2;
-            }
-            else if (keyInfo.Key == ConsoleKey.RightArrow)
-            {
-                selectedOption = 1;
-            }
-            else if (keyInfo.Key == ConsoleKey.Enter)
-            {
-                if (selectedOption == 0)
-                {
-                    ShowHistory("Applicant");
-                    break;
-                }
-                else if (selectedOption == 1)
-                {
-                    ShowHistory("Asignee");
-                    break;
-                }
-                else if (selectedOption == 2)
-                {
-                    break;
-                }
-            }
-        
-    }
-}
-void ShowHistory(string type)
+void ShowHistory()
 {
     Console.Clear();
 
-    var history = accidentService.ShowHistoryOfAccidents(type, user.Email);
+    var historyOfAsignee = accidentService.ShowHistoryOfAccidentsAsignee(user.Email);
+    var historyOfApplicant = accidentService.ShowHistoryOfAccidentsApplicant(user.Email);
 
-    if(type == "Asignee")
-    {
-        var assigneeHistory = new ConsoleTable("Applicant Name", "Applicant Surname", "Applicant Telephone", "Car Brand", "Car Model", "Severity");
+    var assigneeHistory = new ConsoleTable("Applicant Name", "Applicant Surname", "Applicant Telephone", "Car Brand", "Car Model", "Severity");
 
-        foreach (var accident in history)
+        foreach (var accident in historyOfAsignee)
         {
             assigneeHistory.AddRow(accident.ApplicantUserInfo.Name, accident.ApplicantUserInfo.Surname, accident.ApplicantUserInfo.PhoneNumber, accident.CarInfo.Brand, accident.CarInfo.CarModels, accident.CollisionSeverity);
         }
 
         Console.WriteLine(assigneeHistory);
-    }
-    else
-    {
+    
+     Console.SetCursorPosition(centerX+10, MENU_TOP+5);
         var applicantHistory = new ConsoleTable( "Car Brand", "Car Model", "Severity");
 
-        foreach (var accident in history)
+        foreach (var accident in historyOfApplicant)
         {
             applicantHistory.AddRow(accident.CarInfo.Brand, accident.CarInfo.CarModels, accident.CollisionSeverity);
         }
 
-        Console.WriteLine(applicantHistory);
-    }
+    Console.SetCursorPosition(0, MENU_TOP + historyOfAsignee.Count() +5);
+
+    Console.WriteLine(applicantHistory);
+    
 
     Console.SetCursorPosition(centerX+10, MENU_TOP+5);
 
@@ -981,4 +916,5 @@ void ShowHistory(string type)
     Console.Clear();
     
 }
+
 

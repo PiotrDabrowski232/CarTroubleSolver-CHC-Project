@@ -341,7 +341,17 @@ while (true)
                             }
                             else if (selectedOption == 1)
                             {
-                                SelectCarFromTable(userCars.ToList());
+                                    if(userCars.Count()>0)
+                                        SelectCarFromTable(userCars.ToList());
+                                    else
+                                    {
+                                        Console.Clear();
+                                        Console.SetCursorPosition(centerX - 14, MENU_TOP + 10);
+                                        Console.WriteLine("You have no cars to remove ");
+                                        await Task.Delay(3000);
+                                        Console.Clear();
+                                        break;
+                                    }
                                 break;
                             }
                             else if (selectedOption == 2)

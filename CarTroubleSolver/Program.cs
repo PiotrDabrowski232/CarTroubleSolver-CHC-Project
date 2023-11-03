@@ -274,8 +274,15 @@ while (true)
             }
             else if (keyInfo.Key == ConsoleKey.Enter)
             {
+                if (tablclicked && accidents.Count()>0)
+                {
+                    DisplayAccidentDetails(accidents[selectedAdvertisement]);
+                    break;
+                }
+                else
+                {
                 #region UserView
-                if (selectedOption == 0)
+                    if (selectedOption == 0)
                 {
                     Console.Clear();
 
@@ -385,7 +392,8 @@ while (true)
                     selectedOption = 0;
                     break;
                 }
-                #endregion
+                    #endregion
+                }
             }
         }
     }
@@ -822,7 +830,7 @@ AccidentDto SendAccidentRequest(IList<CarDto> cars)
     }
 
 }
-void DisplayAccidents(IList<AccidentAdvertisementDto> accidents)
+/*void DisplayAccidents(IList<AccidentAdvertisementDto> accidents)
 {
     int selectedAdvertisement = 0;
 
@@ -882,7 +890,7 @@ void DisplayAccidents(IList<AccidentAdvertisementDto> accidents)
 
 
     DisplayAccidentDetails(accidents[selectedAdvertisement]);
-}
+}*/
 void DisplayAccidentDetails(AccidentAdvertisementDto accident)
 {
     string[] accidentMenu = { "Commitment of aid", "Quit" };
@@ -941,6 +949,7 @@ void DisplayAccidentDetails(AccidentAdvertisementDto accident)
         if (selectedOption == 0)
         {
             accidentService.HelpInAccident(user.Email, accident.Id);
+            Console.Clear();
             break;
         }
         else

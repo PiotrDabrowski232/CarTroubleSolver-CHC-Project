@@ -35,7 +35,7 @@ CarDto carHolder = null;
 
 string[] startingMenuOptions = { "Log In", "Register", "EndSession" };
 string[] tryAgainMenu = { "Try Again", "Quick" };
-string[] logedUserMenu = { "User Information", "Find Help", "Log Out" };
+string[] logedUserMenu = { "User Profile", "Find Help", "Log Out" };
 string[] userCarCRUD = { "Add Car", "Delete Cars", "Accident History", "Quit" };
 
 int centerX = Console.WindowWidth / 2;
@@ -364,14 +364,28 @@ while (true)
                 else if (selectedOption == 1)
                 {
                     Console.Clear();
-                    Console.SetCursorPosition(centerX - 14, MENU_TOP - 3);
-                    Console.WriteLine("Add a request for assistance");
 
-                    var accidentHappened = SendAccidentRequest(carService.GetUserCars(user.Email).ToList());
 
-                    accidentService.AddAccident(accidentHappened, user.Email);
+                        var cars = carService.GetUserCars(user.Email).ToList();
 
-                    Console.Clear();
+                        if (cars.Count() > 0)
+                        {
+                            Console.SetCursorPosition(centerX - 14, MENU_TOP - 3);
+                            Console.WriteLine("Add a request for assistance");
+
+                            var accidentHappened = SendAccidentRequest(cars);
+                            accidentService.AddAccident(accidentHappened, user.Email);
+
+                            Console.Clear();
+                        }
+                        else
+                        {
+                            Console.SetCursorPosition(centerX - 14, MENU_TOP+10);
+                            Console.WriteLine("Firstly Add Cars In User Profile");
+                            await Task.Delay(3000);
+                            Console.Clear();
+                            break;
+                        }
                 }
                 #endregion
                 #region Logout

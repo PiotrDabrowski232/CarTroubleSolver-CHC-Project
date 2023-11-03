@@ -374,19 +374,8 @@ while (true)
                     Console.Clear();
                 }
                 #endregion
-                #region HelpSomebody
-                else if (selectedOption == 2)
-                {
-                    //var accidents = accidentService.GetAllFreeAccidents(user.Email);
-
-                    Console.Clear();
-
-                    //DisplayAccidents(accidents.ToList());
-                    break;
-                }
-                #endregion
                 #region Logout
-                else if (selectedOption == 3)
+                else if (selectedOption == 2)
                 {
                     userIsLogged = false;
                     selectedOption = 0;
@@ -923,7 +912,7 @@ void ShowHistory()
 
     Console.WriteLine(assigneeHistory);
 
-    Console.SetCursorPosition(centerX + 10, MENU_TOP + 5);
+
     var applicantHistory = new ConsoleTable("Car Brand", "Car Model", "Severity");
 
     foreach (var accident in historyOfApplicant)
@@ -931,12 +920,12 @@ void ShowHistory()
         applicantHistory.AddRow(accident.CarInfo.Brand, accident.CarInfo.CarModels, accident.CollisionSeverity);
     }
 
-    Console.SetCursorPosition(0, MENU_TOP + historyOfAsignee.Count() + 5);
+    Console.SetCursorPosition(0, MENU_TOP + assigneeHistory.Rows.Count()+12);
 
     Console.WriteLine(applicantHistory);
 
 
-    Console.SetCursorPosition(centerX + 10, MENU_TOP + 5);
+    Console.SetCursorPosition(centerX + 38, MENU_TOP + 5);
 
     Console.ForegroundColor = ConsoleColor.White;
     Console.BackgroundColor = ConsoleColor.DarkCyan;

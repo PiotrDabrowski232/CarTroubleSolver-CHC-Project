@@ -35,7 +35,7 @@ CarDto carHolder = null;
 
 string[] startingMenuOptions = { "Log In", "Register", "EndSession" };
 string[] tryAgainMenu = { "Try Again", "Quick" };
-string[] logedUserMenu = { "User Information", "Find Help", "Try Help Somebody", "Log Out" };
+string[] logedUserMenu = { "User Information", "Find Help", "Log Out" };
 string[] userCarCRUD = { "Add Car", "Delete Cars", "Accident History", "Quit" };
 
 int centerX = Console.WindowWidth / 2;
@@ -276,7 +276,7 @@ while (true)
             {
                 if (tablclicked && accidents.Count()>0)
                 {
-                    DisplayAccidentDetails(accidents[selectedAdvertisement]);
+                    await DisplayAccidentDetails(accidents[selectedAdvertisement]);
                     break;
                 }
                 else
@@ -830,68 +830,7 @@ AccidentDto SendAccidentRequest(IList<CarDto> cars)
     }
 
 }
-/*void DisplayAccidents(IList<AccidentAdvertisementDto> accidents)
-{
-    int selectedAdvertisement = 0;
-
-    ConsoleKey key;
-    do
-    {
-
-        Console.SetCursorPosition(12, 5);
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.Write("Immediate assistance needed");
-
-        Console.SetCursorPosition(12, 7);
-        Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.Write("Moderate Severity");
-
-        Console.SetCursorPosition(12, 9);
-        Console.ForegroundColor = ConsoleColor.Blue;
-        Console.Write("Minor Severity");
-
-        for (int i = 0; i < accidents.Count(); i++)
-        {
-            if (i == selectedAdvertisement)
-            {
-                Console.BackgroundColor = ConsoleColor.White;
-                Console.ForegroundColor = ConsoleColor.Black;
-            }
-            else if (accidents[i].CollisionSeverity == CollisionSeverity.Severe)
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-            }
-            else if (accidents[i].CollisionSeverity == CollisionSeverity.Moderate)
-            {
-                Console.ForegroundColor = ConsoleColor.Yellow;
-            }
-            else if (accidents[i].CollisionSeverity == CollisionSeverity.Minor)
-            {
-                Console.ForegroundColor = ConsoleColor.Blue;
-            }
-
-            Console.SetCursorPosition(centerX - 35, MENU_TOP + i + 12);
-            Console.WriteLine(accidents[i].ToString());
-            Console.WriteLine();
-
-            Console.ResetColor();
-        }
-        key = Console.ReadKey(true).Key;
-
-        if (key == ConsoleKey.UpArrow && selectedAdvertisement > 0)
-        {
-            selectedAdvertisement--;
-        }
-        else if (key == ConsoleKey.DownArrow && selectedAdvertisement < accidents.Count() - 1)
-        {
-            selectedAdvertisement++;
-        }
-    } while (key != ConsoleKey.Enter);
-
-
-    DisplayAccidentDetails(accidents[selectedAdvertisement]);
-}*/
-void DisplayAccidentDetails(AccidentAdvertisementDto accident)
+async Task DisplayAccidentDetails(AccidentAdvertisementDto accident)
 {
     string[] accidentMenu = { "Commitment of aid", "Quit" };
 
@@ -950,6 +889,15 @@ void DisplayAccidentDetails(AccidentAdvertisementDto accident)
         {
             accidentService.HelpInAccident(user.Email, accident.Id);
             Console.Clear();
+            Console.SetCursorPosition(centerX-15, MENU_TOP);
+            Console.WriteLine($"congratulations!!!");
+            Console.SetCursorPosition(centerX-25, MENU_TOP+1);
+            Console.WriteLine($"You have made a commitment to help for {accident.ApplicantUserInfo.Name}");
+            Console.SetCursorPosition(centerX - 32, MENU_TOP + 2);
+            Console.WriteLine($" You can see all your contact information to {accident.ApplicantUserInfo.Name} in your user panel");
+
+            await Task.Delay(4000);
+
             break;
         }
         else
@@ -1001,5 +949,3 @@ void ShowHistory()
     Console.Clear();
 
 }
-
-

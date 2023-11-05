@@ -8,8 +8,8 @@ using CarTroubleSolver.Logic.Services.Interfaces;
 using CarTroubleSolver.Logic.Validation;
 using ConsoleTables;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
-using System.Drawing;
 using TheCarMarket.Data.Models.Enums;
 
 #region ServicesConfiguration
@@ -33,10 +33,10 @@ bool userIsLogged = false;
 LogedInUserDto user = null;
 CarDto carHolder = null;
 
-
+string[] fields = { "Name", "Surname", "Email", "Password", "Confirm Password", "Phone Number", "Date Of Birth", "Submit", "Quit"};
 string[] startingMenuOptions = { "Log In", "Register", "EndSession" };
 string[] tryAgainMenu = { "Try Again", "Quick" };
-string[] logedUserMenu = { "User Information", "Find Help", "Try Help Somebody", "Log Out" };
+string[] logedUserMenu = { "User Profile", "Find Help", "Log Out" };
 string[] userCarCRUD = { "Add Car", "Delete Cars", "Accident History", "Quit" };
 
 int centerX = Console.WindowWidth / 2;
@@ -49,6 +49,7 @@ const int LOGIN_MESSAGE_TOP = 5;
 const int MENU_TOP = 3;
 const int INPUT_PROMPT_TOP = 7;
 #endregion
+
 
 
 
@@ -88,15 +89,15 @@ while (true)
             {
                 #region Login
                 Console.Clear();
-                Console.SetCursorPosition(0, LOGIN_MESSAGE_TOP);
-                Console.WriteLine("Panel logowania:");
+                Console.SetCursorPosition(15, LOGIN_MESSAGE_TOP);
+                Console.WriteLine("Login Panel:");
 
-                Console.SetCursorPosition(0, INPUT_PROMPT_TOP);
-                Console.WriteLine("Email: ");
+                Console.SetCursorPosition(15, INPUT_PROMPT_TOP);
+                Console.Write("Email: ");
                 var email = Console.ReadLine();
 
-                Console.SetCursorPosition(0, INPUT_PROMPT_TOP + 2);
-                Console.WriteLine("Hasło: ");
+                Console.SetCursorPosition(15, INPUT_PROMPT_TOP + 2);
+                Console.Write("Hasło: ");
                 var password = GetPasswordInput();
 
                 if (userService.VerifyUserInputs(email, password))
@@ -116,46 +117,17 @@ while (true)
             }
             else if (selectedOption == 1)
             {
-            Register:
-                #region
-                RegisterUserDto newUser = GetUserData();
+                #region Register
+                var userFromInputs = GetUserData();
 
-                do
+                if(userFromInputs != null)
                 {
+                    userService.Add(userFromInputs);
                     Console.Clear();
-                    string validationMessages = DisplayValidationErrors(newUser);
-
-                    if (validationMessages.IsNullOrEmpty())
-                    {
-                        Console.SetCursorPosition(centerX, 0);
-                        Console.WriteLine("User is valid.");
-                        Console.SetCursorPosition(centerX - 5, 1);
-                        Console.WriteLine("Congratulations, you have created an account.");
-                        await Task.Delay(3000);
-                        userService.Add(newUser);
-                        Console.SetCursorPosition(0, 0);
-                        break;
-                    }
-                    else
-                    {
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("Invalid Model.\n\n");
-
-                        Console.WriteLine(validationMessages);
-                        Console.ResetColor();
-                        await Task.Delay(3500);
-                    }
-
-                    if (ShowTryAgainMenu() == 0)
-                    {
-                        newUser = GetUserData();
-                    }
-                    else
-                    {
-                        break;
-                    }
-
-                } while (true);
+                    Console.SetCursorPosition(centerX - 10, MENU_TOP + 5);
+                    Console.WriteLine("Congratulations!!! User Created");
+                    await Task.Delay(3500);
+                }
                 #endregion
             }
             else if (selectedOption == 2)
@@ -168,9 +140,17 @@ while (true)
     else
     {
         Console.Clear();
+        bool tablclicked = false;
+        int selectedAdvertisement = int.MaxValue;
+        var accidents = accidentService.GetAllFreeAccidents(user.Email).ToList();
 
         while (true)
         {
+            Console.SetCursorPosition(centerX +35, MENU_TOP-3);
+            Console.WriteLine($"Welcome {user.Name} {user.Surname}");
+
+            Console.SetCursorPosition(centerX - 10, MENU_TOP - 3);
+            Console.WriteLine("Click Tab To Change Menu");
             for (int i = 0; i < logedUserMenu.Length; i++)
             {
                 if (i == selectedOption)
@@ -180,135 +160,229 @@ while (true)
                 }
 
 
-                Console.SetCursorPosition(centerX - 40, MENU_TOP + i);
+                Console.SetCursorPosition((Console.WindowWidth / logedUserMenu.Length) * i + 10, MENU_TOP);
                 Console.WriteLine($"{i + 1}. {logedUserMenu[i]}");
+                Console.ResetColor();
+            }
+
+            Console.SetCursorPosition(0, MENU_TOP + 5);
+
+            ConsoleKey key;
+
+            Console.SetCursorPosition(12, 5);
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("Immediate assistance needed");
+
+            Console.SetCursorPosition(12, 7);
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write("Moderate Severity");
+
+            Console.SetCursorPosition(12, 9);
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.Write("Minor Severity");
+
+            Console.ResetColor();
+
+            for (int i = 0; i < accidents.Count(); i++)
+            {
+                if (i == selectedAdvertisement)
+                {
+                    Console.BackgroundColor = ConsoleColor.White;
+                    Console.ForegroundColor = ConsoleColor.Black;
+                }
+                else if (accidents[i].CollisionSeverity == CollisionSeverity.Severe)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                }
+                else if (accidents[i].CollisionSeverity == CollisionSeverity.Moderate)
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                }
+                else if (accidents[i].CollisionSeverity == CollisionSeverity.Minor)
+                {
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                }
+
+                Console.SetCursorPosition(centerX - 35, MENU_TOP + i + 12);
+                Console.WriteLine(accidents[i].ToString());
+                Console.WriteLine();
+
                 Console.ResetColor();
             }
 
             ConsoleKeyInfo keyInfo = Console.ReadKey();
 
-            if (keyInfo.Key == ConsoleKey.UpArrow)
+            if (keyInfo.Key == ConsoleKey.LeftArrow || keyInfo.Key == ConsoleKey.DownArrow)
             {
-                selectedOption = (selectedOption - 1 + logedUserMenu.Length) % logedUserMenu.Length;
+                if (tablclicked)
+                {
+                    if (selectedAdvertisement < accidents.Count() - 1)
+                        selectedAdvertisement++;
+                }
+                else
+                    selectedOption = (selectedOption - 1 + logedUserMenu.Length) % logedUserMenu.Length;
             }
-            else if (keyInfo.Key == ConsoleKey.DownArrow)
+            else if (keyInfo.Key == ConsoleKey.RightArrow || keyInfo.Key == ConsoleKey.UpArrow)
             {
-                selectedOption = (selectedOption + 1) % logedUserMenu.Length;
+                if (tablclicked)
+                {
+                    if (selectedAdvertisement > 0)
+                        selectedAdvertisement--;
+                }
+                else
+                    selectedOption = (selectedOption + 1) % logedUserMenu.Length;
+            }
+            else if (keyInfo.Key == ConsoleKey.Tab)
+            {
+                tablclicked = !tablclicked;
+
+                if (tablclicked)
+                {
+                    selectedAdvertisement = 0;
+                    selectedOption = int.MaxValue;
+                }
+                else
+                {
+                    selectedAdvertisement = int.MaxValue;
+                    selectedOption = 0;
+                }
+
             }
             else if (keyInfo.Key == ConsoleKey.Enter)
             {
-                #region UserView
-                if (selectedOption == 0)
+                if (tablclicked && accidents.Count() > 0)
                 {
-                    Console.Clear();
-
-                    var userTable = new ConsoleTable("Property Name", "Value")
-                        .AddRow("Name:", user.Name)
-                        .AddRow("Surname:", user.Surname)
-                        .AddRow("Email:", user.Email)
-                        .AddRow("Phone Nummber:", user.PhoneNumber)
-                        .AddRow("Date Of Birth:", user.DateOfBirth.ToShortDateString());
-
-                    Console.WriteLine(userTable);
-
-                    var userCars = carService.GetUserCars(user.Email);
-
-                    var userCarsTable = new ConsoleTable("Brand", "Model", "Engine Type", "Fuel", "Mileage", "Doors", "Color");
-
-                    foreach (var car in userCars)
-                    {
-                        userCarsTable.AddRow(car.Brand, car.CarModels, car.EngineType, car.FuelType, car.Mileage, car.DoorCount, car.Color);
-                    }
-
-                    Console.WriteLine(userCarsTable);
-                    while (true)
-                    {
-
-                        for (int i = 0; i < userCarCRUD.Length; i++)
-                        {
-                            if (i == selectedOption)
-                            {
-                                Console.ForegroundColor = ConsoleColor.White;
-                                Console.BackgroundColor = ConsoleColor.Blue;
-                            }
-
-
-                            Console.SetCursorPosition(centerX + 12, MENU_TOP + i);
-                            Console.WriteLine($"{i + 1}. {userCarCRUD[i]}");
-                            Console.ResetColor();
-                        }
-
-                        keyInfo = Console.ReadKey();
-
-                        if (keyInfo.Key == ConsoleKey.UpArrow)
-                        {
-                            selectedOption = (selectedOption - 1 + logedUserMenu.Length) % logedUserMenu.Length;
-                        }
-                        else if (keyInfo.Key == ConsoleKey.DownArrow)
-                        {
-                            selectedOption = (selectedOption + 1) % logedUserMenu.Length;
-                        }
-                        else if (keyInfo.Key == ConsoleKey.Enter)
-                        {
-                            if (selectedOption == 0)
-                            {
-                                carService.Add(AddCarProfile(), user.Email);
-                                break;
-                            }
-                            else if (selectedOption == 1)
-                            {
-                                SelectCarFromTable(userCars.ToList());
-                                break;
-                            }
-                            else if (selectedOption == 2)
-                            {
-                                UserAccidentHistory();
-                                break;
-                            }
-                            else if (selectedOption == 3)
-                            {
-                                break;
-                            }
-                        }
-
-                    }
-                    Console.Clear();
-
-                }
-                #endregion
-                #region AddHelpRequest
-                else if (selectedOption == 1)
-                {
-                    Console.Clear();
-                    Console.SetCursorPosition(centerX - 14, MENU_TOP - 3);
-                    Console.WriteLine("Add a request for assistance");
-
-                    var accidentHappened = SendAccidentRequest(carService.GetUserCars(user.Email).ToList());
-
-                    accidentService.AddAccident(accidentHappened, user.Email);
-
-                    Console.Clear();
-                }
-                #endregion
-                #region HelpSomebody
-                else if (selectedOption == 2)
-                {
-                    var accidents = accidentService.GetAllFreeAccidents(user.Email);
-
-                    Console.Clear();
-
-                    DisplayAccidents(accidents.ToList());
+                    await DisplayAccidentDetails(accidents[selectedAdvertisement]);
                     break;
                 }
-                #endregion
-                #region Logout
-                else if (selectedOption == 3)
+                else
                 {
-                    userIsLogged = false;
-                    selectedOption = 0;
-                    break;
+                    #region UserView
+                    if (selectedOption == 0)
+                    {
+                        Console.Clear();
+
+                        var userTable = new ConsoleTable("Property Name", "Value")
+                            .AddRow("Name:", user.Name)
+                            .AddRow("Surname:", user.Surname)
+                            .AddRow("Email:", user.Email)
+                            .AddRow("Phone Nummber:", user.PhoneNumber)
+                            .AddRow("Date Of Birth:", user.DateOfBirth.ToShortDateString());
+
+                        Console.WriteLine(userTable);
+
+                        var userCars = carService.GetUserCars(user.Email);
+
+                        var userCarsTable = new ConsoleTable("Brand", "Model", "Engine Type", "Fuel", "Mileage", "Doors", "Color");
+
+                        foreach (var car in userCars)
+                        {
+                            userCarsTable.AddRow(car.Brand, car.CarModels, car.EngineType, car.FuelType, car.Mileage, car.DoorCount, car.Color);
+                        }
+
+                        Console.WriteLine(userCarsTable);
+                        while (true)
+                        {
+
+                            for (int i = 0; i < userCarCRUD.Length; i++)
+                            {
+                                if (i == selectedOption)
+                                {
+                                    Console.ForegroundColor = ConsoleColor.White;
+                                    Console.BackgroundColor = ConsoleColor.Blue;
+                                }
+
+
+                                Console.SetCursorPosition(centerX + 12, MENU_TOP + i);
+                                Console.WriteLine($"{i + 1}. {userCarCRUD[i]}");
+                                Console.ResetColor();
+                            }
+
+                            keyInfo = Console.ReadKey();
+
+                            if (keyInfo.Key == ConsoleKey.UpArrow)
+                            {
+                                selectedOption = (selectedOption - 1 + userCarCRUD.Length) % userCarCRUD.Length;
+                            }
+                            else if (keyInfo.Key == ConsoleKey.DownArrow)
+                            {
+                                selectedOption = (selectedOption + 1) % userCarCRUD.Length;
+                            }
+                            else if (keyInfo.Key == ConsoleKey.Enter)
+                            {
+                                if (selectedOption == 0)
+                                {
+                                    carService.Add(AddCarProfile(), user.Email);
+                                    break;
+                                }
+                                else if (selectedOption == 1)
+                                {
+                                    if (userCars.Count() > 0)
+                                        SelectCarFromTable(userCars.ToList());
+                                    else
+                                    {
+                                        Console.Clear();
+                                        Console.SetCursorPosition(centerX - 14, MENU_TOP + 10);
+                                        Console.WriteLine("You have no cars to remove ");
+                                        await Task.Delay(3000);
+                                        Console.Clear();
+                                        break;
+                                    }
+                                    break;
+                                }
+                                else if (selectedOption == 2)
+                                {
+                                    ShowHistory();
+                                    break;
+                                }
+                                else if (selectedOption == 3)
+                                {
+                                    break;
+                                }
+                            }
+
+                        }
+                        Console.Clear();
+
+                    }
+                    #endregion
+                    #region AddHelpRequest
+                    else if (selectedOption == 1)
+                    {
+                        Console.Clear();
+
+
+                        var cars = carService.GetUserCars(user.Email).ToList();
+
+                        if (cars.Count() > 0)
+                        {
+                            Console.SetCursorPosition(centerX - 14, MENU_TOP - 3);
+                            Console.WriteLine("Add a request for assistance");
+
+                            var accidentHappened = SendAccidentRequest(cars);
+                            accidentService.AddAccident(accidentHappened, user.Email);
+
+                            Console.Clear();
+                        }
+                        else
+                        {
+                            Console.SetCursorPosition(centerX - 14, MENU_TOP + 10);
+                            Console.WriteLine("Firstly Add Cars In User Profile");
+                            await Task.Delay(3000);
+                            Console.Clear();
+                            break;
+                        }
+                    }
+                    #endregion
+                    #region Logout
+                    else if (selectedOption == 2)
+                    {
+                        userIsLogged = false;
+                        selectedOption = 0;
+                        break;
+                    }
+                    #endregion
                 }
-                #endregion
             }
         }
     }
@@ -342,44 +416,6 @@ string GetPasswordInput()
 
     return password;
 }
-RegisterUserDto GetUserData()
-{
-    Console.Clear();
-    Console.WriteLine("Welcome in register panel enter your data: ");
-
-    Console.WriteLine("Name: ");
-    var name = Console.ReadLine();
-
-    Console.WriteLine("Surname: ");
-    var surname = Console.ReadLine();
-
-    Console.WriteLine("Email: ");
-    var email = Console.ReadLine();
-
-    Console.WriteLine("Password: ");
-    var password = GetPasswordInput();
-
-    Console.WriteLine("Confirm Password: ");
-    var confirmPassword = GetPasswordInput();
-
-    Console.WriteLine("PhoneNumber: ");
-    var phoneNumber = int.Parse(Console.ReadLine());
-
-    Console.WriteLine("Date Of Birth (dd-mm-yyyy): ");
-    var DateOfBirth = DateTime.Parse(Console.ReadLine());
-
-    return new RegisterUserDto()
-    {
-        Name = name,
-        Surname = surname,
-        Email = email,
-        ConfirmPassword = confirmPassword,
-        Password = password,
-        PhoneNumber = phoneNumber,
-        DateOfBirth = DateOfBirth
-    };
-
-}//Dodać try catch w podawaniu inputach
 int ShowTryAgainMenu()
 {
     int selectedOptionTryAgainMenu = 0;
@@ -745,69 +781,7 @@ AccidentDto SendAccidentRequest(IList<CarDto> cars)
     }
 
 }
-void DisplayAccidents(IList<AccidentAdvertisementDto> accidents)
-{
-    int selectedAdvertisement = 0;
-
-    ConsoleKey key;
-    do
-    {
-        Console.Clear();
-
-        Console.SetCursorPosition(12, 5);
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.Write("Immediate assistance needed");
-
-        Console.SetCursorPosition(12, 7);
-        Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.Write("Moderate Severity");
-
-        Console.SetCursorPosition(12, 9);
-        Console.ForegroundColor = ConsoleColor.Blue;
-        Console.Write("Minor Severity");
-
-        for (int i = 0; i < accidents.Count(); i++)
-        {
-            if (i == selectedAdvertisement)
-            {
-                Console.BackgroundColor = ConsoleColor.White;
-                Console.ForegroundColor = ConsoleColor.Black;
-            }
-            else if (accidents[i].CollisionSeverity == CollisionSeverity.Severe)
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-            }
-            else if (accidents[i].CollisionSeverity == CollisionSeverity.Moderate)
-            {
-                Console.ForegroundColor = ConsoleColor.Yellow;
-            }
-            else if (accidents[i].CollisionSeverity == CollisionSeverity.Minor)
-            {
-                Console.ForegroundColor = ConsoleColor.Blue;
-            }
-
-            Console.SetCursorPosition(centerX - 35, MENU_TOP + i + 12);
-            Console.WriteLine(accidents[i].ToString());
-            Console.WriteLine();
-
-            Console.ResetColor();
-        }
-        key = Console.ReadKey(true).Key;
-
-        if (key == ConsoleKey.UpArrow && selectedAdvertisement > 0)
-        {
-            selectedAdvertisement--;
-        }
-        else if (key == ConsoleKey.DownArrow && selectedAdvertisement < accidents.Count() - 1)
-        {
-            selectedAdvertisement++;
-        }
-    } while (key != ConsoleKey.Enter);
-
-
-    DisplayAccidentDetails(accidents[selectedAdvertisement]);
-}
-void DisplayAccidentDetails(AccidentAdvertisementDto accident)
+async Task DisplayAccidentDetails(AccidentAdvertisementDto accident)
 {
     string[] accidentMenu = { "Commitment of aid", "Quit" };
 
@@ -865,6 +839,16 @@ void DisplayAccidentDetails(AccidentAdvertisementDto accident)
         if (selectedOption == 0)
         {
             accidentService.HelpInAccident(user.Email, accident.Id);
+            Console.Clear();
+            Console.SetCursorPosition(centerX - 15, MENU_TOP);
+            Console.WriteLine($"congratulations!!!");
+            Console.SetCursorPosition(centerX - 25, MENU_TOP + 1);
+            Console.WriteLine($"You have made a commitment to help for {accident.ApplicantUserInfo.Name}");
+            Console.SetCursorPosition(centerX - 32, MENU_TOP + 2);
+            Console.WriteLine($" You can see all your contact information to {accident.ApplicantUserInfo.Name} in your user panel");
+
+            await Task.Delay(4000);
+
             break;
         }
         else
@@ -874,101 +858,36 @@ void DisplayAccidentDetails(AccidentAdvertisementDto accident)
 
     }
 }
-void UserAccidentHistory()
-{
-    Console.Clear();
-    string[] userHistory = { "Applicant History", "Assignee History", "Quit" };
-    ConsoleKeyInfo keyInfo;
-
-    selectedOption = 0;
-
-    while (true)
-    {
-
-        for (int i = 0; i < userHistory.Length; i++)
-        {
-            if (i == selectedOption)
-            {
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.BackgroundColor = ConsoleColor.Blue;
-            }
-
-            if (i == 1)
-                Console.SetCursorPosition(centerX + centerX / 2, MENU_TOP / 2);
-            else if (i == 0)
-                Console.SetCursorPosition(centerX - centerX / 2, MENU_TOP / 2);
-            else
-                Console.SetCursorPosition(centerX, MENU_TOP / 2 + 4);
-
-
-            Console.WriteLine($"{i + 1}. {userHistory[i]}");
-            Console.ResetColor();
-        }
-
-        keyInfo = Console.ReadKey();
-
-            if (keyInfo.Key == ConsoleKey.UpArrow || keyInfo.Key == ConsoleKey.LeftArrow)
-            {
-                selectedOption = 0;
-            }
-            else if (keyInfo.Key == ConsoleKey.DownArrow)
-            {
-                selectedOption = 2;
-            }
-            else if (keyInfo.Key == ConsoleKey.RightArrow)
-            {
-                selectedOption = 1;
-            }
-            else if (keyInfo.Key == ConsoleKey.Enter)
-            {
-                if (selectedOption == 0)
-                {
-                    ShowHistory("Applicant");
-                    break;
-                }
-                else if (selectedOption == 1)
-                {
-                    ShowHistory("Asignee");
-                    break;
-                }
-                else if (selectedOption == 2)
-                {
-                    break;
-                }
-            }
-        
-    }
-}
-void ShowHistory(string type)
+void ShowHistory()
 {
     Console.Clear();
 
-    var history = accidentService.ShowHistoryOfAccidents(type, user.Email);
+    var historyOfAsignee = accidentService.ShowHistoryOfAccidentsAsignee(user.Email);
+    var historyOfApplicant = accidentService.ShowHistoryOfAccidentsApplicant(user.Email);
 
-    if(type == "Asignee")
+    var assigneeHistory = new ConsoleTable("Applicant Name", "Applicant Surname", "Applicant Telephone", "Car Brand", "Car Model", "Severity");
+
+    foreach (var accident in historyOfAsignee)
     {
-        var assigneeHistory = new ConsoleTable("Applicant Name", "Applicant Surname", "Applicant Telephone", "Car Brand", "Car Model", "Severity");
-
-        foreach (var accident in history)
-        {
-            assigneeHistory.AddRow(accident.ApplicantUserInfo.Name, accident.ApplicantUserInfo.Surname, accident.ApplicantUserInfo.PhoneNumber, accident.CarInfo.Brand, accident.CarInfo.CarModels, accident.CollisionSeverity);
-        }
-
-        Console.WriteLine(assigneeHistory);
-    }
-    else
-    {
-        var applicantHistory = new ConsoleTable( "Car Brand", "Car Model", "Severity");
-
-        foreach (var accident in history)
-        {
-            applicantHistory.AddRow(accident.CarInfo.Brand, accident.CarInfo.CarModels, accident.CollisionSeverity);
-        }
-
-        Console.WriteLine(applicantHistory);
+        assigneeHistory.AddRow(accident.ApplicantUserInfo.Name, accident.ApplicantUserInfo.Surname, accident.ApplicantUserInfo.PhoneNumber, accident.CarInfo.Brand, accident.CarInfo.CarModels, accident.CollisionSeverity);
     }
 
-    Console.SetCursorPosition(centerX+10, MENU_TOP+5);
+    Console.WriteLine(assigneeHistory);
+
+
+    var applicantHistory = new ConsoleTable("Car Brand", "Car Model", "Severity");
+
+    foreach (var accident in historyOfApplicant)
+    {
+        applicantHistory.AddRow(accident.CarInfo.Brand, accident.CarInfo.CarModels, accident.CollisionSeverity);
+    }
+
+    Console.SetCursorPosition(0, MENU_TOP + assigneeHistory.Rows.Count() + 12);
+
+    Console.WriteLine(applicantHistory);
+
+
+    Console.SetCursorPosition(centerX + 38, MENU_TOP + 5);
 
     Console.ForegroundColor = ConsoleColor.White;
     Console.BackgroundColor = ConsoleColor.DarkCyan;
@@ -979,6 +898,203 @@ void ShowHistory(string type)
     Console.ReadKey();
 
     Console.Clear();
-    
+
 }
 
+RegisterUserDto? GetUserData()
+{
+    RegisterUserDto registerUser;
+
+    string validationErrors = string.Empty;
+
+    int currentIndex = 0;
+
+    string name = "";
+    string surname = "";
+    string email = "";
+    string password = "";
+    string confirmPassword = "";
+    int phoneNumber = 0;
+    DateTime dateOfBirth = DateTime.Now;
+
+    while (true)
+    {
+        Console.Clear();
+        Console.ForegroundColor=ConsoleColor.White;
+        Console.BackgroundColor = ConsoleColor.DarkBlue;
+
+        Console.SetCursorPosition(centerX - 9, MENU_TOP + 10);
+        Console.WriteLine("You can change the value of a field by re-entering the field value");
+        Console.SetCursorPosition(centerX + 15, MENU_TOP + 12);
+        Console.WriteLine("To Submit field press Enter");
+        Console.SetCursorPosition(centerX + 15, MENU_TOP + 14);
+        Console.WriteLine("To start writing press Enter");
+        Console.SetCursorPosition(centerX + 15, MENU_TOP + 16);
+        Console.WriteLine("Move By arrows");
+
+        Console.ResetColor();
+
+
+        for (int i = 0; i < fields.Length; i++)
+        {
+            if (currentIndex == i)
+            {
+                Console.BackgroundColor = ConsoleColor.White;
+                Console.ForegroundColor = ConsoleColor.Black;
+            }
+            else
+            {
+                Console.ResetColor();
+            }
+
+
+            if (i == 7)
+            {
+                Console.SetCursorPosition(centerX, 12 + i * 2);
+                Console.Write(fields[i]);
+            }
+            else
+            {
+                if (i == 8)
+                {
+                    Console.SetCursorPosition(centerX-8, 12 + i * 2);
+                    Console.Write(fields[i]);
+
+                }
+                else
+                {
+                Console.SetCursorPosition(10, 12 + i * 2);
+                Console.Write(fields[i] + ": ");
+                Console.Write(GetFieldValue(i, name, surname, email, password, confirmPassword, phoneNumber, dateOfBirth));
+                }
+            }
+        }
+
+        Console.ResetColor();
+
+        if (!validationErrors.IsNullOrEmpty())
+        {
+            Console.SetCursorPosition(centerX, 0);
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("Invalid Model.\n\n");
+
+            Console.SetCursorPosition(centerX, 2);
+            Console.WriteLine(validationErrors);
+            Console.ResetColor();
+        }
+
+        Console.ResetColor();
+
+        ConsoleKeyInfo keyInfo = Console.ReadKey();
+
+        if (keyInfo.Key == ConsoleKey.DownArrow)
+        {
+            currentIndex = (currentIndex + 1) % fields.Length;
+        }
+        else if (keyInfo.Key == ConsoleKey.UpArrow)
+        {
+            currentIndex = (currentIndex - 1 + fields.Length) % fields.Length;
+        }
+        else if (keyInfo.Key == ConsoleKey.Enter)
+        {
+            if (currentIndex == 7)
+            {
+                registerUser = new RegisterUserDto()
+                {
+                    Name = name,
+                    Surname = surname,
+                    Email = email,
+                    ConfirmPassword = confirmPassword,
+                    Password = password,
+                    PhoneNumber = phoneNumber,
+                    DateOfBirth = dateOfBirth
+                };
+
+                validationErrors = DisplayValidationErrors(registerUser);
+                if (validationErrors.IsNullOrEmpty())
+                {
+                    return registerUser;
+                }
+                else
+                {
+                    Console.SetCursorPosition(centerX, 0);
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Invalid Model.\n\n");
+
+                    Console.SetCursorPosition(centerX, 2);
+                    Console.WriteLine(validationErrors);
+                    Console.ResetColor();
+                }
+            }
+            else if (currentIndex==8)
+            {
+                return null; 
+            }
+            else
+            {
+                EditFieldValue(currentIndex, ref name, ref surname, ref email, ref password, ref confirmPassword, ref phoneNumber, ref dateOfBirth);
+
+            }
+        }
+    }
+    
+
+}
+void EditFieldValue(int index, ref string name, ref string surname, ref string email, ref string password, ref string confirmPassword, ref int phoneNumber, ref DateTime dateOfBirth)
+{
+    Console.SetCursorPosition( 10 + fields[index].Length + 2 + GetFieldValue(index, name, surname, email, password, confirmPassword, phoneNumber, dateOfBirth).Length+2, 12 + index * 2);
+
+      string input = Console.ReadLine();
+
+        if (index == 0)
+        {
+            name = input;
+        }
+        else if (index == 1)
+        {
+            surname = input;
+        }
+        else if (index == 2)
+        {
+            email = input;
+        }
+        else if (index == 3)
+        {
+            password = input;
+        }
+        else if (index == 4)
+        {
+            confirmPassword = input;
+        }
+        else if (index == 5)
+        {
+            int.TryParse(input, out phoneNumber);
+        }
+        else if (index == 6)
+        {
+            DateTime.TryParse(input, out dateOfBirth);
+        }
+    
+}
+string GetFieldValue(int index, string name, string surname, string email, string password, string confirmPassword, int phoneNumber, DateTime dateOfBirth)
+{
+    switch (index)
+    {
+        case 0:
+            return name;
+        case 1:
+            return surname;
+        case 2:
+            return email;
+        case 3:
+            return password;
+        case 4:
+            return confirmPassword;
+        case 5:
+            return phoneNumber.ToString();
+        case 6:
+            return dateOfBirth.ToString("dd-MM-yyyy");
+        default:
+            return "";
+    }
+}

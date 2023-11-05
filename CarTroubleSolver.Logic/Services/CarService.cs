@@ -11,12 +11,14 @@ namespace CarTroubleSolver.Logic.Services
     {
         private readonly ICarRepository _carRepository;
         private readonly IUserRepository _userRepository;
+        private readonly IAccidentRepository _accidentRepository;
         private readonly IMapper _mapper;
-        public CarService(ICarRepository carRepository, IMapper mapper, IUserRepository userRepository)
+        public CarService(ICarRepository carRepository, IMapper mapper, IUserRepository userRepository, IAccidentRepository accidentRepository)
         {
             _carRepository = carRepository;
             _mapper = mapper;
             _userRepository = userRepository;
+            _accidentRepository = accidentRepository;
         }
         private IEnumerable<Car> GetAll()
         {
@@ -43,6 +45,10 @@ namespace CarTroubleSolver.Logic.Services
         {
             var user = _userRepository.GetUserByEmail(userEmail);
             var car = GetAll().Where(u => u.OwnerId == user.Id).FirstOrDefault(c => c.Brand == carToDelete.Brand && c.CarModels == carToDelete.CarModels && c.Mileage == carToDelete.Mileage);
+
+            var accidentsWithCarToDelete = _accidentRepository.GetAll().Where(c => c.CarId == car.Id);
+
+            _accidentRepository.RemoveRange(accidentsWithCarToDelete);
             _carRepository.Remove(car);
         }
 

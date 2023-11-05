@@ -33,7 +33,7 @@ bool userIsLogged = false;
 LogedInUserDto user = null;
 CarDto carHolder = null;
 
-string[] fields = { "Name", "Surname", "Email", "Password", "Confirm Password", "Phone Number", "Date Of Birth", "Submit" };
+string[] fields = { "Name", "Surname", "Email", "Password", "Confirm Password", "Phone Number", "Date Of Birth", "Submit", "Quit"};
 string[] startingMenuOptions = { "Log In", "Register", "EndSession" };
 string[] tryAgainMenu = { "Try Again", "Quick" };
 string[] logedUserMenu = { "User Profile", "Find Help", "Log Out" };
@@ -117,11 +117,16 @@ while (true)
             else if (selectedOption == 1)
             {
                 #region Register
-                userService.Add(GetUserData());
-                Console.Clear();
-                Console.SetCursorPosition(centerX-10, MENU_TOP+5);
-                Console.WriteLine("Congratulations!!! User Created");
-                await Task.Delay(3500);
+                var userFromInputs = GetUserData();
+
+                if(userFromInputs != null)
+                {
+                    userService.Add(userFromInputs);
+                    Console.Clear();
+                    Console.SetCursorPosition(centerX - 10, MENU_TOP + 5);
+                    Console.WriteLine("Congratulations!!! User Created");
+                    await Task.Delay(3500);
+                }
                 #endregion
             }
             else if (selectedOption == 2)
@@ -140,6 +145,9 @@ while (true)
 
         while (true)
         {
+            Console.SetCursorPosition(centerX +35, MENU_TOP-3);
+            Console.WriteLine($"Welcome {user.Name} {user.Surname}");
+
             Console.SetCursorPosition(centerX - 10, MENU_TOP - 3);
             Console.WriteLine("Click Tab To Change Menu");
             for (int i = 0; i < logedUserMenu.Length; i++)
@@ -293,11 +301,11 @@ while (true)
 
                             if (keyInfo.Key == ConsoleKey.UpArrow)
                             {
-                                selectedOption = (selectedOption - 1 + logedUserMenu.Length) % logedUserMenu.Length;
+                                selectedOption = (selectedOption - 1 + userCarCRUD.Length) % userCarCRUD.Length;
                             }
                             else if (keyInfo.Key == ConsoleKey.DownArrow)
                             {
-                                selectedOption = (selectedOption + 1) % logedUserMenu.Length;
+                                selectedOption = (selectedOption + 1) % userCarCRUD.Length;
                             }
                             else if (keyInfo.Key == ConsoleKey.Enter)
                             {
@@ -892,7 +900,7 @@ void ShowHistory()
 
 }
 
-RegisterUserDto GetUserData()
+RegisterUserDto? GetUserData()
 {
     RegisterUserDto registerUser;
 
@@ -946,9 +954,18 @@ RegisterUserDto GetUserData()
             }
             else
             {
+                if (i == 8)
+                {
+                    Console.SetCursorPosition(centerX-8, 12 + i * 2);
+                    Console.Write(fields[i]);
+
+                }
+                else
+                {
                 Console.SetCursorPosition(10, 12 + i * 2);
                 Console.Write(fields[i] + ": ");
                 Console.Write(GetFieldValue(i, name, surname, email, password, confirmPassword, phoneNumber, dateOfBirth));
+                }
             }
         }
 
@@ -995,7 +1012,7 @@ RegisterUserDto GetUserData()
                 validationErrors = DisplayValidationErrors(registerUser);
                 if (validationErrors.IsNullOrEmpty())
                 {
-                    break;
+                    return registerUser;
                 }
                 else
                 {
@@ -1008,6 +1025,10 @@ RegisterUserDto GetUserData()
                     Console.ResetColor();
                 }
             }
+            else if (currentIndex==8)
+            {
+                return null; 
+            }
             else
             {
                 EditFieldValue(currentIndex, ref name, ref surname, ref email, ref password, ref confirmPassword, ref phoneNumber, ref dateOfBirth);
@@ -1015,7 +1036,7 @@ RegisterUserDto GetUserData()
             }
         }
     }
-    return registerUser;
+    
 
 }
 void EditFieldValue(int index, ref string name, ref string surname, ref string email, ref string password, ref string confirmPassword, ref int phoneNumber, ref DateTime dateOfBirth)

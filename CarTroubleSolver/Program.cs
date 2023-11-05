@@ -33,7 +33,7 @@ bool userIsLogged = false;
 LogedInUserDto user = null;
 CarDto carHolder = null;
 
-string[] fields = { "Name", "Surname", "Email", "Password", "Confirm Password", "Phone Number", "Date Of Birth" };
+string[] fields = { "Name", "Surname", "Email", "Password", "Confirm Password", "Phone Number", "Date Of Birth", "Submit" };
 string[] startingMenuOptions = { "Log In", "Register", "EndSession" };
 string[] tryAgainMenu = { "Try Again", "Quick" };
 string[] logedUserMenu = { "User Profile", "Find Help", "Log Out" };
@@ -88,14 +88,14 @@ while (true)
             {
                 #region Login
                 Console.Clear();
-                Console.SetCursorPosition(0, LOGIN_MESSAGE_TOP);
-                Console.WriteLine("Panel logowania:");
+                Console.SetCursorPosition(15, LOGIN_MESSAGE_TOP);
+                Console.WriteLine("Login Panel:");
 
-                Console.SetCursorPosition(0, INPUT_PROMPT_TOP);
+                Console.SetCursorPosition(15, INPUT_PROMPT_TOP);
                 Console.WriteLine("Email: ");
                 var email = Console.ReadLine();
 
-                Console.SetCursorPosition(0, INPUT_PROMPT_TOP + 2);
+                Console.SetCursorPosition(15, INPUT_PROMPT_TOP + 2);
                 Console.WriteLine("Hasło: ");
                 var password = GetPasswordInput();
 
@@ -116,47 +116,12 @@ while (true)
             }
             else if (selectedOption == 1)
             {
-            Register:
-                #region
-                RegisterUserDto newUser = GetUserData();
-
-                do
-                {
-                    Console.Clear();
-                    string validationMessages = DisplayValidationErrors(newUser);
-
-                    if (validationMessages.IsNullOrEmpty())
-                    {
-                        Console.SetCursorPosition(centerX, 0);
-                        Console.WriteLine("User is valid.");
-                        Console.SetCursorPosition(centerX - 5, 1);
-                        Console.WriteLine("Congratulations, you have created an account.");
-                        await Task.Delay(3000);
-                        userService.Add(newUser);
-                        Console.SetCursorPosition(0, 0);
-                        break;
-                    }
-                    else
-                    {
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("Invalid Model.\n\n");
-
-                        Console.WriteLine(validationMessages);
-                        Console.ResetColor();
-                        await Task.Delay(3500);
-                    }
-
-                    if (ShowTryAgainMenu() == 0)
-                    {
-                        newUser = GetUserData();
-                    }
-                    else
-                    {
-                        break;
-                    }
-
-                } while (true);
-                #endregion
+                userService.Add(GetUserData());
+                Console.Clear();
+                Console.SetCursorPosition(centerX-15, MENU_TOP+5);
+                Console.WriteLine("Congratulations!!! User Created");
+                await Task.Delay(3500);
+                break;
             }
             else if (selectedOption == 2)
             {
@@ -441,70 +406,6 @@ string GetPasswordInput()
 
     return password;
 }
-RegisterUserDto GetUserData()
-{
-    int currentIndex = 0;
-
-    string name = "";
-    string surname = "";
-    string email = "";
-    string password = "";
-    string confirmPassword = "";
-    int phoneNumber = 0;
-    DateTime dateOfBirth = DateTime.Now;
-
-    while (true)
-    {
-        Console.Clear();
-
-        for (int i = 0; i < fields.Length; i++)
-        {
-            if (currentIndex == i)
-            {
-                Console.BackgroundColor = ConsoleColor.Green;
-                Console.ForegroundColor = ConsoleColor.Red;
-            }
-            else
-            {
-                Console.ResetColor();
-            }
-
-            Console.SetCursorPosition(10, 12 + i * 2);
-            Console.Write(fields[i] + ": ");
-            Console.Write(GetFieldValue(i, name, surname, email, password, confirmPassword, phoneNumber, dateOfBirth));
-        }
-
-        Console.ResetColor();
-
-        ConsoleKeyInfo keyInfo = Console.ReadKey();
-
-        if (keyInfo.Key == ConsoleKey.DownArrow)
-        {
-            currentIndex = (currentIndex + 1) % fields.Length;
-        }
-        else if (keyInfo.Key == ConsoleKey.UpArrow)
-        {
-            currentIndex = (currentIndex - 1 + fields.Length) % fields.Length;
-        }
-        else if (keyInfo.Key == ConsoleKey.Enter)
-        {
-            EditFieldValue(currentIndex, ref name, ref surname, ref email, ref password, ref confirmPassword, ref phoneNumber, ref dateOfBirth);
-        }
-    }
-
-
-    return new RegisterUserDto()
-    {
-        Name = name,
-        Surname = surname,
-        Email = email,
-        ConfirmPassword = confirmPassword,
-        Password = password,
-        PhoneNumber = phoneNumber,
-        DateOfBirth = dateOfBirth
-    }; 
-
-}//Dodać try catch w podawaniu inputach
 int ShowTryAgainMenu()
 {
     int selectedOptionTryAgainMenu = 0;
@@ -540,7 +441,6 @@ int ShowTryAgainMenu()
         }
     }
 }
-
 string DisplayValidationErrors(RegisterUserDto user)
 {
     var validator = new RegisterUserDtoValidator();
@@ -561,7 +461,6 @@ string DisplayValidationErrors(RegisterUserDto user)
 
 
 }
-
 CarDto AddCarProfile()
 {
     Console.Clear();
@@ -691,7 +590,6 @@ CarDto AddCarProfile()
     Console.Clear();
     return car;
 }
-
 void SelectCarFromTable(IList<CarDto> cars)
 {
 
@@ -779,7 +677,6 @@ void SelectCarFromTable(IList<CarDto> cars)
         }
     }
 }
-
 AccidentDto SendAccidentRequest(IList<CarDto> cars)
 {
     AccidentDto accident = new AccidentDto();
@@ -874,8 +771,6 @@ AccidentDto SendAccidentRequest(IList<CarDto> cars)
     }
 
 }
-
-
 async Task DisplayAccidentDetails(AccidentAdvertisementDto accident)
 {
     string[] accidentMenu = { "Commitment of aid", "Quit" };
@@ -953,7 +848,6 @@ async Task DisplayAccidentDetails(AccidentAdvertisementDto accident)
 
     }
 }
-
 void ShowHistory()
 {
     Console.Clear();
@@ -997,9 +891,122 @@ void ShowHistory()
 
 }
 
+RegisterUserDto GetUserData()
+{
+    RegisterUserDto registerUser;
+
+    string validationErrors = string.Empty;
+
+    int currentIndex = 0;
+
+    string name = "";
+    string surname = "";
+    string email = "";
+    string password = "";
+    string confirmPassword = "";
+    int phoneNumber = 0;
+    DateTime dateOfBirth = DateTime.Now;
+
+    while (true)
+    {
+        Console.Clear();
+
+        for (int i = 0; i < fields.Length; i++)
+        {
+            if (currentIndex == i)
+            {
+                Console.BackgroundColor = ConsoleColor.White;
+                Console.ForegroundColor = ConsoleColor.Black;
+            }
+            else
+            {
+                Console.ResetColor();
+            }
+
+
+            if (i == 7)
+            {
+                Console.SetCursorPosition(centerX, 12 + i * 2);
+                Console.Write(fields[i]);
+            }
+            else
+            {
+                Console.SetCursorPosition(10, 12 + i * 2);
+                Console.Write(fields[i] + ": ");
+                Console.Write(GetFieldValue(i, name, surname, email, password, confirmPassword, phoneNumber, dateOfBirth));
+            }
+        }
+
+        Console.ResetColor();
+
+        if (!validationErrors.IsNullOrEmpty())
+        {
+            Console.SetCursorPosition(centerX, 0);
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("Invalid Model.\n\n");
+
+            Console.SetCursorPosition(centerX, 2);
+            Console.WriteLine(validationErrors);
+            Console.ResetColor();
+        }
+
+        Console.ResetColor();
+
+        ConsoleKeyInfo keyInfo = Console.ReadKey();
+
+        if (keyInfo.Key == ConsoleKey.DownArrow)
+        {
+            currentIndex = (currentIndex + 1) % fields.Length;
+        }
+        else if (keyInfo.Key == ConsoleKey.UpArrow)
+        {
+            currentIndex = (currentIndex - 1 + fields.Length) % fields.Length;
+        }
+        else if (keyInfo.Key == ConsoleKey.Enter)
+        {
+            if (currentIndex == 7)
+            {
+                registerUser = new RegisterUserDto()
+                {
+                    Name = name,
+                    Surname = surname,
+                    Email = email,
+                    ConfirmPassword = confirmPassword,
+                    Password = password,
+                    PhoneNumber = phoneNumber,
+                    DateOfBirth = dateOfBirth
+                };
+
+                validationErrors = DisplayValidationErrors(registerUser);
+                if (validationErrors.IsNullOrEmpty())
+                {
+                    break;
+                }
+                else
+                {
+                    Console.SetCursorPosition(centerX, 0);
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Invalid Model.\n\n");
+
+                    Console.SetCursorPosition(centerX, 2);
+                    Console.WriteLine(validationErrors);
+                    Console.ResetColor();
+                }
+            }
+            else
+            {
+                EditFieldValue(currentIndex, ref name, ref surname, ref email, ref password, ref confirmPassword, ref phoneNumber, ref dateOfBirth);
+
+            }
+        }
+    }
+    return registerUser;
+
+}
+
 void EditFieldValue(int index, ref string name, ref string surname, ref string email, ref string password, ref string confirmPassword, ref int phoneNumber, ref DateTime dateOfBirth)
 {
-    Console.SetCursorPosition( 10 + fields[index].Length + 2 + GetFieldValue(index, name, surname, email, password, confirmPassword, phoneNumber, dateOfBirth).Length, 12 + index * 2);
+    Console.SetCursorPosition( 10 + fields[index].Length + 2 + GetFieldValue(index, name, surname, email, password, confirmPassword, phoneNumber, dateOfBirth).Length+2, 12 + index * 2);
 
       string input = Console.ReadLine();
 
@@ -1033,7 +1040,7 @@ void EditFieldValue(int index, ref string name, ref string surname, ref string e
         }
     
 }
-static string GetFieldValue(int index, string name, string surname, string email, string password, string confirmPassword, int phoneNumber, DateTime dateOfBirth)
+string GetFieldValue(int index, string name, string surname, string email, string password, string confirmPassword, int phoneNumber, DateTime dateOfBirth)
 {
     switch (index)
     {

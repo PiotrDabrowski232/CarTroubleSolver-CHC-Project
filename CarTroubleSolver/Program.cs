@@ -8,6 +8,7 @@ using CarTroubleSolver.Logic.Services.Interfaces;
 using CarTroubleSolver.Logic.Validation;
 using ConsoleTables;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using TheCarMarket.Data.Models.Enums;
 
@@ -32,7 +33,7 @@ bool userIsLogged = false;
 LogedInUserDto user = null;
 CarDto carHolder = null;
 
-
+string[] fields = { "Name", "Surname", "Email", "Password", "Confirm Password", "Phone Number", "Date Of Birth" };
 string[] startingMenuOptions = { "Log In", "Register", "EndSession" };
 string[] tryAgainMenu = { "Try Again", "Quick" };
 string[] logedUserMenu = { "User Profile", "Find Help", "Log Out" };
@@ -170,7 +171,7 @@ while (true)
         bool tablclicked = false;
         int selectedAdvertisement = int.MaxValue;
         var accidents = accidentService.GetAllFreeAccidents(user.Email).ToList();
-        
+
         while (true)
         {
             Console.SetCursorPosition(centerX - 10, MENU_TOP - 3);
@@ -258,90 +259,90 @@ while (true)
             }
             else if (keyInfo.Key == ConsoleKey.Tab)
             {
-                    tablclicked = !tablclicked;
+                tablclicked = !tablclicked;
 
-                    if (tablclicked)
-                    {
-                        selectedAdvertisement = 0;
-                        selectedOption = int.MaxValue;
-                    }
-                    else
-                    {
-                        selectedAdvertisement = int.MaxValue;
-                        selectedOption = 0;
-                    }
-                
+                if (tablclicked)
+                {
+                    selectedAdvertisement = 0;
+                    selectedOption = int.MaxValue;
+                }
+                else
+                {
+                    selectedAdvertisement = int.MaxValue;
+                    selectedOption = 0;
+                }
+
             }
             else if (keyInfo.Key == ConsoleKey.Enter)
             {
-                if (tablclicked && accidents.Count()>0)
+                if (tablclicked && accidents.Count() > 0)
                 {
                     await DisplayAccidentDetails(accidents[selectedAdvertisement]);
                     break;
                 }
                 else
                 {
-                #region UserView
+                    #region UserView
                     if (selectedOption == 0)
-                {
-                    Console.Clear();
-
-                    var userTable = new ConsoleTable("Property Name", "Value")
-                        .AddRow("Name:", user.Name)
-                        .AddRow("Surname:", user.Surname)
-                        .AddRow("Email:", user.Email)
-                        .AddRow("Phone Nummber:", user.PhoneNumber)
-                        .AddRow("Date Of Birth:", user.DateOfBirth.ToShortDateString());
-
-                    Console.WriteLine(userTable);
-
-                    var userCars = carService.GetUserCars(user.Email);
-
-                    var userCarsTable = new ConsoleTable("Brand", "Model", "Engine Type", "Fuel", "Mileage", "Doors", "Color");
-
-                    foreach (var car in userCars)
                     {
-                        userCarsTable.AddRow(car.Brand, car.CarModels, car.EngineType, car.FuelType, car.Mileage, car.DoorCount, car.Color);
-                    }
+                        Console.Clear();
 
-                    Console.WriteLine(userCarsTable);
-                    while (true)
-                    {
+                        var userTable = new ConsoleTable("Property Name", "Value")
+                            .AddRow("Name:", user.Name)
+                            .AddRow("Surname:", user.Surname)
+                            .AddRow("Email:", user.Email)
+                            .AddRow("Phone Nummber:", user.PhoneNumber)
+                            .AddRow("Date Of Birth:", user.DateOfBirth.ToShortDateString());
 
-                        for (int i = 0; i < userCarCRUD.Length; i++)
+                        Console.WriteLine(userTable);
+
+                        var userCars = carService.GetUserCars(user.Email);
+
+                        var userCarsTable = new ConsoleTable("Brand", "Model", "Engine Type", "Fuel", "Mileage", "Doors", "Color");
+
+                        foreach (var car in userCars)
                         {
-                            if (i == selectedOption)
+                            userCarsTable.AddRow(car.Brand, car.CarModels, car.EngineType, car.FuelType, car.Mileage, car.DoorCount, car.Color);
+                        }
+
+                        Console.WriteLine(userCarsTable);
+                        while (true)
+                        {
+
+                            for (int i = 0; i < userCarCRUD.Length; i++)
                             {
-                                Console.ForegroundColor = ConsoleColor.White;
-                                Console.BackgroundColor = ConsoleColor.Blue;
+                                if (i == selectedOption)
+                                {
+                                    Console.ForegroundColor = ConsoleColor.White;
+                                    Console.BackgroundColor = ConsoleColor.Blue;
+                                }
+
+
+                                Console.SetCursorPosition(centerX + 12, MENU_TOP + i);
+                                Console.WriteLine($"{i + 1}. {userCarCRUD[i]}");
+                                Console.ResetColor();
                             }
 
+                            keyInfo = Console.ReadKey();
 
-                            Console.SetCursorPosition(centerX + 12, MENU_TOP + i);
-                            Console.WriteLine($"{i + 1}. {userCarCRUD[i]}");
-                            Console.ResetColor();
-                        }
-
-                        keyInfo = Console.ReadKey();
-
-                        if (keyInfo.Key == ConsoleKey.UpArrow)
-                        {
-                            selectedOption = (selectedOption - 1 + logedUserMenu.Length) % logedUserMenu.Length;
-                        }
-                        else if (keyInfo.Key == ConsoleKey.DownArrow)
-                        {
-                            selectedOption = (selectedOption + 1) % logedUserMenu.Length;
-                        }
-                        else if (keyInfo.Key == ConsoleKey.Enter)
-                        {
-                            if (selectedOption == 0)
+                            if (keyInfo.Key == ConsoleKey.UpArrow)
                             {
-                                carService.Add(AddCarProfile(), user.Email);
-                                break;
+                                selectedOption = (selectedOption - 1 + logedUserMenu.Length) % logedUserMenu.Length;
                             }
-                            else if (selectedOption == 1)
+                            else if (keyInfo.Key == ConsoleKey.DownArrow)
                             {
-                                    if(userCars.Count()>0)
+                                selectedOption = (selectedOption + 1) % logedUserMenu.Length;
+                            }
+                            else if (keyInfo.Key == ConsoleKey.Enter)
+                            {
+                                if (selectedOption == 0)
+                                {
+                                    carService.Add(AddCarProfile(), user.Email);
+                                    break;
+                                }
+                                else if (selectedOption == 1)
+                                {
+                                    if (userCars.Count() > 0)
                                         SelectCarFromTable(userCars.ToList());
                                     else
                                     {
@@ -352,28 +353,28 @@ while (true)
                                         Console.Clear();
                                         break;
                                     }
-                                break;
+                                    break;
+                                }
+                                else if (selectedOption == 2)
+                                {
+                                    ShowHistory();
+                                    break;
+                                }
+                                else if (selectedOption == 3)
+                                {
+                                    break;
+                                }
                             }
-                            else if (selectedOption == 2)
-                            {
-                                ShowHistory();
-                                break;
-                            }
-                            else if (selectedOption == 3)
-                            {
-                                break;
-                            }
+
                         }
+                        Console.Clear();
 
                     }
-                    Console.Clear();
-
-                }
-                #endregion
-                #region AddHelpRequest
-                else if (selectedOption == 1)
-                {
-                    Console.Clear();
+                    #endregion
+                    #region AddHelpRequest
+                    else if (selectedOption == 1)
+                    {
+                        Console.Clear();
 
 
                         var cars = carService.GetUserCars(user.Email).ToList();
@@ -390,21 +391,21 @@ while (true)
                         }
                         else
                         {
-                            Console.SetCursorPosition(centerX - 14, MENU_TOP+10);
+                            Console.SetCursorPosition(centerX - 14, MENU_TOP + 10);
                             Console.WriteLine("Firstly Add Cars In User Profile");
                             await Task.Delay(3000);
                             Console.Clear();
                             break;
                         }
-                }
-                #endregion
-                #region Logout
-                else if (selectedOption == 2)
-                {
-                    userIsLogged = false;
-                    selectedOption = 0;
-                    break;
-                }
+                    }
+                    #endregion
+                    #region Logout
+                    else if (selectedOption == 2)
+                    {
+                        userIsLogged = false;
+                        selectedOption = 0;
+                        break;
+                    }
                     #endregion
                 }
             }
@@ -442,29 +443,55 @@ string GetPasswordInput()
 }
 RegisterUserDto GetUserData()
 {
-    Console.Clear();
-    Console.WriteLine("Welcome in register panel enter your data: ");
+    int currentIndex = 0;
 
-    Console.WriteLine("Name: ");
-    var name = Console.ReadLine();
+    string name = "";
+    string surname = "";
+    string email = "";
+    string password = "";
+    string confirmPassword = "";
+    int phoneNumber = 0;
+    DateTime dateOfBirth = DateTime.Now;
 
-    Console.WriteLine("Surname: ");
-    var surname = Console.ReadLine();
+    while (true)
+    {
+        Console.Clear();
 
-    Console.WriteLine("Email: ");
-    var email = Console.ReadLine();
+        for (int i = 0; i < fields.Length; i++)
+        {
+            if (currentIndex == i)
+            {
+                Console.BackgroundColor = ConsoleColor.Green;
+                Console.ForegroundColor = ConsoleColor.Red;
+            }
+            else
+            {
+                Console.ResetColor();
+            }
 
-    Console.WriteLine("Password: ");
-    var password = GetPasswordInput();
+            Console.SetCursorPosition(10, 12 + i * 2);
+            Console.Write(fields[i] + ": ");
+            Console.Write(GetFieldValue(i, name, surname, email, password, confirmPassword, phoneNumber, dateOfBirth));
+        }
 
-    Console.WriteLine("Confirm Password: ");
-    var confirmPassword = GetPasswordInput();
+        Console.ResetColor();
 
-    Console.WriteLine("PhoneNumber: ");
-    var phoneNumber = int.Parse(Console.ReadLine());
+        ConsoleKeyInfo keyInfo = Console.ReadKey();
 
-    Console.WriteLine("Date Of Birth (dd-mm-yyyy): ");
-    var DateOfBirth = DateTime.Parse(Console.ReadLine());
+        if (keyInfo.Key == ConsoleKey.DownArrow)
+        {
+            currentIndex = (currentIndex + 1) % fields.Length;
+        }
+        else if (keyInfo.Key == ConsoleKey.UpArrow)
+        {
+            currentIndex = (currentIndex - 1 + fields.Length) % fields.Length;
+        }
+        else if (keyInfo.Key == ConsoleKey.Enter)
+        {
+            EditFieldValue(currentIndex, ref name, ref surname, ref email, ref password, ref confirmPassword, ref phoneNumber, ref dateOfBirth);
+        }
+    }
+
 
     return new RegisterUserDto()
     {
@@ -474,8 +501,8 @@ RegisterUserDto GetUserData()
         ConfirmPassword = confirmPassword,
         Password = password,
         PhoneNumber = phoneNumber,
-        DateOfBirth = DateOfBirth
-    };
+        DateOfBirth = dateOfBirth
+    }; 
 
 }//Dodać try catch w podawaniu inputach
 int ShowTryAgainMenu()
@@ -513,6 +540,7 @@ int ShowTryAgainMenu()
         }
     }
 }
+
 string DisplayValidationErrors(RegisterUserDto user)
 {
     var validator = new RegisterUserDtoValidator();
@@ -533,6 +561,7 @@ string DisplayValidationErrors(RegisterUserDto user)
 
 
 }
+
 CarDto AddCarProfile()
 {
     Console.Clear();
@@ -662,6 +691,7 @@ CarDto AddCarProfile()
     Console.Clear();
     return car;
 }
+
 void SelectCarFromTable(IList<CarDto> cars)
 {
 
@@ -749,6 +779,7 @@ void SelectCarFromTable(IList<CarDto> cars)
         }
     }
 }
+
 AccidentDto SendAccidentRequest(IList<CarDto> cars)
 {
     AccidentDto accident = new AccidentDto();
@@ -843,6 +874,8 @@ AccidentDto SendAccidentRequest(IList<CarDto> cars)
     }
 
 }
+
+
 async Task DisplayAccidentDetails(AccidentAdvertisementDto accident)
 {
     string[] accidentMenu = { "Commitment of aid", "Quit" };
@@ -902,9 +935,9 @@ async Task DisplayAccidentDetails(AccidentAdvertisementDto accident)
         {
             accidentService.HelpInAccident(user.Email, accident.Id);
             Console.Clear();
-            Console.SetCursorPosition(centerX-15, MENU_TOP);
+            Console.SetCursorPosition(centerX - 15, MENU_TOP);
             Console.WriteLine($"congratulations!!!");
-            Console.SetCursorPosition(centerX-25, MENU_TOP+1);
+            Console.SetCursorPosition(centerX - 25, MENU_TOP + 1);
             Console.WriteLine($"You have made a commitment to help for {accident.ApplicantUserInfo.Name}");
             Console.SetCursorPosition(centerX - 32, MENU_TOP + 2);
             Console.WriteLine($" You can see all your contact information to {accident.ApplicantUserInfo.Name} in your user panel");
@@ -920,6 +953,7 @@ async Task DisplayAccidentDetails(AccidentAdvertisementDto accident)
 
     }
 }
+
 void ShowHistory()
 {
     Console.Clear();
@@ -944,7 +978,7 @@ void ShowHistory()
         applicantHistory.AddRow(accident.CarInfo.Brand, accident.CarInfo.CarModels, accident.CollisionSeverity);
     }
 
-    Console.SetCursorPosition(0, MENU_TOP + assigneeHistory.Rows.Count()+12);
+    Console.SetCursorPosition(0, MENU_TOP + assigneeHistory.Rows.Count() + 12);
 
     Console.WriteLine(applicantHistory);
 
@@ -961,4 +995,63 @@ void ShowHistory()
 
     Console.Clear();
 
+}
+
+void EditFieldValue(int index, ref string name, ref string surname, ref string email, ref string password, ref string confirmPassword, ref int phoneNumber, ref DateTime dateOfBirth)
+{
+    Console.SetCursorPosition( 10 + fields[index].Length + 2 + GetFieldValue(index, name, surname, email, password, confirmPassword, phoneNumber, dateOfBirth).Length, 12 + index * 2);
+
+      string input = Console.ReadLine();
+
+        if (index == 0)
+        {
+            name = input;
+        }
+        else if (index == 1)
+        {
+            surname = input;
+        }
+        else if (index == 2)
+        {
+            email = input;
+        }
+        else if (index == 3)
+        {
+            password = input;
+        }
+        else if (index == 4)
+        {
+            confirmPassword = input;
+        }
+        else if (index == 5)
+        {
+            int.TryParse(input, out phoneNumber);
+        }
+        else if (index == 6)
+        {
+            DateTime.TryParse(input, out dateOfBirth);
+        }
+    
+}
+static string GetFieldValue(int index, string name, string surname, string email, string password, string confirmPassword, int phoneNumber, DateTime dateOfBirth)
+{
+    switch (index)
+    {
+        case 0:
+            return name;
+        case 1:
+            return surname;
+        case 2:
+            return email;
+        case 3:
+            return password;
+        case 4:
+            return confirmPassword;
+        case 5:
+            return phoneNumber.ToString();
+        case 6:
+            return dateOfBirth.ToString("dd-MM-yyyy");
+        default:
+            return "";
+    }
 }

@@ -92,11 +92,11 @@ while (true)
                 Console.WriteLine("Login Panel:");
 
                 Console.SetCursorPosition(15, INPUT_PROMPT_TOP);
-                Console.WriteLine("Email: ");
+                Console.Write("Email: ");
                 var email = Console.ReadLine();
 
                 Console.SetCursorPosition(15, INPUT_PROMPT_TOP + 2);
-                Console.WriteLine("Hasło: ");
+                Console.Write("Hasło: ");
                 var password = GetPasswordInput();
 
                 if (userService.VerifyUserInputs(email, password))
@@ -116,12 +116,13 @@ while (true)
             }
             else if (selectedOption == 1)
             {
+                #region Register
                 userService.Add(GetUserData());
                 Console.Clear();
-                Console.SetCursorPosition(centerX-15, MENU_TOP+5);
+                Console.SetCursorPosition(centerX-10, MENU_TOP+5);
                 Console.WriteLine("Congratulations!!! User Created");
                 await Task.Delay(3500);
-                break;
+                #endregion
             }
             else if (selectedOption == 2)
             {
@@ -910,6 +911,20 @@ RegisterUserDto GetUserData()
     while (true)
     {
         Console.Clear();
+        Console.ForegroundColor=ConsoleColor.White;
+        Console.BackgroundColor = ConsoleColor.DarkBlue;
+
+        Console.SetCursorPosition(centerX - 9, MENU_TOP + 10);
+        Console.WriteLine("You can change the value of a field by re-entering the field value");
+        Console.SetCursorPosition(centerX + 15, MENU_TOP + 12);
+        Console.WriteLine("To Submit field press Enter");
+        Console.SetCursorPosition(centerX + 15, MENU_TOP + 14);
+        Console.WriteLine("To start writing press Enter");
+        Console.SetCursorPosition(centerX + 15, MENU_TOP + 16);
+        Console.WriteLine("Move By arrows");
+
+        Console.ResetColor();
+
 
         for (int i = 0; i < fields.Length; i++)
         {
@@ -1003,7 +1018,6 @@ RegisterUserDto GetUserData()
     return registerUser;
 
 }
-
 void EditFieldValue(int index, ref string name, ref string surname, ref string email, ref string password, ref string confirmPassword, ref int phoneNumber, ref DateTime dateOfBirth)
 {
     Console.SetCursorPosition( 10 + fields[index].Length + 2 + GetFieldValue(index, name, surname, email, password, confirmPassword, phoneNumber, dateOfBirth).Length+2, 12 + index * 2);

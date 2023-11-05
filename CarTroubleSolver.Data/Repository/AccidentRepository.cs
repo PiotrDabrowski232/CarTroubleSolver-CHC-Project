@@ -9,5 +9,11 @@ namespace CarTroubleSolver.Data.Repository
         public AccidentRepository(CarTroubleSolverDbContext context) : base(context)
         {
         }
+
+        public void RemoveRange(IEnumerable<Accident> accidents)
+        {
+            _context.Accidents.RemoveRange(accidents);
+            _context.SaveChanges();
+        }
     }
 }

@@ -26,7 +26,7 @@ namespace CarTroubleSolver.Logic.Services
         {
             var mappedAccident = _mapper.Map<Accident>(accidentDto);
             mappedAccident.Id = Guid.NewGuid();
-            mappedAccident.ApplicantUserId =  _userRepository.GetUserByEmail(userEmail).Id;
+            mappedAccident.ApplicantUserId = _userRepository.GetUserByEmail(userEmail).Id;
             _accidentRepository.Add(mappedAccident);
         }
 
@@ -39,7 +39,8 @@ namespace CarTroubleSolver.Logic.Services
 
             var result = _mapper.Map<IEnumerable<AccidentAdvertisementDto>>(accidents);
 
-            result.ToList().ForEach(a => {
+            result.ToList().ForEach(a =>
+            {
                 a.ApplicantUserInfo = _mapper.Map<UserInformationDto>(_userRepository.Get(a.ApplicantUserId));
                 a.CarInfo = _mapper.Map<CarDto>(_carRepository.Get(a.CarId));
             });
@@ -59,21 +60,38 @@ namespace CarTroubleSolver.Logic.Services
 
         }
 
-        public IEnumerable<AccidentHistoryDto> ShowHistoryOfAccidents(string type, string email)
+
+        public IEnumerable<AccidentHistoryDto> ShowHistoryOfAccidentsApplicant(string email)
         {
             var userId = _userRepository.GetUserByEmail(email).Id;
 
             var accidentsResult = _mapper.Map<IEnumerable<AccidentHistoryDto>>(_accidentRepository.GetAll());
 
-            accidentsResult.ToList().ForEach(a => {
+            accidentsResult.ToList().ForEach(a =>
+            {
                 a.ApplicantUserInfo = _mapper.Map<UserInformationDto>(_userRepository.Get(a.ApplicantUserId));
                 a.CarInfo = _mapper.Map<CarDto>(_carRepository.Get(a.CarId));
             });
 
-            if (type == "Applicant")
-                accidentsResult = accidentsResult.Where(a => a.ApplicantUserId == userId);
-            if (type == "Asignee")
-                accidentsResult = accidentsResult.Where(a =>  a.AssigneeUserId == userId);
+            accidentsResult = accidentsResult.Where(a => a.ApplicantUserId == userId);
+
+
+            return accidentsResult;
+        }
+
+        public IEnumerable<AccidentHistoryDto> ShowHistoryOfAccidentsAsignee(string email)
+        {
+            var userId = _userRepository.GetUserByEmail(email).Id;
+
+            var accidentsResult = _mapper.Map<IEnumerable<AccidentHistoryDto>>(_accidentRepository.GetAll());
+
+            accidentsResult.ToList().ForEach(a =>
+            {
+                a.ApplicantUserInfo = _mapper.Map<UserInformationDto>(_userRepository.Get(a.ApplicantUserId));
+                a.CarInfo = _mapper.Map<CarDto>(_carRepository.Get(a.CarId));
+            });
+
+            accidentsResult = accidentsResult.Where(a => a.AssigneeUserId == userId);
 
 
             return accidentsResult;

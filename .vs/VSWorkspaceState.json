@@ -1,7 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\CarTroubleSolver"
   ],
-  "SelectedNode": "\\CarTroubleSolver.sln",
+  "SelectedNode": "\\CarTroubleSolver\\Program.cs",
   "PreviewInSolutionExplorer": false
 }

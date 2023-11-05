@@ -1,10 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "KVbb2kRkhLU68xFHJdgVqmhY/GqIJkTzu750JN2satXtPdXEii+K3H/BWnMmp9DbOZqE60uW+l5olG0BjtUrSA==",
+  "dgSpecHash": "D14gXSCZSzTTpMpUKpPAeIoIRg0fg1sMQBmnSdhi2wPHnWH7jAD89VE+mMZmmBBqRgKFzCoHAyFoPBwgk1Sk+g==",
   "success": true,
   "projectFilePath": "C:\\Users\\piecz\\Source\\Repos\\PiotrDabrowski232\\CarTroubleSolver-CHC-Project\\CarTroubleSolver\\CarTroubleSolver.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\piecz\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
+    "C:\\Users\\piecz\\.nuget\\packages\\automapper.collection\\9.0.0\\automapper.collection.9.0.0.nupkg.sha512",
+    "C:\\Users\\piecz\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
     "C:\\Users\\piecz\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\piecz\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
     "C:\\Users\\piecz\\.nuget\\packages\\consolemenu\\0.1.1\\consolemenu.0.1.1.nupkg.sha512",

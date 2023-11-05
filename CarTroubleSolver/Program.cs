@@ -52,6 +52,7 @@ const int INPUT_PROMPT_TOP = 7;
 
 
 
+
 while (true)
 {
     if (!userIsLogged)

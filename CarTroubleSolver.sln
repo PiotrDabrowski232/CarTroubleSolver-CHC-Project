@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarTroubleSolver.Data", "Ca
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarTroubleSolver.Logic", "CarTroubleSolver.Logic\CarTroubleSolver.Logic.csproj", "{58784C95-1A3B-4B82-AA4C-D55AD05A2474}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarTroubleSolver.Web", "CarTroubleSolver.Web\CarTroubleSolver.Web.csproj", "{EABF5000-F2C6-4CB6-A787-82F3132A7F21}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarTroubleSolver.Web", "CarTroubleSolver.Web\CarTroubleSolver.Web.csproj", "{EABF5000-F2C6-4CB6-A787-82F3132A7F21}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

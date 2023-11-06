@@ -1,5 +1,7 @@
 ﻿using CarTroubleSolver.Logic.Dto.User;
 using CarTroubleSolver.Logic.Services.Interfaces;
+using CarTroubleSolver.Logic.Validation;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarTroubleSolver.Web.Controllers
@@ -26,9 +28,19 @@ namespace CarTroubleSolver.Web.Controllers
 
         public IActionResult RegisteredUser(RegisterUserDto user)
         {
-            _userService.Add(user);
-            return View();
+            var validator = new RegisterUserDtoValidator();
+            var validationResult = validator.Validate(user);
+            if (!validationResult.IsValid)
+            {
+                foreach (var error in validationResult.Errors)
+                {
+                    ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+                }
+                return View("Register", user);
+            }
 
+            _userService.Add(user);
+            return RedirectToAction("Register");
         }
     }
 }

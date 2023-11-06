@@ -23,11 +23,6 @@ namespace CarTroubleSolver.Web.Controllers
             return View();
         }
 
-        public IActionResult Register()
-        {
-            return RedirectToAction("Register");
-        }
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

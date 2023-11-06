@@ -1,0 +1,51 @@
+﻿@page "/Register"
+@model CarTroubleSolver.Logic.Dto.User.RegisterUserDto
+
+@using (Html.BeginForm("RegisteredUser", "User", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div>
+        <label for="Name">Name:</label>
+        @Html.TextBoxFor(model => model.Name)
+        @Html.ValidationMessageFor(model => model.Name)
+    </div>
+
+    <div>
+        <label for="Surname">Surname:</label>
+        @Html.TextBoxFor(model => model.Surname)
+        @Html.ValidationMessageFor(model => model.Surname)
+    </div>
+
+    <div>
+        <label for="Email">Email:</label>
+        @Html.TextBoxFor(model => model.Email)
+        @Html.ValidationMessageFor(model => model.Email)
+    </div>
+
+    <div>
+        <label for="Password">Password:</label>
+        @Html.PasswordFor(model => model.Password)
+        @Html.ValidationMessageFor(model => model.Password)
+    </div>
+
+    <div>
+        <label for="ConfirmPassword">Confirm Password:</label>
+        @Html.PasswordFor(model => model.ConfirmPassword)
+        @Html.ValidationMessageFor(model => model.ConfirmPassword)
+    </div>
+
+    <div>
+        <label for="PhoneNumber">Phone Number:</label>
+        @Html.TextBoxFor(model => model.PhoneNumber)
+        @Html.ValidationMessageFor(model => model.PhoneNumber)
+    </div>
+
+    <div>
+        <label for="DateOfBirth">Date of Birth:</label>
+        @Html.EditorFor(model => model.DateOfBirth, new { htmlAttributes = new { @class = "datepicker" } })
+        @Html.ValidationMessageFor(model => model.DateOfBirth)
+    </div>
+
+    <button type="submit">Register</button>
+}

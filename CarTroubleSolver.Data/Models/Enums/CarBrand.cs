@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TheCarMarket.Data.Models.Enums
+namespace CarTroubleSolver.Data.Models.Enums
 {
     public enum CarBrand
     {

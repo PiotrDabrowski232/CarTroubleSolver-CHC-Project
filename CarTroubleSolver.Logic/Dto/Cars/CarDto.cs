@@ -1,5 +1,4 @@
 ﻿using CarTroubleSolver.Data.Models.Enums;
-using TheCarMarket.Data.Models.Enums;
 using CarTroubleSolver.Data.Models;
 
 namespace CarTroubleSolver.Logic.Dto.Cars

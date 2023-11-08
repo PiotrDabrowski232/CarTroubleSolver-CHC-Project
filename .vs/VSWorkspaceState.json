@@ -3,8 +3,9 @@
     "",
     "\\CarTroubleSolver",
     "\\CarTroubleSolver.Web",
+    "\\CarTroubleSolver.Web\\Controllers",
     "\\CarTroubleSolver.Web\\Models"
   ],
-  "SelectedNode": "\\CarTroubleSolver.sln",
+  "SelectedNode": "\\CarTroubleSolver.Web\\Controllers\\UserController.cs",
   "PreviewInSolutionExplorer": false
 }

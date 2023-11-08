@@ -105,3 +105,5 @@ C:\Users\piecz\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTr
 C:\Users\piecz\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 C:\Users\piecz\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver\bin\Debug\net6.0\CarTroubleSolver.Web.dll
 C:\Users\piecz\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver\bin\Debug\net6.0\CarTroubleSolver.Web.pdb
+C:\Users\piecz\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver\bin\Debug\net6.0\FluentValidation.AspNetCore.dll
+C:\Users\piecz\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver\bin\Debug\net6.0\FluentValidation.DependencyInjectionExtensions.dll

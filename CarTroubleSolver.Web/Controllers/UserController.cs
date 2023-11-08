@@ -22,7 +22,6 @@ namespace CarTroubleSolver.Web.Controllers
         }
         public IActionResult Register()
         {
-
             return View();
         }
 

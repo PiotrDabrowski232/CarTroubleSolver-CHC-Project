@@ -38,10 +38,11 @@ namespace CarTroubleSolver.Web.Controllers
                 }
                 return View("Register", user);
             }
-
-            _userService.Add(user);
-
-            return RedirectToAction("Index", "Home");
+            else
+            {
+                _userService.Add(user);
+                return RedirectToAction("Index", "Home");
+            }
         }
     }
 }

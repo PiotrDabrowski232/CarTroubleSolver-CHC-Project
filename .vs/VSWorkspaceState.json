@@ -1,6 +1,11 @@
 {
   "ExpandedNodes": [
     "",
+<<<<<<< HEAD
+    "\\CarTroubleSolver"
+  ],
+  "SelectedNode": "\\CarTroubleSolver\\Program.cs",
+=======
     "\\CarTroubleSolver",
     "\\CarTroubleSolver.Web",
     "\\CarTroubleSolver.Web\\Controllers",
@@ -8,6 +13,11 @@
     "\\CarTroubleSolver.Web\\Views",
     "\\CarTroubleSolver.Web\\Views\\Car"
   ],
+<<<<<<< HEAD
   "SelectedNode": "\\CarTroubleSolver.Web\\Views\\Car\\Index.cshtml",
+=======
+  "SelectedNode": "\\CarTroubleSolver.Web\\Controllers\\UserController.cs",
+>>>>>>> 236ed9487fee65c53e59ec65640c3822c6d8c5c4
+>>>>>>> 126223b99668bb7cab2f76103cd80901fab4d997
   "PreviewInSolutionExplorer": false
 }

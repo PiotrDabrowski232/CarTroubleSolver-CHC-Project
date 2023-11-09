@@ -4199,6 +4199,7 @@
       "AutoMapper >= 12.0.1",
       "AutoMapper.Collection >= 9.0.0",
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 12.0.1",
+      "CarTroubleSolver.Data >= 1.0.0",
       "CarTroubleSolver.Logic >= 1.0.0",
       "FluentValidation >= 11.8.0",
       "FluentValidation.AspNetCore >= 11.3.0",
@@ -4238,6 +4239,9 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
+            "C:\\Users\\Piotr\\Source\\Repos\\PiotrDabrowski232\\CarTroubleSolver-CHC-Project\\CarTroubleSolver.Data\\CarTroubleSolver.Data.csproj": {
+              "projectPath": "C:\\Users\\Piotr\\Source\\Repos\\PiotrDabrowski232\\CarTroubleSolver-CHC-Project\\CarTroubleSolver.Data\\CarTroubleSolver.Data.csproj"
+            },
             "C:\\Users\\Piotr\\Source\\Repos\\PiotrDabrowski232\\CarTroubleSolver-CHC-Project\\CarTroubleSolver.Logic\\CarTroubleSolver.Logic.csproj": {
               "projectPath": "C:\\Users\\Piotr\\Source\\Repos\\PiotrDabrowski232\\CarTroubleSolver-CHC-Project\\CarTroubleSolver.Logic\\CarTroubleSolver.Logic.csproj"
             }
@@ -4305,6 +4309,12 @@
     }
   },
   "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file C:\\Users\\Piotr\\Source\\Repos\\PiotrDabrowski232\\CarTroubleSolver-CHC-Project\\CarTroubleSolver.Web\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    },
     {
       "code": "NU1608",
       "level": "Warning",

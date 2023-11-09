@@ -11,10 +11,17 @@
           "AutoMapper": "12.0.1",
           "AutoMapper.Collection": "9.0.0",
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "12.0.1",
+<<<<<<< HEAD
           "CarTroubleSolver.Logic": "1.0.0",
           "FluentValidation": "11.8.0",
           "FluentValidation.AspNetCore": "11.3.0",
           "Microsoft.EntityFrameworkCore.Design": "7.0.13"
+=======
+          "CarTroubleSolver.Data": "1.0.0",
+          "CarTroubleSolver.Logic": "1.0.0",
+          "FluentValidation": "11.8.0",
+          "FluentValidation.AspNetCore": "11.3.0"
+>>>>>>> 236ed9487fee65c53e59ec65640c3822c6d8c5c4
         },
         "runtime": {
           "CarTroubleSolver.Web.dll": {}
@@ -139,6 +146,7 @@
           }
         }
       },
+<<<<<<< HEAD
       "Humanizer.Core/2.14.1": {
         "runtime": {
           "lib/net6.0/Humanizer.dll": {
@@ -147,6 +155,8 @@
           }
         }
       },
+=======
+>>>>>>> 236ed9487fee65c53e59ec65640c3822c6d8c5c4
       "MediatR/12.1.1": {
         "dependencies": {
           "MediatR.Contracts": "2.0.1",
@@ -973,6 +983,7 @@
       "path": "fluentvalidation.dependencyinjectionextensions/11.5.1",
       "hashPath": "fluentvalidation.dependencyinjectionextensions.11.5.1.nupkg.sha512"
     },
+<<<<<<< HEAD
     "Humanizer.Core/2.14.1": {
       "type": "package",
       "serviceable": true,
@@ -980,6 +991,8 @@
       "path": "humanizer.core/2.14.1",
       "hashPath": "humanizer.core.2.14.1.nupkg.sha512"
     },
+=======
+>>>>>>> 236ed9487fee65c53e59ec65640c3822c6d8c5c4
     "MediatR/12.1.1": {
       "type": "package",
       "serviceable": true,

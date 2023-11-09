@@ -22,7 +22,6 @@ namespace CarTroubleSolver.Web.Controllers
         }
         public IActionResult Register()
         {
-
             return View();
         }
 
@@ -38,9 +37,11 @@ namespace CarTroubleSolver.Web.Controllers
                 }
                 return View("Register", user);
             }
-
-            _userService.Add(user);
-            return RedirectToAction("Register");
+            else
+            {
+                _userService.Add(user);
+                return RedirectToAction("Index", "Home");
+            }
         }
     }
 }

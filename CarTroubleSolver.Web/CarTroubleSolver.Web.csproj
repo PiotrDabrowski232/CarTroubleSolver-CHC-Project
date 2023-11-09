@@ -19,7 +19,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CarTroubleSolver.Data\CarTroubleSolver.Data.csproj" />
     <ProjectReference Include="..\CarTroubleSolver.Logic\CarTroubleSolver.Logic.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Accident\" />
   </ItemGroup>
 
 </Project>

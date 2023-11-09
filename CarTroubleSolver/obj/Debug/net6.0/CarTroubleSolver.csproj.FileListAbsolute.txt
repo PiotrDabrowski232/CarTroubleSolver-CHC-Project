@@ -105,6 +105,7 @@ C:\Users\piecz\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTr
 C:\Users\piecz\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 C:\Users\piecz\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver\bin\Debug\net6.0\CarTroubleSolver.Web.dll
 C:\Users\piecz\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver\bin\Debug\net6.0\CarTroubleSolver.Web.pdb
+<<<<<<< HEAD
 C:\Users\Piotr\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver\bin\Debug\net6.0\appsettings.Development.json
 C:\Users\Piotr\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver\bin\Debug\net6.0\appsettings.json
 C:\Users\Piotr\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver\bin\Debug\net6.0\CarTroubleSolver.Data.deps.json
@@ -215,3 +216,7 @@ C:\Users\Piotr\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTr
 C:\Users\Piotr\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver\obj\Debug\net6.0\CarTroubleSolver.genruntimeconfig.cache
 C:\Users\Piotr\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver\obj\Debug\net6.0\ref\CarTroubleSolver.dll
 C:\Users\Piotr\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver\bin\Debug\net6.0\libman.json
+=======
+C:\Users\piecz\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver\bin\Debug\net6.0\FluentValidation.AspNetCore.dll
+C:\Users\piecz\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver\bin\Debug\net6.0\FluentValidation.DependencyInjectionExtensions.dll
+>>>>>>> 236ed9487fee65c53e59ec65640c3822c6d8c5c4

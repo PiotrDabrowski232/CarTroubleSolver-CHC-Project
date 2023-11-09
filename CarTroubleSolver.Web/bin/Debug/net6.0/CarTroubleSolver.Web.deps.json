@@ -11,6 +11,7 @@
           "AutoMapper": "12.0.1",
           "AutoMapper.Collection": "9.0.0",
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "12.0.1",
+          "CarTroubleSolver.Data": "1.0.0",
           "CarTroubleSolver.Logic": "1.0.0",
           "FluentValidation": "11.8.0",
           "FluentValidation.AspNetCore": "11.3.0",

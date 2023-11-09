@@ -1,0 +1,83 @@
+﻿@{
+  
+}
+@model CarTroubleSolver.Logic.Dto.Cars.CarDto;
+@using CarTroubleSolver.Data.Models.Enums
+
+
+@using (Html.BeginForm("AddCar", "Car", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="form-group">
+    @Html.LabelFor(model => model.Brand, new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        <select name="Brand" class="form-control">
+            @foreach (var brand in Enum.GetValues(typeof(CarBrand)))
+            {
+                <option value="@brand">@brand</option>
+            }
+        </select>
+    </div>
+</div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.CarModels, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.CarModels, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.CarModels, null ,new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.FuelType, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <select name="FuelType" class="form-control">
+                @foreach (var fuel in Enum.GetValues(typeof(FuelType)))
+                {
+                    <option value="@fuel">@fuel</option>
+                }
+            </select>
+            @Html.ValidationMessageFor(model => model.FuelType, null, new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.EngineType, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.EngineType, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.EngineType, null ,new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Mileage, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="number" id="Mileage" name="Mileage" class="form-control" min="0" step="1" />
+            @Html.ValidationMessageFor(model => model.Mileage, null ,new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.DoorCount, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="number" id="Mileage" name="DoorCount" class="form-control" min="0" step="1" />
+            @Html.ValidationMessageFor(model => model.DoorCount, null ,new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Color, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.Color, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Color, null ,new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group mt-5">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="submit" class="btn btn-primary">Register</button>
+        </div>
+    </div>
+} 

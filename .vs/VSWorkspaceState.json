@@ -1,10 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\CarTroubleSolver",
-    "\\CarTroubleSolver.Web",
-    "\\CarTroubleSolver.Web\\Models"
+    "\\CarTroubleSolver"
   ],
-  "SelectedNode": "\\CarTroubleSolver.Web\\Models\\ErrorViewModel.cs",
+  "SelectedNode": "\\CarTroubleSolver\\Program.cs",
   "PreviewInSolutionExplorer": false
 }

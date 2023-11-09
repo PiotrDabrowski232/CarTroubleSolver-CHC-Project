@@ -4,8 +4,10 @@
     "\\CarTroubleSolver",
     "\\CarTroubleSolver.Web",
     "\\CarTroubleSolver.Web\\Controllers",
-    "\\CarTroubleSolver.Web\\Models"
+    "\\CarTroubleSolver.Web\\Models",
+    "\\CarTroubleSolver.Web\\Views",
+    "\\CarTroubleSolver.Web\\Views\\Car"
   ],
-  "SelectedNode": "\\CarTroubleSolver.Web\\Controllers\\UserController.cs",
+  "SelectedNode": "\\CarTroubleSolver.Web\\Views\\Car\\Index.cshtml",
   "PreviewInSolutionExplorer": false
 }

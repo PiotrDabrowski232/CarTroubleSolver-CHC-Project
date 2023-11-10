@@ -40,6 +40,7 @@ namespace CarTroubleSolver.Web.Controllers
             else
             {
                 _userService.Add(user);
+                TempData["message"] = "UserRegistered Succesfully";
                 return RedirectToAction("Index", "Home");
             }
         }

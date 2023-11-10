@@ -62,5 +62,11 @@ namespace CarTroubleSolver.Web.Controllers
             }
             
         }
+
+        public IActionResult Profile()
+        {
+            var user = _userService.GetLoggedInUser("pp@o2.pl");
+            return View(user);
+        }
     }
 }

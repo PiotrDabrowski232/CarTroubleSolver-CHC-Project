@@ -2,22 +2,12 @@
   "ExpandedNodes": [
     "",
     "\\CarTroubleSolver",
-    "\\CarTroubleSolver.Logic",
-    "\\CarTroubleSolver.Logic\\Services",
+    "\\CarTroubleSolver.Data",
+    "\\CarTroubleSolver.Data\\DataBase",
     "\\CarTroubleSolver.Web",
-<<<<<<< HEAD
     "\\CarTroubleSolver.Web\\Views",
     "\\CarTroubleSolver.Web\\Views\\User"
   ],
-  "SelectedNode": "\\CarTroubleSolver.Web\\Views\\User\\Register.cshtml",
-=======
-    "\\CarTroubleSolver.Web\\Controllers",
-    "\\CarTroubleSolver.Web\\Models",
-    "\\CarTroubleSolver.Web\\Views",
-    "\\CarTroubleSolver.Web\\Views\\Car",
-    "\\CarTroubleSolver.Web\\Views\\User"
-  ],
-  "SelectedNode": "\\CarTroubleSolver.Logic\\Services\\CarService.cs",
->>>>>>> d087ad5f8b4267655f35d33c41cc6ec1055c8af1
+  "SelectedNode": "\\CarTroubleSolver.Data\\DataBase\\CarTroubleSolverDbContext.cs",
   "PreviewInSolutionExplorer": false
 }

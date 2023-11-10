@@ -1,9 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CarTroubleSolver.Logic.Services.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CarTroubleSolver.Web.Controllers
 {
     public class AccidentController : Controller
     {
+        private readonly IAccidentService _accidentService;
+        public AccidentController(IAccidentService accidentService)
+        {
+            _accidentService = accidentService;
+        }
         public IActionResult Index()
         {
             return View();
@@ -15,6 +21,9 @@ namespace CarTroubleSolver.Web.Controllers
 
         public IActionResult AccidentHistory()
         {
+            ViewBag.Applicant = _accidentService.ShowHistoryOfAccidentsApplicant("pp@o2.pl");
+            ViewBag.Asignee = _accidentService.ShowHistoryOfAccidentsAsignee("pp@o2.pl");
+
             return View();
         }
     }

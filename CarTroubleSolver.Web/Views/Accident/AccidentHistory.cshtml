@@ -1,5 +1,62 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    IEnumerable<CarTroubleSolver.Logic.Dto.Accident.AccidentHistoryDto> assignee = ViewBag.Asignee;
+    IEnumerable<CarTroubleSolver.Logic.Dto.Accident.AccidentHistoryDto> applicant = ViewBag.Applicant;
 }
+
+<div class="container">
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-6">
+            <h3 class="text-center">Assignee Data</h3>
+            <table class="table table-bordered text-center">
+                <thead>
+                    <tr>
+                        <th>Applicant Name</th>
+                        <th>Applicant Surname</th>
+                        <th>Applicant Telephone</th>
+                        <th>Car Brand</th>
+                        <th>Car Model</th>
+                        <th>Severity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in assignee)
+                    {
+                        <tr>
+                            <td>@item.ApplicantUserInfo.Name</td>
+                            <td>@item.ApplicantUserInfo.Surname</td>
+                            <td>@item.ApplicantUserInfo.PhoneNumber</td>
+                            <td>@item.CarInfo.Brand</td>
+                            <td>@item.CarInfo.CarModels</td>
+                            <td>@item.CollisionSeverity</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-6">
+            <h3 class="text-center">Applicant Data</h3>
+            <table class="table table-bordered text-center">
+                <thead>
+                    <tr>
+                        <th>Car Brand</th>
+                        <th>Car Model</th>
+                        <th>Severity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in applicant)
+                    {
+                        <tr>
+                            <td>@item.CarInfo.Brand</td>
+                            <td>@item.CarInfo.CarModels</td>
+                            <td>@item.CollisionSeverity</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

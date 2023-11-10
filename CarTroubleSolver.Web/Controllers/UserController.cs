@@ -43,5 +43,24 @@ namespace CarTroubleSolver.Web.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
+
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        public IActionResult LoginRequest(string Email, string Password)
+        {
+
+           if (_userService.VerifyUserInputs(Email, Password))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
+            
+        }
     }
 }

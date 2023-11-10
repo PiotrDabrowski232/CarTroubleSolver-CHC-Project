@@ -4,9 +4,17 @@
 
 
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="text-center homeCenter">
+    @if (User.Identity.Name != null)
+    {
+
+    }
+    else
+    {
+        <h4>Log into our service to see accidents</h4>
+    }
 </div>
+
+
 
 

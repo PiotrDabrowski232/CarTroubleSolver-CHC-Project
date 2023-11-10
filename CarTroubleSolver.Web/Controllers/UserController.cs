@@ -10,10 +10,12 @@ namespace CarTroubleSolver.Web.Controllers
     {
 
         private readonly IUserService _userService;
+        private readonly ICarService _carService;
 
-        public UserController(IUserService userService)
+        public UserController(IUserService userService, ICarService carService)
         {
             _userService = userService;
+            _carService = carService;
         }
 
         public IActionResult Index()
@@ -66,6 +68,8 @@ namespace CarTroubleSolver.Web.Controllers
         public IActionResult Profile()
         {
             var user = _userService.GetLoggedInUser("pp@o2.pl");
+
+            ViewBag.Cars = _carService.GetUserCars(user.Email);
             return View(user);
         }
     }

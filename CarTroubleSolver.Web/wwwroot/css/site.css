@@ -33,3 +33,10 @@ body {
 .homeCenter{
     margin-top: 20%;
 }
+
+button a strong{
+    color:white;
+}
+button a strong:hover {
+    color: white;
+}

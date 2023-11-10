@@ -9,15 +9,19 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = CarTroubleSolver.Web
 build_property.RootNamespace = CarTroubleSolver.Web
-build_property.ProjectDir = C:\Users\Piotr\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver.Web\
+build_property.ProjectDir = C:\Users\Piotr\source\repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver.Web\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\Piotr\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver.Web
+build_property.MSBuildProjectDirectory = C:\Users\Piotr\source\repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver.Web
 build_property._RazorSourceGeneratorDebug = 
 
 [C:/Users/Piotr/Source/Repos/PiotrDabrowski232/CarTroubleSolver-CHC-Project/CarTroubleSolver.Web/Views/Car/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FyXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Piotr/Source/Repos/PiotrDabrowski232/CarTroubleSolver-CHC-Project/CarTroubleSolver.Web/Views/Car/UserCarDelete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FyXFVzZXJDYXJEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Piotr/Source/Repos/PiotrDabrowski232/CarTroubleSolver-CHC-Project/CarTroubleSolver.Web/Views/Home/Index.cshtml]

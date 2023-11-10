@@ -22,9 +22,21 @@ namespace CarTroubleSolver.Web.Controllers
             if (ModelState.IsValid)
             {
                 _carService.Add(car, "pp@o2.pl");
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Profile", "User");
             }
             return View("Index", car);
+        }
+
+        public IActionResult UserCarDelete()
+        {
+            var cars = _carService.GetUserCars("pp@o2.pl");
+            return View(cars);
+        }
+
+        public IActionResult DeleteCar(CarDto car)
+        {
+            _carService.DeleteCarFromUserCollection(car, "pp@o2.pl");
+            return RedirectToAction("Profile", "User");
         }
     }
 }

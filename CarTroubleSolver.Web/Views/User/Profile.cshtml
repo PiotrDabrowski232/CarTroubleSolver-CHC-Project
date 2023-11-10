@@ -2,60 +2,75 @@
 @model CarTroubleSolver.Logic.Dto.User.LogedInUserDto;
 
 @{
+    IEnumerable<CarTroubleSolver.Logic.Dto.Cars.CarDto> cars = ViewBag.Cars;
 }
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <table class="table table-striped w-25">
+                <tbody>
+                    <tr>
+                        <th>Name</th>
+                        <td>@Model.Name</td>
+                    </tr>
+                    <tr>
+                        <th>Surname</th>
+                        <td>@Model.Surname</td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td>@Model.Email</td>
+                    </tr>
+                    <tr>
+                        <th>Phone Number</th>
+                        <td>@Model.PhoneNumber</td>
+                    </tr>
+                    <tr>
+                        <th>Date Of Birth</th>
+                        <td>@Model.DateOfBirth</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="row mt-5">
+                <div class="col">
+                    <button type="button" class="btn btn-primary"><a asp-area="" asp-controller="Car" asp-action="Index"><strong>Add Car</strong></a></button>
+                    <button type="button" class="btn btn-danger"><a asp-area="" asp-controller="Car" asp-action="UserCarDelete"><strong>Delete Car</strong></a></button>
+                    <button type="button" class="btn btn-info"><a asp-area="" asp-controller="Car" asp-action="Index"><strong>Accident History</strong></a></button>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <div class="row mt-5">
+        <div class="col">
+            <table class="table w-75">
+                <thead>
+                    <tr>
+                        <th>Brand</th>
+                        <th>Model</th>
+                        <th>Engine Type</th>
+                        <th>Fuel Type</th>
+                        <th>Door Count</th>
+                        <th>Mileage</th>
+                        <th>Color</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var car in cars)
+                    {
+                        <tr>
+                            <td>@car.Brand</td>
+                            <td>@car.CarModels</td>
+                            <td>@car.EngineType</td>
+                            <td>@car.FuelType</td>
+                            <td>@car.DoorCount</td>
+                            <td>@car.Mileage</td>
+                            <td>@car.Color</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-
-<div>
-    <table class="table table-striped w-25">
-        <tbody>
-            <tr>
-                <th>Name</th>
-                <td>@Model.Name</td>
-            </tr>
-            <tr>
-                <th>Surname</th>
-                <td>@Model.Surname</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>@Model.Email</td>
-            </tr>
-            <tr>
-                <th>Phone Number</th>
-                <td>@Model.PhoneNumber</td>
-            </tr>
-            <tr>
-                <th>Date Of Birth</th>
-                <td>@Model.DateOfBirth</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-
-<div>
-    <table class="table table-striped w-25">
-        <tbody>
-            <tr>
-                <th>Name</th>
-                <td>@Model.Name</td>
-            </tr>
-            <tr>
-                <th>Surname</th>
-                <td>@Model.Surname</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>@Model.Email</td>
-            </tr>
-            <tr>
-                <th>Phone Number</th>
-                <td>@Model.PhoneNumber</td>
-            </tr>
-            <tr>
-                <th>Date Of Birth</th>
-                <td>@Model.DateOfBirth</td>
-            </tr>
-        </tbody>
-    </table>
 </div>

@@ -8,5 +8,14 @@ namespace CarTroubleSolver.Web.Controllers
         {
             return View();
         }
+        public IActionResult AccidentRequest()
+        {
+            return View();
+        }
+
+        public IActionResult AccidentHistory()
+        {
+            return View();
+        }
     }
 }

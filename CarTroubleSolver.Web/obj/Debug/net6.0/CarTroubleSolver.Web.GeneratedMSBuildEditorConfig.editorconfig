@@ -9,61 +9,61 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = CarTroubleSolver.Web
 build_property.RootNamespace = CarTroubleSolver.Web
-build_property.ProjectDir = C:\Users\Piotr\source\repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver.Web\
+build_property.ProjectDir = C:\Users\Piotr\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver.Web\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\Piotr\source\repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver.Web
+build_property.MSBuildProjectDirectory = C:\Users\Piotr\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver.Web
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/Piotr/source/repos/PiotrDabrowski232/CarTroubleSolver-CHC-Project/CarTroubleSolver.Web/Views/Accident/AccidentHistory.cshtml]
+[C:/Users/Piotr/Source/Repos/PiotrDabrowski232/CarTroubleSolver-CHC-Project/CarTroubleSolver.Web/Views/Accident/AccidentHistory.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjaWRlbnRcQWNjaWRlbnRIaXN0b3J5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Piotr/source/repos/PiotrDabrowski232/CarTroubleSolver-CHC-Project/CarTroubleSolver.Web/Views/Accident/AccidentRequest.cshtml]
+[C:/Users/Piotr/Source/Repos/PiotrDabrowski232/CarTroubleSolver-CHC-Project/CarTroubleSolver.Web/Views/Accident/AccidentRequest.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjaWRlbnRcQWNjaWRlbnRSZXF1ZXN0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Piotr/source/repos/PiotrDabrowski232/CarTroubleSolver-CHC-Project/CarTroubleSolver.Web/Views/Car/Index.cshtml]
+[C:/Users/Piotr/Source/Repos/PiotrDabrowski232/CarTroubleSolver-CHC-Project/CarTroubleSolver.Web/Views/Car/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FyXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Piotr/source/repos/PiotrDabrowski232/CarTroubleSolver-CHC-Project/CarTroubleSolver.Web/Views/Car/UserCarDelete.cshtml]
+[C:/Users/Piotr/Source/Repos/PiotrDabrowski232/CarTroubleSolver-CHC-Project/CarTroubleSolver.Web/Views/Car/UserCarDelete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FyXFVzZXJDYXJEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Piotr/source/repos/PiotrDabrowski232/CarTroubleSolver-CHC-Project/CarTroubleSolver.Web/Views/Home/Index.cshtml]
+[C:/Users/Piotr/Source/Repos/PiotrDabrowski232/CarTroubleSolver-CHC-Project/CarTroubleSolver.Web/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Piotr/source/repos/PiotrDabrowski232/CarTroubleSolver-CHC-Project/CarTroubleSolver.Web/Views/Shared/Error.cshtml]
+[C:/Users/Piotr/Source/Repos/PiotrDabrowski232/CarTroubleSolver-CHC-Project/CarTroubleSolver.Web/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Piotr/source/repos/PiotrDabrowski232/CarTroubleSolver-CHC-Project/CarTroubleSolver.Web/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/Piotr/Source/Repos/PiotrDabrowski232/CarTroubleSolver-CHC-Project/CarTroubleSolver.Web/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Piotr/source/repos/PiotrDabrowski232/CarTroubleSolver-CHC-Project/CarTroubleSolver.Web/Views/User/Login.cshtml]
+[C:/Users/Piotr/Source/Repos/PiotrDabrowski232/CarTroubleSolver-CHC-Project/CarTroubleSolver.Web/Views/User/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Piotr/source/repos/PiotrDabrowski232/CarTroubleSolver-CHC-Project/CarTroubleSolver.Web/Views/User/Profile.cshtml]
+[C:/Users/Piotr/Source/Repos/PiotrDabrowski232/CarTroubleSolver-CHC-Project/CarTroubleSolver.Web/Views/User/Profile.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxQcm9maWxlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Piotr/source/repos/PiotrDabrowski232/CarTroubleSolver-CHC-Project/CarTroubleSolver.Web/Views/User/Register.cshtml]
+[C:/Users/Piotr/Source/Repos/PiotrDabrowski232/CarTroubleSolver-CHC-Project/CarTroubleSolver.Web/Views/User/Register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxSZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Piotr/source/repos/PiotrDabrowski232/CarTroubleSolver-CHC-Project/CarTroubleSolver.Web/Views/_ViewImports.cshtml]
+[C:/Users/Piotr/Source/Repos/PiotrDabrowski232/CarTroubleSolver-CHC-Project/CarTroubleSolver.Web/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Piotr/source/repos/PiotrDabrowski232/CarTroubleSolver-CHC-Project/CarTroubleSolver.Web/Views/_ViewStart.cshtml]
+[C:/Users/Piotr/Source/Repos/PiotrDabrowski232/CarTroubleSolver-CHC-Project/CarTroubleSolver.Web/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Piotr/source/repos/PiotrDabrowski232/CarTroubleSolver-CHC-Project/CarTroubleSolver.Web/Views/Shared/_Layout.cshtml]
+[C:/Users/Piotr/Source/Repos/PiotrDabrowski232/CarTroubleSolver-CHC-Project/CarTroubleSolver.Web/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-nbyvgc7rlm

@@ -16,6 +16,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\Piotr\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver.Web
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/Piotr/Source/Repos/PiotrDabrowski232/CarTroubleSolver-CHC-Project/CarTroubleSolver.Web/Views/Accident/AccidentDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjaWRlbnRcQWNjaWRlbnREZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Piotr/Source/Repos/PiotrDabrowski232/CarTroubleSolver-CHC-Project/CarTroubleSolver.Web/Views/Accident/AccidentHistory.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjaWRlbnRcQWNjaWRlbnRIaXN0b3J5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

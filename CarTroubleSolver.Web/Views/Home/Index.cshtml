@@ -1,7 +1,20 @@
 ﻿@model List<CarTroubleSolver.Logic.Dto.Accident.AccidentAdvertisementDto>
-
+@using CarTroubleSolver.Data.Models.Enums;
 @{
     ViewData["Title"] = "Home Page";
+
+    string GetSeverityColor(CollisionSeverity severity)
+    {
+        switch (severity)
+        {
+            case CollisionSeverity.Severe:
+                return "danger";
+            case CollisionSeverity.Minor:
+                return "warning";
+            default:
+                return "primary";
+        }
+    }
 }
 
 <div class="text-center homeCenter">
@@ -20,8 +33,10 @@
                                 <p class="card-text">Car Model: @accident.CarInfo.CarModels</p>
                                 <p class="card-text">Car Engine Type: @accident.CarInfo.EngineType</p>
                                 <p class="card-text">Car Mileage: @accident.CarInfo.Mileage</p>
-                                <a href="#" class="btn btn-primary">Click for details</a>
-                            </div>
+                                <a asp-area="" asp-controller="Accident" asp-action="AccidentDetails"
+                                   asp-route-accidentId="@accident.Id" class="btn btn-@GetSeverityColor(accident.CollisionSeverity)">Click for details</a>
+
+                             </div>
                         </div>
                     </div>
                 }

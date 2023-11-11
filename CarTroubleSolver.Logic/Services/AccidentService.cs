@@ -96,5 +96,14 @@ namespace CarTroubleSolver.Logic.Services
 
             return accidentsResult;
         }
+
+        public AccidentAdvertisementDto GetAccident(Guid id)
+        {
+            var accident =  _accidentRepository.GetAll().FirstOrDefault(a => a.Id == id);
+
+            var mappedAccident = _mapper.Map<AccidentAdvertisementDto>(accident);
+
+            return mappedAccident;
+        }
     }
 }

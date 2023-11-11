@@ -1,4 +1,5 @@
-﻿using CarTroubleSolver.Logic.Services.Interfaces;
+﻿using CarTroubleSolver.Logic.Dto.Accident;
+using CarTroubleSolver.Logic.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarTroubleSolver.Web.Controllers
@@ -25,6 +26,12 @@ namespace CarTroubleSolver.Web.Controllers
             ViewBag.Asignee = _accidentService.ShowHistoryOfAccidentsAsignee("pp@o2.pl");
 
             return View();
+        }
+
+        public IActionResult AccidentDetails(Guid accidentId)
+        {
+            var accident = _accidentService.GetAccident(accidentId);
+            return View(accident);
         }
     }
 }

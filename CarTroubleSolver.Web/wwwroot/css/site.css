@@ -25,6 +25,10 @@ body {
     transition: color 0.6s ease-in-out, background-color 0.6s ease-in-out;
 }
 
+.btn a  {
+    text-decoration: none;
+}
+
 .nav-link strong:hover {
     color: #ff4500; 
     background-color: #695F5F;

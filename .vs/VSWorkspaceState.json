@@ -6,8 +6,8 @@
     "\\CarTroubleSolver.Data\\DataBase",
     "\\CarTroubleSolver.Web",
     "\\CarTroubleSolver.Web\\Views",
-    "\\CarTroubleSolver.Web\\Views\\User"
+    "\\CarTroubleSolver.Web\\Views\\Shared"
   ],
-  "SelectedNode": "\\CarTroubleSolver.sln",
+  "SelectedNode": "\\CarTroubleSolver.Web\\Views\\Shared\\_Layout.cshtml",
   "PreviewInSolutionExplorer": false
 }

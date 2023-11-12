@@ -30,7 +30,7 @@ namespace CarTroubleSolver.Web.Controllers
 
         public IActionResult AccidentDetails(Guid accidentId)
         {
-            var accident = _accidentService.GetAccident(accidentId);
+            var accident = _accidentService.GetAllFreeAccidents("pp@o2.pl").FirstOrDefault(a => a.Id == accidentId);
             return View(accident);
         }
     }

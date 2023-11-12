@@ -44,3 +44,8 @@ button a strong{
 button a strong:hover {
     color: white;
 }
+
+.primary-button {
+    margin-left: 35%;
+
+}

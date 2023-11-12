@@ -1,11 +1,42 @@
-﻿@*
-    
-*@
+﻿@model CarTroubleSolver.Logic.Dto.Accident.AccidentAdvertisementDto
+@using CarTroubleSolver.Data.Models.Enums;
 @{
+    string GetSeverityColor(CollisionSeverity severity)
+    {
+        switch (severity)
+        {
+            case CollisionSeverity.Severe:
+                return "danger";
+            case CollisionSeverity.Minor:
+                return "warning";
+            default:
+                return "primary";
+        }
+    }
 }
 
+<div >
+        <h2>Accident Description: </h2>
 
-<div>
+        <p class="m-0 fs-4 mb-3 mt-4"><strong>User Information:</strong></p>
+
+        <p class="m-0"><strong class ="text-@GetSeverityColor(Model.CollisionSeverity)">Name:</strong> @Model.ApplicantUserInfo.Name @Model.ApplicantUserInfo.Surname</p>
+        <p class="m-0"><strong class="text-@GetSeverityColor(Model.CollisionSeverity)">Telephone Number:</strong> @Model.ApplicantUserInfo.PhoneNumber</p>
+
+        <p class="m-0 mt-4 fs-4 mb-3 mt-5"><strong>Car Description:</strong></p>
+        <p class="m-0"><strong class="text-@GetSeverityColor(Model.CollisionSeverity)">Brand:</strong> @Model.CarInfo.Brand</p>
+        <p class="m-0"><strong class="text-@GetSeverityColor(Model.CollisionSeverity)">Model:</strong> @Model.CarInfo.CarModels</p>
+        <p class="m-0"><strong class="text-@GetSeverityColor(Model.CollisionSeverity)"> Engine:</strong> @Model.CarInfo.EngineType</p>
+        <p class="m-0"><strong class="text-@GetSeverityColor(Model.CollisionSeverity)">Mileage:</strong> @Model.CarInfo.Mileage</p>
+        <p class="m-0"><strong class="text-@GetSeverityColor(Model.CollisionSeverity)">Fuel Type:</strong> @Model.CarInfo.FuelType</p>
+        <p class="m-0"><strong class="text-@GetSeverityColor(Model.CollisionSeverity)">Door Count:</strong> @Model.CarInfo.DoorCount</p>
+
+        <p class="m-0 mt-4 fs-4 mb-3 mt-5"><strong>Accident Details:</strong></p>
+        <p class="m-0"><strong class="text-@GetSeverityColor(Model.CollisionSeverity)">Collision Severity:</strong> @Model.CollisionSeverity</p>
+        <p class="m-0"><strong class="text-@GetSeverityColor(Model.CollisionSeverity)">Description:</strong> @Model.AccidentDescription</p>
+
+
+    <button asp-action="ApplyForAccidentHelp" type="button" class="btn btn-success primary-button">commit to help</button>
     
-
 </div>
+

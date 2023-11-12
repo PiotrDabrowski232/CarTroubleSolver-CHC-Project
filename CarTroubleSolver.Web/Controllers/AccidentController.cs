@@ -1,4 +1,5 @@
 ﻿using CarTroubleSolver.Logic.Dto.Accident;
+using CarTroubleSolver.Logic.Dto.Cars;
 using CarTroubleSolver.Logic.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,7 +18,7 @@ namespace CarTroubleSolver.Web.Controllers
         {
             return View();
         }
-        public IActionResult AccidentRequest()
+        public IActionResult AccidentRequest(AccidentDto accident, CarDto car)
         {
             ViewBag.Cars = _carService.GetUserCars("pp@o2.pl");
             return View();

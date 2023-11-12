@@ -1,29 +1,34 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿
 @using CarTroubleSolver.Logic.Dto.Cars;
 @using CarTroubleSolver.Data.Models.Enums;
 
+@model CarTroubleSolver.Logic.Dto.Accident.AccidentDto
 @{
     IEnumerable<CarDto> cars = ViewBag.Cars;
 }
 
 
 <div>
-    <select id="selectedCar" name="selectedCar" class="form-control">
-        <option value="">Select a Car</option>
-        @foreach (var car in cars)
-        {
-            <option value="@car.Brand @car.CarModels @car.Mileage @car.FuelType @car.Color"><strong>Brand:</strong> @car.Brand; <strong>Model:</strong> @car.CarModels; <strong>Mileage:</strong> @car.Mileage; <strong>FuelType:</strong> @car.FuelType; <strong>Color:</strong> @car.Color</option>
-        }
-    </select>
+    <form method="post" asp-area="" asp-action="AccidentRequest" asp-controller="Accident">
 
-    <select id="selectSevrity" name="selectSeverity" class="form-control">
-        <option value="">Select a severity</option>
-        @foreach (var severity in Enum.GetNames(typeof(CollisionSeverity)))
-        {
-            <option value="severity">@severity</option>
-        }
-    </select>
+        <select id="selectedCar" name="carId" class="form-control">
+            <option value="">Select a Car</option>
+            @foreach (var car in cars)
+            {
+                <option value="@car.Brand; @car.CarModels; @car.Mileage; @car.FuelType; @car.Color">@car.Brand; @car.CarModels; @car.Mileage; @car.FuelType; @car.Color</option>
+            }
+        </select>
 
+        <select id="CollisionSeverity" name="CollisionSeverity" class="form-control">
+            <option value="">Select a severity</option>
+            @foreach (var severity in Enum.GetNames(typeof(CollisionSeverity)))
+            {
+                <option value="@severity">@severity</option>
+            }
+        </select>
+
+        <textarea asp-for="AccidentDescription" id="Description" name="AccidentDescription" rows="2"></textarea>
+
+        <button type="submit" class="btn btn-success primary-button">Send Request</button>
+    </form>
 </div>

@@ -7,9 +7,11 @@ namespace CarTroubleSolver.Web.Controllers
     public class AccidentController : Controller
     {
         private readonly IAccidentService _accidentService;
-        public AccidentController(IAccidentService accidentService)
+        private readonly ICarService _carService;
+        public AccidentController(IAccidentService accidentService, ICarService carService)
         {
             _accidentService = accidentService;
+            _carService = carService;
         }
         public IActionResult Index()
         {
@@ -17,6 +19,7 @@ namespace CarTroubleSolver.Web.Controllers
         }
         public IActionResult AccidentRequest()
         {
+            ViewBag.Cars = _carService.GetUserCars("pp@o2.pl");
             return View();
         }
 

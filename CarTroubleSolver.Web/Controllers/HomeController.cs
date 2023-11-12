@@ -2,6 +2,7 @@
 using CarTroubleSolver.Logic.Services.Interfaces;
 using CarTroubleSolver.Web.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using System.Diagnostics;
 
 namespace CarTroubleSolver.Web.Controllers
@@ -20,7 +21,12 @@ namespace CarTroubleSolver.Web.Controllers
         public IActionResult Index()
         {
             var accidents = _accidentService.GetAllFreeAccidents("pp@o2.pl");
-            return View(accidents);
+            if (accidents.Any())
+            {
+                return View(accidents);
+
+            }
+            return View();
         }
 
         public IActionResult Privacy()

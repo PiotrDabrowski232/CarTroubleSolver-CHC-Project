@@ -35,8 +35,10 @@
         <p class="m-0"><strong class="text-@GetSeverityColor(Model.CollisionSeverity)">Collision Severity:</strong> @Model.CollisionSeverity</p>
         <p class="m-0"><strong class="text-@GetSeverityColor(Model.CollisionSeverity)">Description:</strong> @Model.AccidentDescription</p>
 
-
-    <button asp-action="ApplyForAccidentHelp" type="button" class="btn btn-success primary-button">commit to help</button>
+    <form method="post" asp-area="" asp-action="ApplyForAccidentHelp" asp-controller="Accident">
+        <input type="hidden" asp-for="Id"  value="@Model.Id" />
+        <button type="submit" class="btn btn-success primary-button">Commit to Help</button>
+    </form>
     
 </div>
 

@@ -33,5 +33,11 @@ namespace CarTroubleSolver.Web.Controllers
             var accident = _accidentService.GetAllFreeAccidents("pp@o2.pl").FirstOrDefault(a => a.Id == accidentId);
             return View(accident);
         }
+
+        public IActionResult ApplyForAccidentHelp(AccidentAdvertisementDto accident)
+        {
+            _accidentService.HelpInAccident("pp@o2.pl", accident.Id);
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

@@ -162,3 +162,10 @@ C:\Users\Piotr\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTr
 C:\Users\Piotr\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver.Logic\obj\Debug\net6.0\CarTroubleSolver.Logic.pdb
 C:\Users\Piotr\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver.Logic\obj\Debug\net6.0\CarTroubleSolver.Logic.genruntimeconfig.cache
 C:\Users\Piotr\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver.Logic\obj\Debug\net6.0\ref\CarTroubleSolver.Logic.dll
+C:\Users\Piotr\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver.Logic\bin\Debug\net6.0\System.Web.Mvc.dll
+C:\Users\Piotr\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver.Logic\bin\Debug\net6.0\System.Web.Razor.dll
+C:\Users\Piotr\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver.Logic\bin\Debug\net6.0\System.Web.Helpers.dll
+C:\Users\Piotr\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver.Logic\bin\Debug\net6.0\System.Web.WebPages.Deployment.dll
+C:\Users\Piotr\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver.Logic\bin\Debug\net6.0\System.Web.WebPages.Razor.dll
+C:\Users\Piotr\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver.Logic\bin\Debug\net6.0\System.Web.WebPages.dll
+C:\Users\Piotr\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver.Logic\bin\Debug\net6.0\Microsoft.Web.Infrastructure.dll

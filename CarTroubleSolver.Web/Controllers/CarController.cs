@@ -29,7 +29,7 @@ namespace CarTroubleSolver.Web.Controllers
 
         public IActionResult UserCarDelete()
         {
-            var cars = _carService.GetUserCars("pp@o2.pl");
+            var cars = _carService.GetUserCars<CarDto>("pp@o2.pl");
             return View(cars);
         }
 

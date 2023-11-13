@@ -2,6 +2,7 @@
 using CarTroubleSolver.Logic.Dto.Cars;
 using CarTroubleSolver.Logic.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CarTroubleSolver.Web.Controllers
 {
@@ -18,18 +19,25 @@ namespace CarTroubleSolver.Web.Controllers
         {
             return View();
         }
-        public IActionResult AccidentRequest(AccidentDto accident, CarDto car)
+        public IActionResult AccidentRequest()
         {
-            ViewBag.Cars = _carService.GetUserCars("pp@o2.pl");
+            ViewBag.Cars = _carService.GetUserCars<CarFormDto>("pp@o2.pl");
             return View();
         }
 
+        public IActionResult SendRequest(WebAccidentRequestDto accident)
+        {
+           // _accidentService.AddAccident()
+            return View();
+        }
         public IActionResult AccidentHistory()
         {
             ViewBag.Applicant = _accidentService.ShowHistoryOfAccidentsApplicant("pp@o2.pl");
             ViewBag.Asignee = _accidentService.ShowHistoryOfAccidentsAsignee("pp@o2.pl");
 
             return View();
+
+
         }
 
         public IActionResult AccidentDetails(Guid accidentId)

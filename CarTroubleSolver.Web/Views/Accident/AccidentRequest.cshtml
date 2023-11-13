@@ -2,33 +2,41 @@
 @using CarTroubleSolver.Logic.Dto.Cars;
 @using CarTroubleSolver.Data.Models.Enums;
 
-@model CarTroubleSolver.Logic.Dto.Accident.AccidentDto
+@model CarTroubleSolver.Logic.Dto.Accident.WebAccidentRequestDto
 @{
-    IEnumerable<CarDto> cars = ViewBag.Cars;
 }
 
 
-<div>
-    <form method="post" asp-area="" asp-action="AccidentRequest" asp-controller="Accident">
 
-        <select id="selectedCar" name="carId" class="form-control">
+<form method="post" asp-action="SendRequest" asp-controller="Accident">
+    <div class="form-group">
+        <label for="selectedCar">Select a Car</label>
+        <select id="selectedCar" asp-for="SelectedCar.Id" class="form-control">
             <option value="">Select a Car</option>
-            @foreach (var car in cars)
+            @foreach (var car in ViewBag.Cars) // Assuming you have ViewBag.Cars available
             {
-                <option value="@car.Brand; @car.CarModels; @car.Mileage; @car.FuelType; @car.Color">@car.Brand; @car.CarModels; @car.Mileage; @car.FuelType; @car.Color</option>
+                <option value="@car.Id">Brand: @car.Brand; Model: @car.CarModels; Mileage: @car.Mileage; Fuel Type: @car.FuelType; Color: @car.Color</option>
             }
         </select>
+    </div>
 
-        <select id="CollisionSeverity" name="CollisionSeverity" class="form-control">
-            <option value="">Select a severity</option>
+    <div class="form-group">
+        <label for="CollisionSeverity">Select a Severity</label>
+        <select id="CollisionSeverity" asp-for="CollisionSeverity" class="form-control">
+            <option value="">Select a Severity</option>
             @foreach (var severity in Enum.GetNames(typeof(CollisionSeverity)))
             {
                 <option value="@severity">@severity</option>
             }
         </select>
+        <span asp-validation-for="CollisionSeverity" class="text-danger"></span>
+    </div>
 
-        <textarea asp-for="AccidentDescription" id="Description" name="AccidentDescription" rows="2"></textarea>
+    <div class="form-group">
+        <label for="Description">Accident Description</label>
+        <textarea id="Description" asp-for="Description" class="form-control" rows="2"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
 
-        <button type="submit" class="btn btn-success primary-button">Send Request</button>
-    </form>
-</div>
+    <button type="submit" class="btn btn-success primary-button">Send Request</button>
+</form>

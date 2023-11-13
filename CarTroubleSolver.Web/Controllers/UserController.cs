@@ -1,4 +1,5 @@
-﻿using CarTroubleSolver.Logic.Dto.User;
+﻿using CarTroubleSolver.Logic.Dto.Cars;
+using CarTroubleSolver.Logic.Dto.User;
 using CarTroubleSolver.Logic.Services.Interfaces;
 using CarTroubleSolver.Logic.Validation;
 using Microsoft.AspNetCore.Identity;
@@ -69,7 +70,7 @@ namespace CarTroubleSolver.Web.Controllers
         {
             var user = _userService.GetLoggedInUser("pp@o2.pl");
 
-            ViewBag.Cars = _carService.GetUserCars(user.Email);
+            ViewBag.Cars = _carService.GetUserCars<CarDto>(user.Email);
             return View(user);
         }
     }

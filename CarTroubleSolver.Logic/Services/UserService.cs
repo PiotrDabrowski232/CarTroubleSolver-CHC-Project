@@ -56,8 +56,6 @@ namespace CarTroubleSolver.Logic.Services
             {
                 return true;
             }
-
-
         }
     }
 }

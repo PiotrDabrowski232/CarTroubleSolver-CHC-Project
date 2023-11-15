@@ -6,6 +6,8 @@ using CarTroubleSolver.Logic.Services.Interfaces;
 using CarTroubleSolver.Logic.Services;
 using AutoMapper;
 using CarTroubleSolver.Logic.Mapping;
+using Microsoft.AspNetCore.Identity;
+using TheCarMarket.Data.Models;
 
 namespace CarTroubleSolver.Data.Configuration
 {
@@ -16,7 +18,7 @@ namespace CarTroubleSolver.Data.Configuration
             Services.AddScoped<IUserService, UserService>();
             Services.AddScoped<ICarService, CarService>();
             Services.AddScoped<IAccidentService, AccidentService>();
-
+            Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 
 
             var mapperConfig = new MapperConfiguration(cfg =>

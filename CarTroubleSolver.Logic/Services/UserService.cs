@@ -3,6 +3,7 @@ using CarTroubleSolver.Data.Repository.Interfaces;
 using CarTroubleSolver.Logic.Dto.User;
 using CarTroubleSolver.Logic.Services.Interfaces;
 using TheCarMarket.Data.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace CarTroubleSolver.Logic.Services
 {
@@ -10,10 +11,12 @@ namespace CarTroubleSolver.Logic.Services
     {
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
-        public UserService(IUserRepository userRepository, IMapper mapper)
+        private readonly IPasswordHasher<User> _passwordHasher;
+        public UserService(IUserRepository userRepository, IMapper mapper, IPasswordHasher<User> passwordHasher)
         {
             _userRepository = userRepository;
             _mapper = mapper;
+            _passwordHasher = passwordHasher;
         }
         private IEnumerable<User> GetUsers()
         {
@@ -22,6 +25,7 @@ namespace CarTroubleSolver.Logic.Services
 
         public void Add(RegisterUserDto user)
         {
+            user.Password = _passwordHasher.HashPassword(null, user.Password);
             _userRepository.Add(_mapper.Map<User>(user));
         }
 
@@ -36,9 +40,24 @@ namespace CarTroubleSolver.Logic.Services
         {
             var user = GetUsers().FirstOrDefault(u => u.Email == email);
 
-            if (user == null || user.Password != password)
-                return false;
-            return true;
+
+            if (user is null )
+            {
+                throw new Exception("invalid username or password");
+            }
+
+            var result = _passwordHasher.VerifyHashedPassword(user, user.Password, password);
+
+            if (result == PasswordVerificationResult.Failed)
+            {
+                throw new Exception("invalid username or password");
+            }
+            else
+            {
+                return true;
+            }
+
+
         }
     }
 }

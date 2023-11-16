@@ -32,7 +32,7 @@ bool userIsLogged = false;
 LogedInUserDto user = null;
 CarDto carHolder = null;
 
-string[] fields = { "Name", "Surname", "Email", "Password", "Confirm Password", "Phone Number", "Date Of Birth", "Submit", "Quit"};
+string[] fields = { "Name", "Surname", "Email", "Password", "Confirm Password", "Phone Number", "Date Of Birth", "Submit", "Quit" };
 string[] startingMenuOptions = { "Log In", "Register", "EndSession" };
 string[] tryAgainMenu = { "Try Again", "Quick" };
 string[] logedUserMenu = { "User Profile", "Find Help", "Log Out" };
@@ -119,7 +119,7 @@ while (true)
                 #region Register
                 var userFromInputs = GetUserData();
 
-                if(userFromInputs != null)
+                if (userFromInputs != null)
                 {
                     userService.Add(userFromInputs);
                     Console.Clear();
@@ -145,7 +145,7 @@ while (true)
 
         while (true)
         {
-            Console.SetCursorPosition(centerX +35, MENU_TOP-3);
+            Console.SetCursorPosition(centerX + 35, MENU_TOP - 3);
             Console.WriteLine($"Welcome {user.Name} {user.Surname}");
 
             Console.SetCursorPosition(centerX - 10, MENU_TOP - 3);
@@ -919,7 +919,7 @@ RegisterUserDto? GetUserData()
     while (true)
     {
         Console.Clear();
-        Console.ForegroundColor=ConsoleColor.White;
+        Console.ForegroundColor = ConsoleColor.White;
         Console.BackgroundColor = ConsoleColor.DarkBlue;
 
         Console.SetCursorPosition(centerX - 9, MENU_TOP + 10);
@@ -956,15 +956,15 @@ RegisterUserDto? GetUserData()
             {
                 if (i == 8)
                 {
-                    Console.SetCursorPosition(centerX-8, 12 + i * 2);
+                    Console.SetCursorPosition(centerX - 8, 12 + i * 2);
                     Console.Write(fields[i]);
 
                 }
                 else
                 {
-                Console.SetCursorPosition(10, 12 + i * 2);
-                Console.Write(fields[i] + ": ");
-                Console.Write(GetFieldValue(i, name, surname, email, password, confirmPassword, phoneNumber, dateOfBirth));
+                    Console.SetCursorPosition(10, 12 + i * 2);
+                    Console.Write(fields[i] + ": ");
+                    Console.Write(GetFieldValue(i, name, surname, email, password, confirmPassword, phoneNumber, dateOfBirth));
                 }
             }
         }
@@ -1025,9 +1025,9 @@ RegisterUserDto? GetUserData()
                     Console.ResetColor();
                 }
             }
-            else if (currentIndex==8)
+            else if (currentIndex == 8)
             {
-                return null; 
+                return null;
             }
             else
             {
@@ -1036,44 +1036,54 @@ RegisterUserDto? GetUserData()
             }
         }
     }
-    
+
 
 }
 void EditFieldValue(int index, ref string name, ref string surname, ref string email, ref string password, ref string confirmPassword, ref int phoneNumber, ref DateTime dateOfBirth)
 {
-    Console.SetCursorPosition( 10 + fields[index].Length + 2 + GetFieldValue(index, name, surname, email, password, confirmPassword, phoneNumber, dateOfBirth).Length+2, 12 + index * 2);
-
-      string input = Console.ReadLine();
-
-        if (index == 0)
-        {
-            name = input;
-        }
-        else if (index == 1)
-        {
-            surname = input;
-        }
-        else if (index == 2)
-        {
-            email = input;
-        }
-        else if (index == 3)
-        {
-            password = input;
-        }
-        else if (index == 4)
-        {
-            confirmPassword = input;
-        }
-        else if (index == 5)
-        {
-            int.TryParse(input, out phoneNumber);
-        }
-        else if (index == 6)
-        {
-            DateTime.TryParse(input, out dateOfBirth);
-        }
+    Console.SetCursorPosition(10 + fields[index].Length + 2 + GetFieldValue(index, name, surname, email, password, confirmPassword, phoneNumber, dateOfBirth).Length + 2, 12 + index * 2);
     
+    string input;
+    
+    if (index == 3 || index == 4)
+    {
+        input = GetPasswordInput();
+
+    }
+    else
+    {
+        input = Console.ReadLine();
+
+    }
+    if (index == 0)
+    {
+        name = input;
+    }
+    else if (index == 1)
+    {
+        surname = input;
+    }
+    else if (index == 2)
+    {
+        email = input;
+    }
+    else if (index == 3)
+    {
+        password = input;
+    }
+    else if (index == 4)
+    {
+        confirmPassword = input;
+    }
+    else if (index == 5)
+    {
+        int.TryParse(input, out phoneNumber);
+    }
+    else if (index == 6)
+    {
+        DateTime.TryParse(input, out dateOfBirth);
+    }
+
 }
 string GetFieldValue(int index, string name, string surname, string email, string password, string confirmPassword, int phoneNumber, DateTime dateOfBirth)
 {
@@ -1086,9 +1096,9 @@ string GetFieldValue(int index, string name, string surname, string email, strin
         case 2:
             return email;
         case 3:
-            return password;
+            return showAsStars(password);
         case 4:
-            return confirmPassword;
+            return showAsStars(confirmPassword);
         case 5:
             return phoneNumber.ToString();
         case 6:
@@ -1096,4 +1106,15 @@ string GetFieldValue(int index, string name, string surname, string email, strin
         default:
             return "";
     }
+}
+
+string showAsStars(string password)
+{
+    string stars = "";
+    for(int i = 0; i<password.Length; i++)
+    {
+        stars += "*";
+    }
+    return stars;
+            
 }

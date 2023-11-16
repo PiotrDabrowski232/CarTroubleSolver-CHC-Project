@@ -2,8 +2,8 @@
 using CarTroubleSolver.Data.Repository.Interfaces;
 using CarTroubleSolver.Logic.Dto.User;
 using CarTroubleSolver.Logic.Services.Interfaces;
-using TheCarMarket.Data.Models;
 using Microsoft.AspNetCore.Identity;
+using TheCarMarket.Data.Models;
 
 namespace CarTroubleSolver.Logic.Services
 {
@@ -31,30 +31,39 @@ namespace CarTroubleSolver.Logic.Services
 
         public LogedInUserDto GetLoggedInUser(string email)
         {
-            var user = GetUsers().FirstOrDefault(u => u.Email==email);
+            var user = GetUsers().FirstOrDefault(u => u.Email == email);
 
             return _mapper.Map<LogedInUserDto>(user);
         }
 
         public bool VerifyUserInputs(string email, string password)
         {
-            var user = GetUsers().FirstOrDefault(u => u.Email == email);
-
-
-            if (user is null )
+            try
             {
-                throw new Exception("invalid username or password");
+
+                var user = GetUsers().FirstOrDefault(u => u.Email == email);
+
+
+                if (user is null)
+                {
+                    return false;
+                }
+
+                var result = _passwordHasher.VerifyHashedPassword(user, user.Password, password);
+
+                if (result == PasswordVerificationResult.Failed)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+
             }
-
-            var result = _passwordHasher.VerifyHashedPassword(user, user.Password, password);
-
-            if (result == PasswordVerificationResult.Failed)
+            catch (Exception ex)
             {
-                throw new Exception("invalid username or password");
-            }
-            else
-            {
-                return true;
+                return false;
             }
         }
     }

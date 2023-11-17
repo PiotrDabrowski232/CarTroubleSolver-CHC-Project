@@ -10,7 +10,6 @@ using ConsoleTables;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using TheCarMarket.Data.Models.Enums;
 
 #region ServicesConfiguration
 //Services Configuration
@@ -272,7 +271,7 @@ while (true)
 
                         Console.WriteLine(userTable);
 
-                        var userCars = carService.GetUserCars(user.Email);
+                        var userCars = carService.GetUserCars<CarDto>(user.Email);
 
                         var userCarsTable = new ConsoleTable("Brand", "Model", "Engine Type", "Fuel", "Mileage", "Doors", "Color");
 
@@ -375,7 +374,7 @@ while (true)
                         Console.Clear();
 
 
-                        var cars = carService.GetUserCars(user.Email).ToList();
+                        var cars = carService.GetUserCars<CarDto>(user.Email).ToList();
 
                         if (cars.Count() > 0)
                         {

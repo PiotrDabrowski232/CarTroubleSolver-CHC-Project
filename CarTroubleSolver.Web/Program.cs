@@ -1,8 +1,7 @@
-using AutoMapper;
 using CarTroubleSolver.Data.Configuration;
-using CarTroubleSolver.Data.Database;
 using CarTroubleSolver.Logic.Configuration;
-using Microsoft.EntityFrameworkCore;
+using FluentValidation.AspNetCore;
+using CarTroubleSolver.Logic.Validation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +13,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddRepositories();
 
 
+builder.Services.AddControllersWithViews()
+    .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<RegisterUserDtoValidator>());
 
 
 

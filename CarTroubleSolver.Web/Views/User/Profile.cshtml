@@ -1,0 +1,76 @@
+﻿
+@model CarTroubleSolver.Logic.Dto.User.LogedInUserDto;
+
+@{
+    IEnumerable<CarTroubleSolver.Logic.Dto.Cars.CarDto> cars = ViewBag.Cars;
+}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <table class="table table-striped w-25">
+                <tbody>
+                    <tr>
+                        <th>Name</th>
+                        <td>@Model.Name</td>
+                    </tr>
+                    <tr>
+                        <th>Surname</th>
+                        <td>@Model.Surname</td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td>@Model.Email</td>
+                    </tr>
+                    <tr>
+                        <th>Phone Number</th>
+                        <td>@Model.PhoneNumber</td>
+                    </tr>
+                    <tr>
+                        <th>Date Of Birth</th>
+                        <td>@Model.DateOfBirth</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="row mt-5">
+                <div class="col">
+                    <a asp-area="" asp-controller="Car" asp-action="Index"><button style="width:fit-content; height:fit-content;" type="button" class="btn btn-primary"><strong>Add Car</strong></button></a>
+                    <a asp-area="" asp-controller="Car" asp-action="UserCarDelete"><button style="width:fit-content; height:fit-content;" type="button" class="btn btn-danger"><strong>Delete Car</strong></button></a>
+                    <a asp-area="" asp-controller="Accident" asp-action="AccidentHistory"><button style="width:fit-content; height:fit-content;" type="button" class="btn btn-info"><strong style="color:white;">Accident History</strong></button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col">
+            <table class="table w-75">
+                <thead>
+                    <tr>
+                        <th>Brand</th>
+                        <th>Model</th>
+                        <th>Engine Type</th>
+                        <th>Fuel Type</th>
+                        <th>Door Count</th>
+                        <th>Mileage</th>
+                        <th>Color</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var car in cars)
+                    {
+                        <tr>
+                            <td>@car.Brand</td>
+                            <td>@car.CarModels</td>
+                            <td>@car.EngineType</td>
+                            <td>@car.FuelType</td>
+                            <td>@car.DoorCount</td>
+                            <td>@car.Mileage</td>
+                            <td>@car.Color</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>

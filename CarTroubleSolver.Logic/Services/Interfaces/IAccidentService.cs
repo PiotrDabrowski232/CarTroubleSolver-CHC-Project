@@ -12,5 +12,7 @@ namespace CarTroubleSolver.Logic.Services.Interfaces
         public IEnumerable<AccidentHistoryDto> ShowHistoryOfAccidentsAsignee(string email);
 
         public IEnumerable<AccidentHistoryDto> ShowHistoryOfAccidentsApplicant(string email);
+
+        public AccidentAdvertisementDto GetAccident(Guid id);
     }
 }

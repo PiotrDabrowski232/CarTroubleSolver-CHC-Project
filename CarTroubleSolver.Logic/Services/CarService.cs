@@ -33,12 +33,12 @@ namespace CarTroubleSolver.Logic.Services
             _carRepository.Add(car);
         }
 
-        public IEnumerable<CarDto> GetUserCars(string userEmail)
+        public IEnumerable<T> GetUserCars<T>(string userEmail)where T : class
         {
             var cars = GetAll();
             var user = _userRepository.GetUserByEmail(userEmail);
             cars = cars.Where(u => u.OwnerId == user.Id);
-            return _mapper.Map<IEnumerable<CarDto>>(cars);
+            return _mapper.Map<IEnumerable<T>>(cars);
         }
 
         public void DeleteCarFromUserCollection(CarDto carToDelete, string userEmail)

@@ -10,9 +10,9 @@ namespace CarTroubleSolver.Logic.Services.Interfaces
 {
     public interface ICarService
     {
-        public void Add(CarDto user, string userEmail);
+        public void Add(CarDto car, string userEmail);
         public void DeleteCarFromUserCollection(CarDto carToDelete, string userEmail);
-        public IEnumerable<CarDto> GetUserCars(string userEmail);
+        public IEnumerable<T> GetUserCars<T>(string userEmail) where T : class;
         public Guid GetCarId(CarDto car, string userEmail);
     }
 }

@@ -2,7 +2,6 @@
 
 using CarTroubleSolver.Data.Models;
 using CarTroubleSolver.Data.Models.Enums;
-using TheCarMarket.Data.Models.Enums;
 
 namespace TheCarMarket.Data.Models
 {

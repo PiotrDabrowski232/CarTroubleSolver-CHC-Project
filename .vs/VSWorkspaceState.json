@@ -1,10 +1,13 @@
 {
   "ExpandedNodes": [
     "",
+    "\\CarTroubleSolver",
+    "\\CarTroubleSolver.Logic",
+    "\\CarTroubleSolver.Logic\\Configuration",
     "\\CarTroubleSolver.Web",
     "\\CarTroubleSolver.Web\\Controllers",
     "\\CarTroubleSolver.Web\\Views"
   ],
-  "SelectedNode": "\\CarTroubleSolver.sln",
+  "SelectedNode": "\\CarTroubleSolver.Logic\\Configuration\\ServicesDependencyConfiguration.cs",
   "PreviewInSolutionExplorer": false
 }

@@ -26,6 +26,7 @@ var accidentService = serviceProvider.GetRequiredService(typeof(IAccidentService
 
 
 #region Variables
+string validationErrors = string.Empty;
 int selectedOption = 0;
 int selectedOptionTryAgainMenu = 0;
 bool userIsLogged = false;
@@ -899,12 +900,9 @@ void ShowHistory()
     Console.Clear();
 
 }
-
 RegisterUserDto? GetUserData()
 {
     RegisterUserDto registerUser;
-
-    string validationErrors = string.Empty;
 
     int currentIndex = 0;
 
@@ -977,7 +975,7 @@ RegisterUserDto? GetUserData()
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("Invalid Model.\n\n");
 
-            Console.SetCursorPosition(centerX, 2);
+            Console.SetCursorPosition(centerX, 0);
             Console.WriteLine(validationErrors);
             Console.ResetColor();
         }
@@ -1077,7 +1075,10 @@ void EditFieldValue(int index, ref string name, ref string surname, ref string e
     }
     else if (index == 5)
     {
-        int.TryParse(input, out phoneNumber);
+        if (input.Length != 9)
+            validationErrors += "\nPhone Number Should Have 9 figuer no less and no longer";
+        else
+            int.TryParse(input, out phoneNumber);
     }
     else if (index == 6)
     {
@@ -1107,7 +1108,6 @@ string GetFieldValue(int index, string name, string surname, string email, strin
             return "";
     }
 }
-
 string showAsStars(string password)
 {
     string stars = "";
@@ -1116,5 +1116,4 @@ string showAsStars(string password)
         stars += "*";
     }
     return stars;
-            
 }

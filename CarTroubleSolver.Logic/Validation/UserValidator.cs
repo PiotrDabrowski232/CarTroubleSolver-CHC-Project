@@ -35,13 +35,26 @@ namespace CarTroubleSolver.Logic.Validation
                 .WithMessage("Invalid email format. Please enter a valid email address.");
 
             RuleFor(x => x.DateOfBirth)
+                .NotEmpty()
+                .WithMessage("Fill DateOfBirth Input")
                 .Must(BeValidDate)
-                .WithMessage("Data urodzenia musi być prawidłową datą.");
+                .WithMessage("Date of birth should be valid date dd-mm-yyyy.");
+
+            RuleFor(x => x.PhoneNumber)
+                .NotEmpty()
+                .WithMessage("Fill PhoneNumber Input")
+                .Must(BeValidInt)
+                .WithMessage("Phone Number Should Have only numers");
         }
 
         private bool BeValidDate(DateTime date)
         {
             return date is DateTime;
+        }
+
+        private bool BeValidInt(int value)
+        {
+            return value is int;
         }
     }
 }

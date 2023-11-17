@@ -16,6 +16,7 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\Piotr\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver.Web
 build_property._RazorSourceGeneratorDebug = 
 
+<<<<<<< HEAD
 [C:/Users/Piotr/Source/Repos/PiotrDabrowski232/CarTroubleSolver-CHC-Project/CarTroubleSolver.Web/Views/Accident/AccidentDetails.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjaWRlbnRcQWNjaWRlbnREZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -36,10 +37,19 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FyXFVzZXJDYXJEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+=======
+>>>>>>> 0a3ad8d436c4969146c0a84b3354bb15f5942369
 [C:/Users/Piotr/Source/Repos/PiotrDabrowski232/CarTroubleSolver-CHC-Project/CarTroubleSolver.Web/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+<<<<<<< HEAD
+=======
+[C:/Users/Piotr/Source/Repos/PiotrDabrowski232/CarTroubleSolver-CHC-Project/CarTroubleSolver.Web/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+>>>>>>> 0a3ad8d436c4969146c0a84b3354bb15f5942369
 [C:/Users/Piotr/Source/Repos/PiotrDabrowski232/CarTroubleSolver-CHC-Project/CarTroubleSolver.Web/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -48,6 +58,7 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+<<<<<<< HEAD
 [C:/Users/Piotr/Source/Repos/PiotrDabrowski232/CarTroubleSolver-CHC-Project/CarTroubleSolver.Web/Views/User/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -60,6 +71,8 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxSZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+=======
+>>>>>>> 0a3ad8d436c4969146c0a84b3354bb15f5942369
 [C:/Users/Piotr/Source/Repos/PiotrDabrowski232/CarTroubleSolver-CHC-Project/CarTroubleSolver.Web/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

@@ -157,10 +157,19 @@
               "target": "Package",
               "version": "[6.0.25, )"
             },
+            "Microsoft.AspNet.Identity.Core": {
+              "target": "Package",
+              "version": "[2.2.4, )"
+            },
+            "Microsoft.AspNetCore.Identity": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
             "Microsoft.Extensions.DependencyInjection.Abstractions": {
               "target": "Package",
               "version": "[7.0.0, )"
             },
+<<<<<<< HEAD
             "Solutaris.InfoWARE.ProtectedBrowserStorage": {
               "target": "Package",
               "version": "[1.0.0, )"
@@ -168,6 +177,11 @@
             "System.Security.Claims": {
               "target": "Package",
               "version": "[4.3.0, )"
+=======
+            "Microsoft.Extensions.Identity.Core": {
+              "target": "Package",
+              "version": "[6.0.25, )"
+>>>>>>> 0a3ad8d436c4969146c0a84b3354bb15f5942369
             }
           },
           "imports": [

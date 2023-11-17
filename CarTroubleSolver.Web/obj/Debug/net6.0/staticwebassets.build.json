@@ -1,6 +1,10 @@
 {
   "Version": 1,
+<<<<<<< HEAD
   "Hash": "AYsVH8WyEnVGs2a9YAWBqJpGjyfuftqohWPVMyxuQmw=",
+=======
+  "Hash": "5OkPZVHxBUmwPnFvT0eEbIr5ELBhN3TsNr4G7yWDER4=",
+>>>>>>> 0a3ad8d436c4969146c0a84b3354bb15f5942369
   "Source": "CarTroubleSolver.Web",
   "BasePath": "_content/CarTroubleSolver.Web",
   "Mode": "Default",
@@ -17,6 +21,7 @@
   ],
   "Assets": [
     {
+<<<<<<< HEAD
       "Identity": "C:\\Users\\Piotr\\.nuget\\packages\\solutaris.infoware.protectedbrowserstorage\\1.0.0\\staticwebassets\\config.js",
       "SourceId": "Solutaris.InfoWARE.ProtectedBrowserStorage",
       "SourceType": "Package",
@@ -34,6 +39,8 @@
       "OriginalItemSpec": "C:\\Users\\Piotr\\.nuget\\packages\\solutaris.infoware.protectedbrowserstorage\\1.0.0\\staticwebassets\\config.js"
     },
     {
+=======
+>>>>>>> 0a3ad8d436c4969146c0a84b3354bb15f5942369
       "Identity": "C:\\Users\\Piotr\\Source\\Repos\\PiotrDabrowski232\\CarTroubleSolver-CHC-Project\\CarTroubleSolver.Web\\obj\\Debug\\net6.0\\scopedcss\\bundle\\CarTroubleSolver.Web.styles.css",
       "SourceId": "CarTroubleSolver.Web",
       "SourceType": "Computed",

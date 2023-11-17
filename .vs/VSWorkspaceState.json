@@ -2,10 +2,15 @@
   "ExpandedNodes": [
     "",
     "\\CarTroubleSolver",
+<<<<<<< HEAD
+=======
+    "\\CarTroubleSolver.Logic",
+    "\\CarTroubleSolver.Logic\\Configuration",
+>>>>>>> 0a3ad8d436c4969146c0a84b3354bb15f5942369
     "\\CarTroubleSolver.Web",
     "\\CarTroubleSolver.Web\\Controllers",
     "\\CarTroubleSolver.Web\\Views"
   ],
-  "SelectedNode": "\\CarTroubleSolver\\Program.cs",
+  "SelectedNode": "\\CarTroubleSolver.Logic\\Configuration\\ServicesDependencyConfiguration.cs",
   "PreviewInSolutionExplorer": false
 }

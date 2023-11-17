@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "5OkPZVHxBUmwPnFvT0eEbIr5ELBhN3TsNr4G7yWDER4=",
+  "Hash": "AYsVH8WyEnVGs2a9YAWBqJpGjyfuftqohWPVMyxuQmw=",
   "Source": "CarTroubleSolver.Web",
   "BasePath": "_content/CarTroubleSolver.Web",
   "Mode": "Default",
@@ -16,6 +16,23 @@
     }
   ],
   "Assets": [
+    {
+      "Identity": "C:\\Users\\Piotr\\.nuget\\packages\\solutaris.infoware.protectedbrowserstorage\\1.0.0\\staticwebassets\\config.js",
+      "SourceId": "Solutaris.InfoWARE.ProtectedBrowserStorage",
+      "SourceType": "Package",
+      "ContentRoot": "C:\\Users\\Piotr\\.nuget\\packages\\solutaris.infoware.protectedbrowserstorage\\1.0.0\\staticwebassets\\",
+      "BasePath": "_content/Solutaris.InfoWARE.ProtectedBrowserStorage",
+      "RelativePath": "config.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\Users\\Piotr\\.nuget\\packages\\solutaris.infoware.protectedbrowserstorage\\1.0.0\\staticwebassets\\config.js"
+    },
     {
       "Identity": "C:\\Users\\Piotr\\Source\\Repos\\PiotrDabrowski232\\CarTroubleSolver-CHC-Project\\CarTroubleSolver.Web\\obj\\Debug\\net6.0\\scopedcss\\bundle\\CarTroubleSolver.Web.styles.css",
       "SourceId": "CarTroubleSolver.Web",

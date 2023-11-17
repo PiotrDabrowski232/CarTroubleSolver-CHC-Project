@@ -270,7 +270,7 @@ while (true)
 
                         Console.WriteLine(userTable);
 
-                        var userCars = carService.GetUserCars(user.Email);
+                        var userCars = carService.GetUserCars<CarDto>(user.Email);
 
                         var userCarsTable = new ConsoleTable("Brand", "Model", "Engine Type", "Fuel", "Mileage", "Doors", "Color");
 
@@ -351,7 +351,7 @@ while (true)
                         Console.Clear();
 
 
-                        var cars = carService.GetUserCars(user.Email).ToList();
+                        var cars = carService.GetUserCars<CarDto>(user.Email).ToList();
 
                         if (cars.Count() > 0)
                         {

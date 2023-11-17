@@ -104,13 +104,14 @@ while (true)
                 {
                     userIsLogged = true;
                     user = userService.GetLoggedInUser(email);
+                    validationErrors = string.Empty;
                 }
                 else
                 {
                     Console.SetCursorPosition(0, INPUT_PROMPT_TOP + 10);
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Nieprawidłowy email lub hasło");
-                    await Task.Delay(3500);
+                    await Task.Delay(2500);
                     Console.ResetColor();
                 }
                 #endregion
@@ -127,6 +128,7 @@ while (true)
                     Console.SetCursorPosition(centerX - 10, MENU_TOP + 5);
                     Console.WriteLine("Congratulations!!! User Created");
                     await Task.Delay(3500);
+                    validationErrors = string.Empty;
                 }
                 #endregion
             }

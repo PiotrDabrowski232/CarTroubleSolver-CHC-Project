@@ -7,6 +7,7 @@ using CarTroubleSolver.Logic.Dto.User;
 using CarTroubleSolver.Logic.Services.Interfaces;
 using CarTroubleSolver.Logic.Validation;
 using ConsoleTables;
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using TheCarMarket.Data.Models.Enums;
@@ -312,8 +313,30 @@ while (true)
                             {
                                 if (selectedOption == 0)
                                 {
-                                    carService.Add(AddCarProfile(), user.Email);
-                                    break;
+                                    comaBackToCarCreator:
+                                    var car = AddCarProfile();
+
+                                    if(!validationErrors.IsNullOrEmpty())
+                                    {
+                                        Console.Clear();
+                                        Console.SetCursorPosition(centerX, 0);
+                                        Console.ForegroundColor = ConsoleColor.Red;
+                                        Console.WriteLine("Invalid Model.\n\n");
+
+                                        Console.SetCursorPosition(centerX, 0);
+                                        Console.WriteLine(validationErrors);
+                                        Console.ResetColor();
+                                        await Task.Delay(3500);
+                                        selectedOption = 0;
+                                        Console.Clear();
+                                        validationErrors = "";
+                                        goto comaBackToCarCreator;
+                                    }
+                                    else
+                                    {
+                                        carService.Add(car, user.Email);
+                                        break;
+                                    }
                                 }
                                 else if (selectedOption == 1)
                                 {
@@ -587,17 +610,45 @@ CarDto AddCarProfile()
     Console.WriteLine($"\nType Car Engine Type (For Example V12): {car.EngineType}");
 
     Console.WriteLine($"\nSelected Fuel: {car.FuelType}");
+    try
+    {
+        Console.Write("\nHow many doors your car has: ");
+        car.DoorCount = int.Parse(Console.ReadLine());
+    }
+    catch(Exception e)
+    {
+        validationErrors += "\nDoorCount Should Have only numers";
+    }
 
-    Console.Write("\nHow many doors your car has: ");
-    car.DoorCount = int.Parse(Console.ReadLine());
-
-    Console.Write("\nType Mileage: ");
-    car.Mileage = int.Parse(Console.ReadLine());
+    try
+    {
+        Console.Write("\nType Mileage: ");
+        car.Mileage = int.Parse(Console.ReadLine());
+    }
+    catch (Exception e)
+    {
+        validationErrors += "\nMileage Should Have only numers";
+    }
 
     Console.Write("\nCar Color: ");
     car.Color = Console.ReadLine();
 
     Console.Clear();
+
+    var validator = new CarDtoValidator();
+    var validationResult = validator.Validate(car);
+
+    if (validationResult.IsValid)
+    {
+        validationErrors = string.Empty;
+    }
+    else
+    {
+        foreach (var error in validationResult.Errors)
+        {
+            validationErrors += $"\n Error: {error.ErrorMessage}";
+        }
+    }
     return car;
 }
 void SelectCarFromTable(IList<CarDto> cars)

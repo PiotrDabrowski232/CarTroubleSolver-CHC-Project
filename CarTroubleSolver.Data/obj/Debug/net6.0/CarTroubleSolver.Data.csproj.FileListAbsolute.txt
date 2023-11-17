@@ -162,3 +162,4 @@ C:\Users\Piotr\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTr
 C:\Users\Piotr\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver.Data\obj\Debug\net6.0\CarTroubleSolver.Data.pdb
 C:\Users\Piotr\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver.Data\obj\Debug\net6.0\CarTroubleSolver.Data.genruntimeconfig.cache
 C:\Users\Piotr\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver.Data\obj\Debug\net6.0\ref\CarTroubleSolver.Data.dll
+C:\Users\Piotr\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver.Data\obj\Debug\net6.0\CarTroubleSolver.Data.sourcelink.json

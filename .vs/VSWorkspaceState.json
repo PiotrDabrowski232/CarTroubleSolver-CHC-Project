@@ -1,7 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\CarTroubleSolver.Logic"
   ],
-  "SelectedNode": "\\CarTroubleSolver.sln",
+  "SelectedNode": "\\CarTroubleSolver.Logic\\CarTroubleSolver.Logic.csproj",
   "PreviewInSolutionExplorer": false
 }

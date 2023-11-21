@@ -9,7 +9,7 @@ namespace CarTroubleSolver.Logic.Dto.Accident
 
         public CarFormDto SelectedCar { get; set; }
         public CollisionSeverity CollisionSeverity { get; set; }
-        public string Description { get; set; }
+        public string AccidentDescription { get; set; }
 
     }
 }

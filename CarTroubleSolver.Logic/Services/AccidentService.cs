@@ -5,6 +5,7 @@ using CarTroubleSolver.Logic.Dto.Accident;
 using CarTroubleSolver.Logic.Dto.Cars;
 using CarTroubleSolver.Logic.Dto.User;
 using CarTroubleSolver.Logic.Services.Interfaces;
+using System.Reflection;
 
 namespace CarTroubleSolver.Logic.Services
 {
@@ -13,23 +14,25 @@ namespace CarTroubleSolver.Logic.Services
         private readonly IAccidentRepository _accidentRepository;
         private readonly IUserRepository _userRepository;
         private readonly ICarRepository _carRepository;
+        private readonly ICarService _carService;
         private readonly IMapper _mapper;
-        public AccidentService(IAccidentRepository accidentRepository, IMapper mapper, IUserRepository userRepository, ICarRepository carRepository)
+        public AccidentService(IAccidentRepository accidentRepository, IMapper mapper, IUserRepository userRepository, ICarRepository carRepository,ICarService carService)
         {
             _accidentRepository = accidentRepository;
             _mapper = mapper;
             _userRepository = userRepository;
             _carRepository = carRepository;
+            _carService = carService;
         }
 
         public void AddAccident<T>(T accidentDto, string userEmail) where T : class 
         {
             var mappedAccident = _mapper.Map<Accident>(accidentDto);
+            
 
             if (accidentDto is WebAccidentRequestDto)
             {
                 mappedAccident.Id = Guid.NewGuid();
-                
                 mappedAccident.ApplicantUserId = _userRepository.GetUserByEmail(userEmail).Id;
             }
             else

@@ -21,7 +21,7 @@ namespace CarTroubleSolver.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                _carService.Add(car, "pp@o2.pl");
+                _carService.Add(car, User.Identity.Name);
                 return RedirectToAction("Profile", "User");
             }
             return View("Index", car);
@@ -29,13 +29,13 @@ namespace CarTroubleSolver.Web.Controllers
 
         public IActionResult UserCarDelete()
         {
-            var cars = _carService.GetUserCars<CarDto>("pp@o2.pl");
+            var cars = _carService.GetUserCars<CarDto>(User.Identity.Name);
             return View(cars);
         }
 
         public IActionResult DeleteCar(CarDto car)
         {
-            _carService.DeleteCarFromUserCollection(car, "pp@o2.pl");
+            _carService.DeleteCarFromUserCollection(car, User.Identity.Name);
             return RedirectToAction("Profile", "User");
         }
     }

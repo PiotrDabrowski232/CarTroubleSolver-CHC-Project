@@ -2,8 +2,10 @@
 using CarTroubleSolver.Logic.Dto.User;
 using CarTroubleSolver.Logic.Services.Interfaces;
 using CarTroubleSolver.Logic.Validation;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace CarTroubleSolver.Web.Controllers
 {
@@ -52,26 +54,48 @@ namespace CarTroubleSolver.Web.Controllers
             return View();
         }
 
-        public IActionResult LoginRequest(string Email, string Password)
+        public async Task<IActionResult> LoginRequest(string Email, string Password)
         {
 
-           if (_userService.VerifyUserInputs(Email, Password))
+            if (_userService.VerifyUserInputs(Email, Password))
             {
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name, Email)
+                };
+
+                var claimIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                var authProperties = new AuthenticationProperties
+                {
+                    IsPersistent = true,
+                };
+
+                await HttpContext.SignInAsync(
+                    CookieAuthenticationDefaults.AuthenticationScheme,
+                    new ClaimsPrincipal(claimIdentity), authProperties);
+
                 return RedirectToAction("Index", "Home");
             }
             else
             {
                 return RedirectToAction("Login");
             }
-            
+
         }
 
         public IActionResult Profile()
         {
-            var user = _userService.GetLoggedInUser("pp@o2.pl");
+            var user = _userService.GetLoggedInUser(User.Identity.Name);
 
-            ViewBag.Cars = _carService.GetUserCars<CarDto>(user.Email);
+            ViewBag.Cars = _carService.GetUserCars<CarDto>(User.Identity.Name);
             return View(user);
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Index", "Home");
         }
     }
 }

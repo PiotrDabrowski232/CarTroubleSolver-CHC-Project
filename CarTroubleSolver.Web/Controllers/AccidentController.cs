@@ -21,7 +21,7 @@ namespace CarTroubleSolver.Web.Controllers
         }
         public IActionResult AccidentRequest()
         {
-            ViewBag.Cars = _carService.GetUserCars<CarFormDto>("pp@o2.pl");
+            ViewBag.Cars = _carService.GetUserCars<CarFormDto>(User.Identity.Name);
             return View();
         }
 
@@ -32,8 +32,8 @@ namespace CarTroubleSolver.Web.Controllers
         }
         public IActionResult AccidentHistory()
         {
-            ViewBag.Applicant = _accidentService.ShowHistoryOfAccidentsApplicant("pp@o2.pl");
-            ViewBag.Asignee = _accidentService.ShowHistoryOfAccidentsAsignee("pp@o2.pl");
+            ViewBag.Applicant = _accidentService.ShowHistoryOfAccidentsApplicant(User.Identity.Name);
+            ViewBag.Asignee = _accidentService.ShowHistoryOfAccidentsAsignee(User.Identity.Name);
 
             return View();
 
@@ -42,13 +42,13 @@ namespace CarTroubleSolver.Web.Controllers
 
         public IActionResult AccidentDetails(Guid accidentId)
         {
-            var accident = _accidentService.GetAllFreeAccidents("pp@o2.pl").FirstOrDefault(a => a.Id == accidentId);
+            var accident = _accidentService.GetAllFreeAccidents(User.Identity.Name).FirstOrDefault(a => a.Id == accidentId);
             return View(accident);
         }
 
         public IActionResult ApplyForAccidentHelp(AccidentAdvertisementDto accident)
         {
-            _accidentService.HelpInAccident("pp@o2.pl", accident.Id);
+            _accidentService.HelpInAccident(User.Identity.Name, accident.Id);
             return RedirectToAction("Index", "Home");
         }
     }

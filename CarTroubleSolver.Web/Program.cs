@@ -2,6 +2,7 @@ using CarTroubleSolver.Data.Configuration;
 using CarTroubleSolver.Logic.Configuration;
 using FluentValidation.AspNetCore;
 using CarTroubleSolver.Logic.Validation;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +22,13 @@ builder.Services.AddControllersWithViews()
 // Dependency Injections Services
 builder.Services.AddServices();
 
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.Cookie.Name = "LoginCookie";
+        options.LoginPath = "/User/Login";
+    }
+    );
 
 var app = builder.Build();
 
@@ -37,7 +45,11 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
+
 app.UseAuthorization();
+
+
 
 app.MapControllerRoute(
     name: "default",

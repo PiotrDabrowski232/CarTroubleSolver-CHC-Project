@@ -16,7 +16,7 @@
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                @if (User.Identity.Name == null)
+                @if (User.Identity.Name != null)
                     {
                         <a class="nav-link m" asp-area="" asp-controller="Accident" asp-action="AccidentRequest">Send Accident Request</a>
                     }
@@ -28,7 +28,7 @@
 
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-end">
 
-                    @if (User.Identity.Name == null)
+                    @if (User.Identity.Name != null)
                     {
 
                         <ul class="navbar-nav">
@@ -38,7 +38,7 @@
                             </li>
 
                             <li class="nav-item me-4 fs-5">
-                                <a class="nav-link" asp-area="" asp-controller="User" asp-action=""><strong>Log Out</strong></a>
+                                <a class="nav-link" asp-area="" asp-controller="User" asp-action="Logout"><strong>Log Out</strong></a>
                             </li>
 
                         </ul>

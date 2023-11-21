@@ -13,7 +13,7 @@
         <label for="selectedCar">Select a Car</label>
         <select id="selectedCar" asp-for="SelectedCar.Id" class="form-control">
             <option value="">Select a Car</option>
-            @foreach (var car in ViewBag.Cars) // Assuming you have ViewBag.Cars available
+            @foreach (var car in ViewBag.Cars) 
             {
                 <option value="@car.Id">Brand: @car.Brand; Model: @car.CarModels; Mileage: @car.Mileage; Fuel Type: @car.FuelType; Color: @car.Color</option>
             }

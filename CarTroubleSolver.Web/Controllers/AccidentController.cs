@@ -27,7 +27,8 @@ namespace CarTroubleSolver.Web.Controllers
 
         public IActionResult SendRequest(WebAccidentRequestDto accident)
         {
-           // _accidentService.AddAccident()
+            
+            _accidentService.AddAccident(accident, User.Identity.Name);
             return View();
         }
         public IActionResult AccidentHistory()

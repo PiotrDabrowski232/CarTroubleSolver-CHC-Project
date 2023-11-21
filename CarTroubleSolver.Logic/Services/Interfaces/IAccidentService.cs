@@ -5,7 +5,7 @@ namespace CarTroubleSolver.Logic.Services.Interfaces
 {
     public interface IAccidentService
     {
-        public void AddAccident(AccidentDto accident, string userEmail);
+        public void AddAccident<T>(T accidentDto, string userEmail) where T : class;
 
         public IEnumerable<AccidentAdvertisementDto> GetAllFreeAccidents(string userEmail);
         void HelpInAccident(string email, Guid id);

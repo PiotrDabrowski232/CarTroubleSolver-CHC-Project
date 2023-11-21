@@ -22,11 +22,23 @@ namespace CarTroubleSolver.Logic.Services
             _carRepository = carRepository;
         }
 
-        public void AddAccident(AccidentDto accidentDto, string userEmail)
+        public void AddAccident<T>(T accidentDto, string userEmail) where T : class 
         {
             var mappedAccident = _mapper.Map<Accident>(accidentDto);
-            mappedAccident.Id = Guid.NewGuid();
-            mappedAccident.ApplicantUserId = _userRepository.GetUserByEmail(userEmail).Id;
+
+            if (accidentDto is WebAccidentRequestDto)
+            {
+                mappedAccident.Id = Guid.NewGuid();
+                
+                mappedAccident.ApplicantUserId = _userRepository.GetUserByEmail(userEmail).Id;
+            }
+            else
+            {
+                mappedAccident.Id = Guid.NewGuid();
+                mappedAccident.ApplicantUserId = _userRepository.GetUserByEmail(userEmail).Id;
+            }
+
+           
             _accidentRepository.Add(mappedAccident);
         }
 

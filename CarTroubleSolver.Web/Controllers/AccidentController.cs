@@ -1,8 +1,9 @@
 ﻿using CarTroubleSolver.Logic.Dto.Accident;
 using CarTroubleSolver.Logic.Dto.Cars;
+using CarTroubleSolver.Logic.Services;
 using CarTroubleSolver.Logic.Services.Interfaces;
+using CarTroubleSolver.Logic.Validation;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CarTroubleSolver.Web.Controllers
 {
@@ -27,9 +28,22 @@ namespace CarTroubleSolver.Web.Controllers
 
         public IActionResult SendRequest(WebAccidentRequestDto accident)
         {
+            var validator = new WebAccidentRequestDtoValidator();
+            var validationResult = validator.Validate(accident);
+            if (!validationResult.IsValid)
+            {
+                foreach (var error in validationResult.Errors)
+                {
+                    ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+                }
+                return View("AccidentRequest", accident);
+            }
+            else
+            {
+                _accidentService.AddAccident(accident, User.Identity.Name);
+                return RedirectToAction("Index", "Home");
+            }
             
-            _accidentService.AddAccident(accident, User.Identity.Name);
-            return View();
         }
         public IActionResult AccidentHistory()
         {

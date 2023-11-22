@@ -5,7 +5,6 @@ using CarTroubleSolver.Logic.Dto.Accident;
 using CarTroubleSolver.Logic.Dto.Cars;
 using CarTroubleSolver.Logic.Dto.User;
 using CarTroubleSolver.Logic.Services.Interfaces;
-using System.Reflection;
 
 namespace CarTroubleSolver.Logic.Services
 {
@@ -16,7 +15,7 @@ namespace CarTroubleSolver.Logic.Services
         private readonly ICarRepository _carRepository;
         private readonly ICarService _carService;
         private readonly IMapper _mapper;
-        public AccidentService(IAccidentRepository accidentRepository, IMapper mapper, IUserRepository userRepository, ICarRepository carRepository,ICarService carService)
+        public AccidentService(IAccidentRepository accidentRepository, IMapper mapper, IUserRepository userRepository, ICarRepository carRepository, ICarService carService)
         {
             _accidentRepository = accidentRepository;
             _mapper = mapper;
@@ -25,23 +24,12 @@ namespace CarTroubleSolver.Logic.Services
             _carService = carService;
         }
 
-        public void AddAccident<T>(T accidentDto, string userEmail) where T : class 
+        public void AddAccident<T>(T accidentDto, string userEmail) where T : class
         {
             var mappedAccident = _mapper.Map<Accident>(accidentDto);
-            
+            mappedAccident.Id = Guid.NewGuid();
+            mappedAccident.ApplicantUserId = _userRepository.GetUserByEmail(userEmail).Id;
 
-            if (accidentDto is WebAccidentRequestDto)
-            {
-                mappedAccident.Id = Guid.NewGuid();
-                mappedAccident.ApplicantUserId = _userRepository.GetUserByEmail(userEmail).Id;
-            }
-            else
-            {
-                mappedAccident.Id = Guid.NewGuid();
-                mappedAccident.ApplicantUserId = _userRepository.GetUserByEmail(userEmail).Id;
-            }
-
-           
             _accidentRepository.Add(mappedAccident);
         }
 
@@ -114,7 +102,7 @@ namespace CarTroubleSolver.Logic.Services
 
         public AccidentAdvertisementDto GetAccident(Guid id)
         {
-            var accident =  _accidentRepository.GetAll().FirstOrDefault(a => a.Id == id);
+            var accident = _accidentRepository.GetAll().FirstOrDefault(a => a.Id == id);
 
             var mappedAccident = _mapper.Map<AccidentAdvertisementDto>(accident);
 

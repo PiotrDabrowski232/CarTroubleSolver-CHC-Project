@@ -815,22 +815,50 @@ AccidentDto SendAccidentRequest(IList<CarDto> cars)
                 }
 
             } while (key != ConsoleKey.Enter);
-
+        
             accident.CollisionSeverity = (CollisionSeverity)selectedSeverityIndex;
+
+            AccidentDescriptionInput:
             Console.Clear();
 
+            Console.SetCursorPosition(15, 22);
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(validationErrors);
+            Console.ResetColor();
+
+            validationErrors = string.Empty;
+
+
+            Console.SetCursorPosition(0, 0);
             Console.WriteLine($"Vehicle involved in the accident: " +
                 $"\nBrand: {carFromAccident.Brand}\nModel: {carFromAccident.CarModels}\n" +
                 $"Engine Type: {carFromAccident.EngineType}\nMileage: {carFromAccident.Mileage}");
 
             Console.WriteLine($"Collision Severity: {accident.CollisionSeverity}");
-
-            Console.WriteLine("\nWrite here Description of Accident: ");
+            Console.WriteLine($"\nWrite here Description of Accident:");
             accident.AccidentDescription = Console.ReadLine();
 
-            return accident;
+
+            var validator = new AccidentDtoValidator();
+            var validationResult = validator.Validate(accident);
+
+            if (validationResult.IsValid)
+            {
+                return accident;
+            }
+            else
+            {
+                foreach(var error in validationResult.Errors)
+                {
+
+                    validationErrors += error.ErrorMessage;
+                }
+                goto AccidentDescriptionInput;
+            }
         }
     }
+
+    
 
 }
 async Task DisplayAccidentDetails(AccidentAdvertisementDto accident)

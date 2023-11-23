@@ -5,6 +5,8 @@
 @model CarTroubleSolver.Logic.Dto.Accident.WebAccidentRequestDto
 @{
     bool selectedCar = false;
+
+   
 }
 
 
@@ -23,11 +25,8 @@
                 <option value="@car.Id">Brand: @car.Brand; Model: @car.CarModels; Mileage: @car.Mileage; Fuel Type: @car.FuelType; Color: @car.Color</option>
             }
         </select>
-        @if (Model.SelectedCar != null)
-        {
-            selectedCar = true;
-        }
     </div>
+    
 
     <div class="form-group">
         <label for="CollisionSeverity">Select a Severity</label>
@@ -47,5 +46,5 @@
         <span asp-validation-for="AccidentDescription" class="text-danger"></span>
     </div>
 
-    <button id="submitBtn" type="submit" class="btn btn-success primary-button" @(selectedCar ? "" : "disabled")>Send Request</button>
+    <button id="submitBtn" type="submit" class="btn btn-success primary-button">Send Request</button>
 </form>

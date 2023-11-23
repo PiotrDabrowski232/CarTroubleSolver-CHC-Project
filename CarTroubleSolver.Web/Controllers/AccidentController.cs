@@ -36,6 +36,7 @@ namespace CarTroubleSolver.Web.Controllers
                 {
                     ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
                 }
+                ViewBag.Cars = _carService.GetUserCars<CarFormDto>(User.Identity.Name);
                 return View("AccidentRequest", accident);
             }
             else
@@ -51,8 +52,6 @@ namespace CarTroubleSolver.Web.Controllers
             ViewBag.Asignee = _accidentService.ShowHistoryOfAccidentsAsignee(User.Identity.Name);
 
             return View();
-
-
         }
 
         public IActionResult AccidentDetails(Guid accidentId)
@@ -66,5 +65,6 @@ namespace CarTroubleSolver.Web.Controllers
             _accidentService.HelpInAccident(User.Identity.Name, accident.Id);
             return RedirectToAction("Index", "Home");
         }
+      
     }
 }

@@ -15,6 +15,18 @@ namespace CarTroubleSolver.Logic.Validation
                 .WithMessage("Fill description field")
                 .MinimumLength(30)
                 .WithMessage("Your Description Should Be Longer Than 30 Letters");
+
+            RuleFor(a => a.SelectedCar)
+                .NotEmpty()
+                .WithMessage("Select Car field")
+                .NotNull()
+                .WithMessage("Select Car field");
+
+            RuleFor(a => a.CollisionSeverity)
+                .NotEmpty()
+                .WithMessage("Select Colision Severity field")
+                .NotNull()
+                .WithMessage("Select Colision Severity field");
         }
 
     }

@@ -37,6 +37,10 @@
 
     <form method="post" asp-area="" asp-action="ApplyForAccidentHelp" asp-controller="Accident">
         <input type="hidden" asp-for="Id"  value="@Model.Id" />
+        <input type="hidden" asp-for="ApplicantUserInfo.Surname" value="@Model.ApplicantUserInfo.Surname" />
+        <input type="hidden" asp-for="ApplicantUserInfo.Name" value="@Model.ApplicantUserInfo.Name" />
+
+
         <button type="submit" class="btn btn-success primary-button">Commit to Help</button>
     </form>
     

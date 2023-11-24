@@ -3,6 +3,8 @@ using CarTroubleSolver.Logic.Configuration;
 using FluentValidation.AspNetCore;
 using CarTroubleSolver.Logic.Validation;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using AspNetCoreHero.ToastNotification;
+using AspNetCoreHero.ToastNotification.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +32,15 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     }
     );
 
+// Toast Notification
+
+builder.Services.AddNotyf(config =>
+{
+    config.DurationInSeconds = 5;
+    config.IsDismissable = true;
+    config.Position = NotyfPosition.TopRight;
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -49,7 +60,7 @@ app.UseAuthentication();
 
 app.UseAuthorization();
 
-
+app.UseNotyf();
 
 app.MapControllerRoute(
     name: "default",

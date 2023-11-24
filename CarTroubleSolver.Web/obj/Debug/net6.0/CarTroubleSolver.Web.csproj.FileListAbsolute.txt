@@ -192,3 +192,5 @@ C:\Users\Piotr\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTr
 C:\Users\Piotr\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver.Web\obj\Debug\net6.0\CarTroubleSolver.Web.pdb
 C:\Users\Piotr\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver.Web\obj\Debug\net6.0\CarTroubleSolver.Web.genruntimeconfig.cache
 C:\Users\Piotr\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver.Web\obj\Debug\net6.0\ref\CarTroubleSolver.Web.dll
+C:\Users\Piotr\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver.Web\bin\Debug\net6.0\AspNetCoreHero.ToastNotification.Views.dll
+C:\Users\Piotr\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver.Web\bin\Debug\net6.0\AspNetCoreHero.ToastNotification.dll

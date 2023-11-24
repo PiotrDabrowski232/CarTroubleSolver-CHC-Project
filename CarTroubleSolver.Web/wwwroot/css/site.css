@@ -21,7 +21,7 @@ body {
     border-radius: 15%;
     color: #3498db;
     background-color: white; 
-    transition: color 0.8s ease-in-out, background-color 0.8s ease-in-out, box-shadow 0.8s ease-in-out;
+    transition: color 0.45s ease-in-out, background-color 0.45s ease-in-out, box-shadow 0.45s ease-in-out;
     display: inline-block;
 }
 
@@ -60,4 +60,14 @@ button a strong:hover {
 .buttonlogin {
     margin-left:70%;
     margin-top:20%;
+}
+
+.form-horizontal .registrationBlock {
+    padding: 0;
+    margin-right: 13%;
+}
+
+.registrationBlock .form-control{
+    width:150%;
+    margin-bottom:2vh;
 }

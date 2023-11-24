@@ -1,4 +1,5 @@
-﻿using CarTroubleSolver.Logic.Dto.Cars;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using CarTroubleSolver.Logic.Dto.Cars;
 using CarTroubleSolver.Logic.Dto.User;
 using CarTroubleSolver.Logic.Services.Interfaces;
 using CarTroubleSolver.Logic.Validation;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using System.Web.Helpers;
 
 namespace CarTroubleSolver.Web.Controllers
 {
@@ -14,11 +16,14 @@ namespace CarTroubleSolver.Web.Controllers
 
         private readonly IUserService _userService;
         private readonly ICarService _carService;
+        private readonly INotyfService _toastNotification;
 
-        public UserController(IUserService userService, ICarService carService)
+
+        public UserController(IUserService userService, ICarService carService, INotyfService toastNotification)
         {
             _userService = userService;
             _carService = carService;
+            _toastNotification = toastNotification;
         }
 
         public IActionResult Index()
@@ -40,11 +45,14 @@ namespace CarTroubleSolver.Web.Controllers
                 {
                     ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
                 }
+                _toastNotification.Warning("Fill All Inputs Correctly");
+
                 return View("Register", user);
             }
             else
             {
                 _userService.Add(user);
+                _toastNotification.Success("The account was created correctly");
                 return RedirectToAction("Index", "Home");
             }
         }
@@ -75,10 +83,12 @@ namespace CarTroubleSolver.Web.Controllers
                     CookieAuthenticationDefaults.AuthenticationScheme,
                     new ClaimsPrincipal(claimIdentity), authProperties);
 
+                _toastNotification.Information($"Welcome {Email} You Have Logged Correctly");
                 return RedirectToAction("Index", "Home");
             }
             else
             {
+                _toastNotification.Error($"There is no such password or user");
                 return RedirectToAction("Login");
             }
 
@@ -95,6 +105,7 @@ namespace CarTroubleSolver.Web.Controllers
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            _toastNotification.Information($"You Have Logged Out Correctly");
             return RedirectToAction("Index", "Home");
         }
     }

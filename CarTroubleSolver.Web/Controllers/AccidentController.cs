@@ -1,8 +1,10 @@
-﻿using CarTroubleSolver.Logic.Dto.Accident;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using CarTroubleSolver.Logic.Dto.Accident;
 using CarTroubleSolver.Logic.Dto.Cars;
+using CarTroubleSolver.Logic.Services;
 using CarTroubleSolver.Logic.Services.Interfaces;
+using CarTroubleSolver.Logic.Validation;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CarTroubleSolver.Web.Controllers
 {
@@ -10,10 +12,12 @@ namespace CarTroubleSolver.Web.Controllers
     {
         private readonly IAccidentService _accidentService;
         private readonly ICarService _carService;
-        public AccidentController(IAccidentService accidentService, ICarService carService)
+        private readonly INotyfService _toastNotification;
+        public AccidentController(IAccidentService accidentService, ICarService carService, INotyfService toastNotification)
         {
             _accidentService = accidentService;
             _carService = carService;
+            _toastNotification = toastNotification;
         }
         public IActionResult Index()
         {
@@ -21,35 +25,54 @@ namespace CarTroubleSolver.Web.Controllers
         }
         public IActionResult AccidentRequest()
         {
-            ViewBag.Cars = _carService.GetUserCars<CarFormDto>("pp@o2.pl");
+            ViewBag.Cars = _carService.GetUserCars<CarFormDto>(User.Identity.Name);
             return View();
         }
 
         public IActionResult SendRequest(WebAccidentRequestDto accident)
         {
-           // _accidentService.AddAccident()
-            return View();
+            var validator = new WebAccidentRequestDtoValidator();
+            var validationResult = validator.Validate(accident);
+            if (!validationResult.IsValid)
+            {
+                foreach (var error in validationResult.Errors) 
+                {
+                    ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+                }
+                ViewBag.Cars = _carService.GetUserCars<CarFormDto>(User.Identity.Name);
+                _toastNotification.Warning("Fill All Inputs");
+                return View("AccidentRequest", accident);
+            }
+            else
+            {
+                _accidentService.AddAccident(accident, User.Identity.Name);
+                _toastNotification.Success("Accident Added Sucessfully");
+                return RedirectToAction("Index", "Home");
+            }
+            
         }
         public IActionResult AccidentHistory()
         {
-            ViewBag.Applicant = _accidentService.ShowHistoryOfAccidentsApplicant("pp@o2.pl");
-            ViewBag.Asignee = _accidentService.ShowHistoryOfAccidentsAsignee("pp@o2.pl");
+            ViewBag.Applicant = _accidentService.ShowHistoryOfAccidentsApplicant(User.Identity.Name);
+            ViewBag.Asignee = _accidentService.ShowHistoryOfAccidentsAsignee(User.Identity.Name);
 
             return View();
-
-
         }
 
         public IActionResult AccidentDetails(Guid accidentId)
         {
-            var accident = _accidentService.GetAllFreeAccidents("pp@o2.pl").FirstOrDefault(a => a.Id == accidentId);
+            var accident = _accidentService.GetAllFreeAccidents(User.Identity.Name).FirstOrDefault(a => a.Id == accidentId);
             return View(accident);
         }
 
         public IActionResult ApplyForAccidentHelp(AccidentAdvertisementDto accident)
         {
-            _accidentService.HelpInAccident("pp@o2.pl", accident.Id);
+            _accidentService.HelpInAccident(User.Identity.Name, accident.Id);
+            _toastNotification.Success("Your request for assistance has been granted");
+            _toastNotification.Information($"You have pledged to provide assistance to {accident.ApplicantUserInfo.Name} {accident.ApplicantUserInfo.Surname} enter your story to contact with {accident.ApplicantUserInfo.Name} {accident.ApplicantUserInfo.Surname}",12);
+
             return RedirectToAction("Index", "Home");
         }
+      
     }
 }

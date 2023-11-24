@@ -16,6 +16,10 @@ namespace CarTroubleSolver.Logic.Mapping
 
             CreateMap<Accident, AccidentHistoryDto>();
             CreateMap<AccidentHistoryDto, Accident>();
+
+            CreateMap<Accident, WebAccidentRequestDto>();
+            CreateMap<WebAccidentRequestDto, Accident>()
+                .ForMember(dist => dist.CarId, opt => opt.MapFrom(src => src.SelectedCar.Id));
         }
     }
 }

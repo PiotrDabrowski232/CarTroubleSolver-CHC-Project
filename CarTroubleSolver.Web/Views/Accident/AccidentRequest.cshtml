@@ -4,21 +4,30 @@
 
 @model CarTroubleSolver.Logic.Dto.Accident.WebAccidentRequestDto
 @{
+    bool selectedCar = false;
+
+   
 }
 
 
 
-<form method="post" asp-action="SendRequest" asp-controller="Accident">
+
+<form method="post" asp-action="SendRequest" asp-controller="Accident" class="formAccident">
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
     <div class="form-group">
         <label for="selectedCar">Select a Car</label>
         <select id="selectedCar" asp-for="SelectedCar.Id" class="form-control">
             <option value="">Select a Car</option>
-            @foreach (var car in ViewBag.Cars) // Assuming you have ViewBag.Cars available
+            @foreach (var car in ViewBag.Cars) 
             {
                 <option value="@car.Id">Brand: @car.Brand; Model: @car.CarModels; Mileage: @car.Mileage; Fuel Type: @car.FuelType; Color: @car.Color</option>
             }
         </select>
+        <span asp-validation-for="SelectedCar.Id" class="text-danger"></span>
     </div>
+    
 
     <div class="form-group">
         <label for="CollisionSeverity">Select a Severity</label>
@@ -34,9 +43,9 @@
 
     <div class="form-group">
         <label for="Description">Accident Description</label>
-        <textarea id="Description" asp-for="Description" class="form-control" rows="2"></textarea>
-        <span asp-validation-for="Description" class="text-danger"></span>
+        <textarea id="Description" asp-for="AccidentDescription" class="form-control"  rows="5"></textarea>
+        <span asp-validation-for="AccidentDescription" class="text-danger"></span>
     </div>
 
-    <button type="submit" class="btn btn-success primary-button">Send Request</button>
+    <button id="submitBtn" type="submit" class="btn btn-success primary-button">Send Request</button>
 </form>

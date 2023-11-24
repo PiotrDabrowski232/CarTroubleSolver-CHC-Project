@@ -13,20 +13,23 @@ namespace CarTroubleSolver.Logic.Services
         private readonly IAccidentRepository _accidentRepository;
         private readonly IUserRepository _userRepository;
         private readonly ICarRepository _carRepository;
+        private readonly ICarService _carService;
         private readonly IMapper _mapper;
-        public AccidentService(IAccidentRepository accidentRepository, IMapper mapper, IUserRepository userRepository, ICarRepository carRepository)
+        public AccidentService(IAccidentRepository accidentRepository, IMapper mapper, IUserRepository userRepository, ICarRepository carRepository, ICarService carService)
         {
             _accidentRepository = accidentRepository;
             _mapper = mapper;
             _userRepository = userRepository;
             _carRepository = carRepository;
+            _carService = carService;
         }
 
-        public void AddAccident(AccidentDto accidentDto, string userEmail)
+        public void AddAccident<T>(T accidentDto, string userEmail) where T : class
         {
             var mappedAccident = _mapper.Map<Accident>(accidentDto);
             mappedAccident.Id = Guid.NewGuid();
             mappedAccident.ApplicantUserId = _userRepository.GetUserByEmail(userEmail).Id;
+
             _accidentRepository.Add(mappedAccident);
         }
 
@@ -99,7 +102,7 @@ namespace CarTroubleSolver.Logic.Services
 
         public AccidentAdvertisementDto GetAccident(Guid id)
         {
-            var accident =  _accidentRepository.GetAll().FirstOrDefault(a => a.Id == id);
+            var accident = _accidentRepository.GetAll().FirstOrDefault(a => a.Id == id);
 
             var mappedAccident = _mapper.Map<AccidentAdvertisementDto>(accident);
 

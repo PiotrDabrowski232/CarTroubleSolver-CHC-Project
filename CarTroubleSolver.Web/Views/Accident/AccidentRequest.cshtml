@@ -12,7 +12,7 @@
 
 
 
-<form method="post" asp-action="SendRequest" asp-controller="Accident">
+<form method="post" asp-action="SendRequest" asp-controller="Accident" class="formAccident">
 
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
@@ -43,7 +43,7 @@
 
     <div class="form-group">
         <label for="Description">Accident Description</label>
-        <textarea id="Description" asp-for="AccidentDescription" class="form-control" rows="2"></textarea>
+        <textarea id="Description" asp-for="AccidentDescription" class="form-control"  rows="5"></textarea>
         <span asp-validation-for="AccidentDescription" class="text-danger"></span>
     </div>
 

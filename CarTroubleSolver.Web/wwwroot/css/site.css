@@ -71,3 +71,19 @@ button a strong:hover {
     width:150%;
     margin-bottom:2vh;
 }
+
+
+.formAccident{
+    margin-top:5%;
+    margin-left:18vw
+    
+}
+
+    .formAccident .form-control{
+        width:35vw;
+        margin-bottom:2.5vh;
+    }
+    .formAccident #submitBtn {
+        margin-left: 30vw;
+        margin-top: 6vh;
+    }

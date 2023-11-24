@@ -87,3 +87,31 @@ button a strong:hover {
         margin-left: 30vw;
         margin-top: 6vh;
     }
+
+    .nav-link.m {
+        position: relative;
+        font-weight: normal; 
+    }
+
+        
+        .nav-link.m:hover {
+            font-weight: bold; 
+        }
+
+
+        .nav-link.m::before {
+            content: "";
+            position: absolute;
+            width: 85%;
+            margin-left: 0.8vw;
+            height: 2px; 
+            bottom: 0;
+            left: 0;
+            background-color: transparent; 
+            transition: background-color 0.45s ease-in-out;
+        }
+
+        
+        .nav-link.m:hover::before {
+            background-color: darkolivegreen; 
+        }

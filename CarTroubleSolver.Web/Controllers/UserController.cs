@@ -39,7 +39,7 @@ namespace CarTroubleSolver.Web.Controllers
         {
             var validator = new RegisterUserDtoValidator();
             var validationResult = validator.Validate(user);
-            if (!validationResult.IsValid)
+            if (!validationResult.IsValid) 
             {
                 foreach (var error in validationResult.Errors)
                 {

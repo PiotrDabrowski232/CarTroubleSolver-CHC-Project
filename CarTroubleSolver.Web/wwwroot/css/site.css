@@ -16,26 +16,26 @@ html {
 body {
   margin-bottom: 60px;
 }
-
 .nav-link strong {
     padding: 0.3vw;
     border-radius: 15%;
-    color: #fff;
-    background-color: #0074D9;
-    transition: color 0.6s ease-in-out, background-color 0.6s ease-in-out;
+    color: #3498db;
+    background-color: white; 
+    transition: color 0.8s ease-in-out, background-color 0.8s ease-in-out, box-shadow 0.8s ease-in-out;
+    display: inline-block;
 }
 
-.btn a  {
+.btn a {
     text-decoration: none;
 }
 
 .nav-link strong:hover {
-    color: #ff4500; 
-    background-color: #695F5F;
+    color: #349811;
+    background-color:lightgray;
+    box-shadow: 0 0 10px rgba(255, 69, 0, 0.8);
 }
-
 .homeCenter{
-    margin-top: 20%;
+    margin-top: 10%;
 }
 
 button a strong{
@@ -48,4 +48,16 @@ button a strong:hover {
 .primary-button {
     margin-left: 35%;
 
+}
+
+.d-block{
+    padding-top:10%;
+    margin-right:4%;
+}
+.d-block .form-group {
+    width: 160%;
+}
+.buttonlogin {
+    margin-left:70%;
+    margin-top:20%;
 }

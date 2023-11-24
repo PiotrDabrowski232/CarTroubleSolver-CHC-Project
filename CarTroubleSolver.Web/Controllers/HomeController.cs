@@ -20,12 +20,16 @@ namespace CarTroubleSolver.Web.Controllers
 
         public IActionResult Index()
         {
-            var accidents = _accidentService.GetAllFreeAccidents("pp@o2.pl");
-            if (accidents.Any())
+            if(User.Identity.Name != null)
             {
-                return View(accidents);
+                var accidents = _accidentService.GetAllFreeAccidents(User.Identity.Name);
+                if (accidents.Any())
+                {
+                    return View(accidents);
 
+                }
             }
+            
             return View();
         }
 

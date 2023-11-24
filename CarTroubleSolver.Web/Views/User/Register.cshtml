@@ -4,15 +4,15 @@
 
 
 
-@using (Html.BeginForm("RegisteredUser", "User", FormMethod.Post, new { @class = "form-horizontal" }))
+@using (Html.BeginForm("RegisteredUser", "User", FormMethod.Post, new { @class = "form-horizontal  d-flex justify-content-center d-block pt-5" }))
 {
     @Html.AntiForgeryToken()
 
-
+    <div class="d-block registrationBlock">
     <div class="form-group">
         @Html.LabelFor(model => model.Name, new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+                @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.Name, null ,new { @class = "text-danger" })
         </div>
     </div>
@@ -70,4 +70,6 @@
             <button type="submit" class="btn btn-primary">Register</button>
         </div>
     </div>
+    </div>
+
 } 

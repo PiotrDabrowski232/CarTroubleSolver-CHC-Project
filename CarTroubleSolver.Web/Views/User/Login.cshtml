@@ -3,23 +3,24 @@
 @model CarTroubleSolver.Logic.Dto.User.LoginRequest
 
 
-@using (Html.BeginForm("LoginRequest", "User", FormMethod.Post, new { @class = "form-horizontal" }))
+@using (Html.BeginForm("LoginRequest", "User", FormMethod.Post, new { @class = "form-horizontal d-flex justify-content-center d-block" }))
 {
     @Html.AntiForgeryToken()
 
+    <div class="d-block">
 
     <div class="form-group">
         @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+            @Html.TextBoxFor(model => model.Email, new { @class = "form-control mb-3" })
             @Html.ValidationMessageFor(model => model.Email, null ,new { @class = "text-danger" })
         </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group col-md-3">
         @Html.LabelFor(model => model.Password, new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.TextBoxFor(model => model.Password, new { @class = "form-control" })
+                @Html.PasswordFor(model => model.Password, new { @class = "form-control mb-3" })
             @Html.ValidationMessageFor(model => model.Password, null ,new { @class = "text-danger" })
         </div>
     </div>
@@ -28,8 +29,11 @@
     
 
     <div class="form-group mt-5">
-        <div class="col-md-offset-2 col-md-10">
+        <div class="col-md-offset-2 col-md-10 buttonlogin">
             <button type="submit" class="btn btn-primary">Login</button>
         </div>
     </div>
+    </div>
 } 
+
+

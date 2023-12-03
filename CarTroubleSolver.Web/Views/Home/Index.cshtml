@@ -4,6 +4,8 @@
 
     ViewData["Title"] = "Home Page";
 
+    
+
     string GetSeverityColor(CollisionSeverity severity)
     {
         switch (severity)
@@ -21,6 +23,36 @@
 <div class="text-center homeCenter">
     @if (User.Identity.Name != null)
     {
+        
+        <form method="post" asp-action="FilterAccidents" asp-controller="Home" class="FilterAccidents">
+                <div>
+                    <div class="form-group">
+                        <label for="CollisionSeverity">Select a Severity</label>
+                    <select id="CollisionSeverity" name="severity" class="form-control">
+                            <option value="">Select a Severity</option>
+                            @foreach (var severity in Enum.GetNames(typeof(CollisionSeverity)))
+                            {
+                                <option value="@severity">@severity</option>
+                            }
+                        </select>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="CarBrand">Select a Severity</label>
+                    <select id="CarBrand" name="brand" class="form-control">
+                            <option value="">Select a Severity</option>
+                            @foreach (var brand in Enum.GetNames(typeof(CarBrand)))
+                            {
+                                <option value="@brand">@brand</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            <button id="submitBtn" type="submit" class="btn btn-success primary-button">Filter</button>
+
+        </form>
+
         @if (Model != null)
         {
         <div class="container mt-4">

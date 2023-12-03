@@ -4,6 +4,7 @@ using CarTroubleSolver.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.Diagnostics;
+using CarTroubleSolver.Data.Models.Enums;
 
 namespace CarTroubleSolver.Web.Controllers
 {
@@ -36,6 +37,12 @@ namespace CarTroubleSolver.Web.Controllers
         public IActionResult Privacy()
         {
             return View();
+        }
+
+        public IActionResult FilterAccidents(CollisionSeverity severity, CarBrand brand)
+        {
+            var filteredAccidents = _accidentService.Filter(severity, brand);
+            
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

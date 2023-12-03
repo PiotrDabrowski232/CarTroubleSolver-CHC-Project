@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using CarTroubleSolver.Data.Models;
+using CarTroubleSolver.Data.Models.Enums;
 using CarTroubleSolver.Data.Repository.Interfaces;
 using CarTroubleSolver.Logic.Dto.Accident;
 using CarTroubleSolver.Logic.Dto.Cars;
@@ -107,6 +108,22 @@ namespace CarTroubleSolver.Logic.Services
             var mappedAccident = _mapper.Map<AccidentAdvertisementDto>(accident);
 
             return mappedAccident;
+        }
+
+        public IEnumerable<AccidentAdvertisementDto> Filter(CollisionSeverity? severity, CarBrand? brand, string userName)
+        {
+            var accidents = GetAllFreeAccidents(userName);
+
+            if (severity.HasValue)
+            {
+                accidents = accidents.Where(a => a.CollisionSeverity == severity);
+            }
+            if (brand.HasValue)
+            {
+                accidents = accidents.Where(a => a.CarInfo.Brand == brand);
+            }
+
+            return accidents;
         }
     }
 }

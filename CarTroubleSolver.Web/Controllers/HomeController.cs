@@ -41,7 +41,9 @@ namespace CarTroubleSolver.Web.Controllers
 
         public IActionResult FilterAccidents(CollisionSeverity severity, CarBrand brand)
         {
-            var filteredAccidents = _accidentService.Filter(severity, brand);
+            var filteredAccidents = _accidentService.Filter(severity, brand, User.Identity.Name);
+
+            return View();
             
         }
 

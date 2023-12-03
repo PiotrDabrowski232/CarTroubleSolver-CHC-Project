@@ -22,13 +22,24 @@ namespace CarTroubleSolver.Web.Controllers
             _toastNotification = toastNotification;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int page = 1, int pageSize = 3)
         {
-            if(User.Identity.Name != null)
+            if (User.Identity.Name != null)
             {
                 var accidents = _accidentService.GetAllFreeAccidents(User.Identity.Name);
                 if (accidents.Any())
                 {
+                    var data = accidents;
+                    var totalItems = accidents.Count();
+                    var totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+                    var currentPageData = accidents.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+                    ViewData["CurrentPage"] = page;
+                    ViewData["TotalPages"] = totalPages;
+                    ViewData["PageSize"] = pageSize;
+                    ViewData["TotalItems"] = totalItems;
+                    ViewData["Data"] = currentPageData;
+
                     return View(accidents);
 
                 }

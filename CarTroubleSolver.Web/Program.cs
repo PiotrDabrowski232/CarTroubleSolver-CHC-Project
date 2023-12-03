@@ -41,6 +41,9 @@ builder.Services.AddNotyf(config =>
     config.Position = NotyfPosition.TopRight;
 });
 
+builder.Services.AddMvc().AddRazorRuntimeCompilation();
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

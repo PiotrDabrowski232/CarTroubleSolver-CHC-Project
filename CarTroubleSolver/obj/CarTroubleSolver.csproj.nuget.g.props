@@ -20,6 +20,7 @@
     <Import Project="$(NuGetPackageRoot)aspnetcorehero.toastnotification\1.1.0\buildTransitive\AspNetCoreHero.ToastNotification.props" Condition="Exists('$(NuGetPackageRoot)aspnetcorehero.toastnotification\1.1.0\buildTransitive\AspNetCoreHero.ToastNotification.props')" />
   </ImportGroup>
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <PkgMicrosoft_CodeAnalysis_Analyzers Condition=" '$(PkgMicrosoft_CodeAnalysis_Analyzers)' == '' ">C:\Users\Piotr\.nuget\packages\microsoft.codeanalysis.analyzers\3.3.2</PkgMicrosoft_CodeAnalysis_Analyzers>
     <PkgEntityFramework Condition=" '$(PkgEntityFramework)' == '' ">C:\Users\Piotr\.nuget\packages\entityframework\6.4.4</PkgEntityFramework>
   </PropertyGroup>
 </Project>

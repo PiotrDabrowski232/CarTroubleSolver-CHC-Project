@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Diagnostics;
 using CarTroubleSolver.Data.Models.Enums;
 using AspNetCoreHero.ToastNotification.Abstractions;
+using CarTroubleSolver.Logic.Dto.Accident;
 
 namespace CarTroubleSolver.Web.Controllers
 {
@@ -22,14 +23,21 @@ namespace CarTroubleSolver.Web.Controllers
             _toastNotification = toastNotification;
         }
 
-        public IActionResult Index(int page = 1, int pageSize = 3)
+        public IActionResult Index(string severity, string brand, int page = 1, int pageSize = 3)
         {
             if (User.Identity.Name != null)
             {
                 var accidents = _accidentService.GetAllFreeAccidents(User.Identity.Name);
                 if (accidents.Any())
                 {
-                    var data = accidents;
+
+                    if(!severity.IsNullOrEmpty() || !brand.IsNullOrEmpty())
+                    {
+                        accidents = _accidentService.Filter(severity, brand, User.Identity.Name).ToList();
+
+                        _toastNotification.Warning($"We Found {accidents.ToList().Count} accidents");
+                    }
+                    
                     var totalItems = accidents.Count();
                     var totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
                     var currentPageData = accidents.Skip((page - 1) * pageSize).Take(pageSize).ToList();
@@ -40,7 +48,7 @@ namespace CarTroubleSolver.Web.Controllers
                     ViewData["TotalItems"] = totalItems;
                     ViewData["Data"] = currentPageData;
 
-                    return View(accidents);
+                    return View(currentPageData);
 
                 }
             }
@@ -52,6 +60,7 @@ namespace CarTroubleSolver.Web.Controllers
         {
             return View();
         }
+        /*
 
         public IActionResult FilterAccidents(string severity, string brand)
         {
@@ -61,12 +70,13 @@ namespace CarTroubleSolver.Web.Controllers
 
             return View("Index", filteredAccidents);
             
-        }
+        }*/
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
     }
 }

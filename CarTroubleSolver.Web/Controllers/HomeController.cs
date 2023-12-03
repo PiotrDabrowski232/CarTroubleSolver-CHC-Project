@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.Diagnostics;
 using CarTroubleSolver.Data.Models.Enums;
+using AspNetCoreHero.ToastNotification.Abstractions;
 
 namespace CarTroubleSolver.Web.Controllers
 {
@@ -12,11 +13,13 @@ namespace CarTroubleSolver.Web.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IAccidentService _accidentService;
+        private readonly INotyfService _toastNotification;
 
-        public HomeController(ILogger<HomeController> logger, IAccidentService accidentService)
+        public HomeController(ILogger<HomeController> logger, IAccidentService accidentService, INotyfService toastNotification)
         {
             _logger = logger;
             _accidentService = accidentService;
+            _toastNotification = toastNotification;
         }
 
         public IActionResult Index()
@@ -42,6 +45,8 @@ namespace CarTroubleSolver.Web.Controllers
         public IActionResult FilterAccidents(string severity, string brand)
         {
             var filteredAccidents = _accidentService.Filter(severity, brand, User.Identity.Name).ToList();
+
+            _toastNotification.Warning($"We Found {filteredAccidents.Count} accidents");
 
             return View("Index", filteredAccidents);
             

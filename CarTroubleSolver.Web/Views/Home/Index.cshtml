@@ -25,9 +25,8 @@
     {
         
         <form method="post" asp-action="FilterAccidents" asp-controller="Home" class="FilterAccidents">
-                <div>
-                    <div class="form-group">
-                        <label for="CollisionSeverity">Select a Severity</label>
+            <div class="d-flex flex-row mb-3">
+                <div class="form-group col-3 p-2">
                     <select id="CollisionSeverity" name="severity" class="form-control">
                             <option value="">Select a Severity</option>
                             @foreach (var severity in Enum.GetNames(typeof(CollisionSeverity)))
@@ -38,18 +37,20 @@
                     </div>
 
 
-                    <div class="form-group">
-                        <label for="CarBrand">Select a Severity</label>
+                <div class="form-group col-3 p-2">
                     <select id="CarBrand" name="brand" class="form-control">
-                            <option value="">Select a Severity</option>
+                            <option value="">Select a Car Brand</option>
                             @foreach (var brand in Enum.GetNames(typeof(CarBrand)))
                             {
                             <option value="@brand.ToString()">@brand</option>
                             }
                         </select>
                     </div>
-                </div>
-            <button id="submitBtn" type="submit" class="btn btn-success primary-button">Filter</button>
+                <button id="submitBtn" type="submit" class="btn btn-secondary secondary-button">Filter</button>
+                <a class="p-2" asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-info info-button">Show All Accidents</button></a>
+            </div>
+            
+            
 
         </form>
 

@@ -32,7 +32,7 @@
                             <option value="">Select a Severity</option>
                             @foreach (var severity in Enum.GetNames(typeof(CollisionSeverity)))
                             {
-                                <option value="@severity">@severity</option>
+                                <option value="@severity.ToString()">@severity</option>
                             }
                         </select>
                     </div>
@@ -44,7 +44,7 @@
                             <option value="">Select a Severity</option>
                             @foreach (var brand in Enum.GetNames(typeof(CarBrand)))
                             {
-                                <option value="@brand">@brand</option>
+                            <option value="@brand.ToString()">@brand</option>
                             }
                         </select>
                     </div>

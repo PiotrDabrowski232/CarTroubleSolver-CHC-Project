@@ -6,6 +6,7 @@ using CarTroubleSolver.Logic.Dto.Accident;
 using CarTroubleSolver.Logic.Dto.Cars;
 using CarTroubleSolver.Logic.Dto.User;
 using CarTroubleSolver.Logic.Services.Interfaces;
+using Microsoft.IdentityModel.Tokens;
 
 namespace CarTroubleSolver.Logic.Services
 {
@@ -110,17 +111,17 @@ namespace CarTroubleSolver.Logic.Services
             return mappedAccident;
         }
 
-        public IEnumerable<AccidentAdvertisementDto> Filter(CollisionSeverity? severity, CarBrand? brand, string userName)
+        public IEnumerable<AccidentAdvertisementDto> Filter(string? severity, string? brand, string userName)
         {
             var accidents = GetAllFreeAccidents(userName);
 
-            if (severity.HasValue)
+            if (!severity.IsNullOrEmpty())
             {
-                accidents = accidents.Where(a => a.CollisionSeverity == severity);
+                accidents = accidents.Where(a => a.CollisionSeverity.ToString() == severity);
             }
-            if (brand.HasValue)
+            if (!brand.IsNullOrEmpty())
             {
-                accidents = accidents.Where(a => a.CarInfo.Brand == brand);
+                accidents = accidents.Where(a => a.CarInfo.Brand.ToString() == brand);
             }
 
             return accidents;

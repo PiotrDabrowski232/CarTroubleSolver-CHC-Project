@@ -39,11 +39,11 @@ namespace CarTroubleSolver.Web.Controllers
             return View();
         }
 
-        public IActionResult FilterAccidents(CollisionSeverity severity, CarBrand brand)
+        public IActionResult FilterAccidents(string severity, string brand)
         {
-            var filteredAccidents = _accidentService.Filter(severity, brand, User.Identity.Name);
+            var filteredAccidents = _accidentService.Filter(severity, brand, User.Identity.Name).ToList();
 
-            return View();
+            return View("Index", filteredAccidents);
             
         }
 

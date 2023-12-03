@@ -1,10 +1,9 @@
-﻿@model List<CarTroubleSolver.Logic.Dto.Accident.AccidentAdvertisementDto>
+﻿@model IEnumerable<CarTroubleSolver.Logic.Dto.Accident.AccidentAdvertisementDto>;
 @using CarTroubleSolver.Data.Models.Enums;
+@using CarTroubleSolver.Logic.Dto.Accident
+@using PagedList
 @{
-
-    ViewData["Title"] = "Home Page";
-
-    
+    var pagedList = ViewData["PagedList"] as IPagedList<AccidentAdvertisementDto>;
 
     string GetSeverityColor(CollisionSeverity severity)
     {
@@ -23,43 +22,11 @@
 <div class="text-center homeCenter">
     @if (User.Identity.Name != null)
     {
-        
-        <form method="post" asp-action="Index" asp-controller="Home" class="FilterAccidents">
-            <div class="d-flex flex-row mb-3">
-                <div class="form-group col-3 p-2">
-                    <select id="CollisionSeverity" name="severity" class="form-control">
-                            <option value="">Select a Severity</option>
-                            @foreach (var severity in Enum.GetNames(typeof(CollisionSeverity)))
-                            {
-                                <option value="@severity.ToString()">@severity</option>
-                            }
-                        </select>
-                    </div>
-
-
-                <div class="form-group col-3 p-2">
-                    <select id="CarBrand" name="brand" class="form-control">
-                            <option value="">Select a Car Brand</option>
-                            @foreach (var brand in Enum.GetNames(typeof(CarBrand)))
-                            {
-                            <option value="@brand.ToString()">@brand</option>
-                            }
-                        </select>
-                    </div>
-                <button id="submitBtn" type="submit" class="btn btn-secondary secondary-button">Filter</button>
-
-                <a asp-controller="Home" asp-action="Index"><button type="button" class="btn btn-info info-button m-2">Refresh List</button></a>
-            </div>
-            
-            
-
-        </form>
-
-        @if (Model != null)
+        @if (pagedList != null)
         {
         <div class="container mt-4">
             <div class="row">
-                @foreach (var accident in Model)
+                    @foreach (var accident in pagedList)
                 {
                     <div class="col-md-4 mb-4">
                         <div class="card">
@@ -80,23 +47,35 @@
             </div>
             </div>
 
-            <div class="container">
-
-                <nav aria-label="Page navigation example">
+            <div class="text-center">
+                <nav aria-label="Page navigation">
                     <ul class="pagination">
-                        @for (int i = 1; i <= (int)ViewData["TotalPages"]; i++)
+
+                        <li class="page-item @(pagedList.HasPreviousPage ? "" : "disabled")">
+                            <a class="page-link" href="?page=@(pagedList.PageNumber - 1)" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+
+                        @for (int i = 1; i <= pagedList.PageCount; i++)
                         {
-                            <li class="page-item @(i == (int)ViewData["CurrentPage"] ? "active" : "")">
-                                <a class="page-link"
-                                   asp-action="Index"
-                                   asp-route-page="@i"
-                                   asp-route-pageSize="@ViewData["PageSize"]">@i</a>
+                            <li class="page-item @(i == pagedList.PageNumber ? "active" : "")">
+                                <a class="page-link" href="?page=@i">@i</a>
                             </li>
                         }
+
+                        <li class="page-item @(pagedList.HasNextPage ? "" : "disabled")">
+                            <a class="page-link" href="?page=@(pagedList.PageNumber + 1)" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+
                     </ul>
                 </nav>
             </div>
-        }
+
+            }
+        
         else
         {
             <h4>You Don't have an accident to help.</h4>

@@ -503,3 +503,5 @@ C:\Users\Piotr\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTr
 C:\Users\Piotr\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver.Web\bin\Debug\net6.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
 C:\Users\Piotr\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver.Web\bin\Debug\net6.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
 C:\Users\Piotr\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver.Web\bin\Debug\net6.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\Piotr\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver.Web\bin\Debug\net6.0\PagedList.dll
+C:\Users\Piotr\Source\Repos\PiotrDabrowski232\CarTroubleSolver-CHC-Project\CarTroubleSolver.Web\bin\Debug\net6.0\PagedList.Mvc.dll

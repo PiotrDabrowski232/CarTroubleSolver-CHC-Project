@@ -1,0 +1,84 @@
+﻿@model HomeViewModel;
+@using CarTroubleSolver.Data.Models.Enums;
+@{
+
+    string GetSeverityColor(CollisionSeverity severity)
+    {
+        switch (severity)
+        {
+            case CollisionSeverity.Severe:
+                return "danger";
+            case CollisionSeverity.Minor:
+                return "warning";
+            default:
+                return "primary";
+        }
+    }
+}
+
+<div class="text-center homeCenter">
+        @using(Html.BeginForm()){
+
+            @Html.AntiForgeryToken()
+
+            <div class="d-flex flex-row mb-3">
+                <div class="form-group col-3 p-2">
+                    <select asp-for="FilterModel.Severity" class="form-control">
+                            <option value="">Select a Severity</option>
+                            @foreach (var severity in Enum.GetNames(typeof(CollisionSeverity)))
+                            {
+                                <option value="@severity.ToString()">@severity</option>
+                            }
+                        </select>
+                    </div>
+
+
+                <div class="form-group col-3 p-2">
+                    <select asp-for="@Model.FilterModel.Brand" class="form-control">
+                            <option value="">Select a Car Brand</option>
+                            @foreach (var brand in Enum.GetNames(typeof(CarBrand)))
+                            {
+                            <option value="@brand.ToString()">@brand</option>
+                            }
+                        </select>
+                    </div>
+                <button id="submitBtn" type="submit" class="btn btn-secondary secondary-button">Filter</button>
+            </div>
+            }
+
+
+        @if (Model != null)
+        {
+        <div class="container mt-4">
+            <div class="row">
+                @foreach (var accident in Model.Accidents)
+                {
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Collision: @accident.CollisionSeverity</h5>
+                                <p class="card-text">Applicant Name: @accident.ApplicantUserInfo.Name</p>
+                                <p class="card-text">Car Brand: @accident.CarInfo.Brand</p>
+                                <p class="card-text">Car Model: @accident.CarInfo.CarModels</p>
+                                <p class="card-text">Car Engine Type: @accident.CarInfo.EngineType</p>
+                                <p class="card-text">Car Mileage: @accident.CarInfo.Mileage</p>
+                                <a asp-area="" asp-controller="Accident" asp-action="AccidentDetails"
+                                   asp-route-accidentId="@accident.Id" class="btn btn-@GetSeverityColor(accident.CollisionSeverity)">Click for details</a>
+
+                             </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            </div>
+            
+            }
+        
+        else
+        {
+        <h4 class="p-5">Fill Filter inputs to see accidents</h4>
+        }
+
+    
+</div>
+

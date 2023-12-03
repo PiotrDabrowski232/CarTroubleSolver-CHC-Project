@@ -4,6 +4,7 @@ using CarTroubleSolver.Logic.Dto.Cars;
 using CarTroubleSolver.Logic.Services;
 using CarTroubleSolver.Logic.Services.Interfaces;
 using CarTroubleSolver.Logic.Validation;
+using CarTroubleSolver.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarTroubleSolver.Web.Controllers
@@ -73,6 +74,24 @@ namespace CarTroubleSolver.Web.Controllers
 
             return RedirectToAction("Index", "Home");
         }
-      
+
+
+        public IActionResult FilterAccidents(HomeViewModel viewModel)
+        {
+            if (User.Identity.Name != null)
+            {
+                if (viewModel.FilterModel != null)
+                {
+                    viewModel.Accidents = _accidentService.Filter(viewModel.FilterModel.Severity, viewModel.FilterModel.Brand, User.Identity.Name).ToList();
+                    if (viewModel.Accidents.Any())
+                    {
+                        return View(viewModel);
+                    }
+                }
+
+                
+            }
+            return View();
+        }
     }
 }

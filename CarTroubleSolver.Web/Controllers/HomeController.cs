@@ -1,12 +1,10 @@
-﻿using CarTroubleSolver.Data.Repository.Interfaces;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using CarTroubleSolver.Logic.Dto.Accident;
 using CarTroubleSolver.Logic.Services.Interfaces;
 using CarTroubleSolver.Web.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
+using PagedList;
 using System.Diagnostics;
-using CarTroubleSolver.Data.Models.Enums;
-using AspNetCoreHero.ToastNotification.Abstractions;
-using CarTroubleSolver.Logic.Dto.Accident;
 
 namespace CarTroubleSolver.Web.Controllers
 {
@@ -23,36 +21,25 @@ namespace CarTroubleSolver.Web.Controllers
             _toastNotification = toastNotification;
         }
 
-        public IActionResult Index(string severity, string brand, int page = 1, int pageSize = 3)
+        public IActionResult Index(int? page)
         {
+
+            const int pageSize = 6; 
+            var pageNumber = page ?? 1;
+
+
             if (User.Identity.Name != null)
             {
-                var accidents = _accidentService.GetAllFreeAccidents(User.Identity.Name);
-                if (accidents.Any())
-                {
+                var accidents = _accidentService.GetAllFreeAccidents(User.Identity.Name).ToList();
 
-                    if(!severity.IsNullOrEmpty() || !brand.IsNullOrEmpty())
-                    {
-                        accidents = _accidentService.Filter(severity, brand, User.Identity.Name).ToList();
+                var pagedAccidents = accidents.Skip((pageNumber - 1) * pageSize).Take(pageSize);
 
-                        _toastNotification.Warning($"We Found {accidents.ToList().Count} accidents");
-                    }
-                    
-                    var totalItems = accidents.Count();
-                    var totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
-                    var currentPageData = accidents.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+                var totalAccidentsCount = accidents.Count;
 
-                    ViewData["CurrentPage"] = page;
-                    ViewData["TotalPages"] = totalPages;
-                    ViewData["PageSize"] = pageSize;
-                    ViewData["TotalItems"] = totalItems;
-                    ViewData["Data"] = currentPageData;
+                ViewData["PagedList"] = new StaticPagedList<AccidentAdvertisementDto>(pagedAccidents, pageNumber, pageSize, totalAccidentsCount);
 
-                    return View(currentPageData);
-
-                }
+                return View();
             }
-            
             return View();
         }
 
@@ -60,17 +47,6 @@ namespace CarTroubleSolver.Web.Controllers
         {
             return View();
         }
-        /*
-
-        public IActionResult FilterAccidents(string severity, string brand)
-        {
-            var filteredAccidents = _accidentService.Filter(severity, brand, User.Identity.Name).ToList();
-
-            _toastNotification.Warning($"We Found {filteredAccidents.Count} accidents");
-
-            return View("Index", filteredAccidents);
-            
-        }*/
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

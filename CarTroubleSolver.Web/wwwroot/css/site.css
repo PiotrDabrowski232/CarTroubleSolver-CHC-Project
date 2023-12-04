@@ -127,3 +127,11 @@ button a strong:hover {
 main{
     min-height:80vh;
 }
+
+
+.text-center nav{
+    position:absolute;
+    top:80%;
+    left:46%;
+
+}

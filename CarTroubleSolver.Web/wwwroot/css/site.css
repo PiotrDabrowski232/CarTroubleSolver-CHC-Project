@@ -35,7 +35,7 @@ body {
     box-shadow: 0 0 10px rgba(255, 69, 0, 0.8);
 }
 .homeCenter{
-    margin-top: 2%;
+    margin-top: 1vh;
 }
 
 button a strong{
@@ -131,7 +131,7 @@ main{
 
 .text-center nav{
     position:absolute;
-    top:80%;
+    top:90%;
     left:46%;
 
 }

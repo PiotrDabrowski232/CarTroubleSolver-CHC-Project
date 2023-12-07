@@ -1,7 +1,7 @@
 ﻿@model HomeViewModel;
 @using CarTroubleSolver.Data.Models.Enums;
+@using CarTroubleSolver.Web.Models;
 @{
-
     string GetSeverityColor(CollisionSeverity severity)
     {
         switch (severity)
@@ -17,9 +17,7 @@
 }
 
 <div class="text-center homeCenter">
-        @using(Html.BeginForm()){
-
-            @Html.AntiForgeryToken()
+    <form asp-action="FilterAccidents">
 
             <div class="d-flex flex-row mb-3">
                 <div class="form-group col-3 p-2">
@@ -44,7 +42,26 @@
                     </div>
                 <button id="submitBtn" type="submit" class="btn btn-secondary secondary-button">Filter</button>
             </div>
-            }
+        @if (Model != null)
+        {
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                    {
+                        <li class="page-item @(ViewBag.CurrentPage == i ? "active" : "")">
+                            <form asp-action="FilterAccidents" method="get">
+                                <input type="hidden" name="pageNumber" value="@i" />
+                                <input type="hidden" name="FilterModel.Brand" value="@Model.FilterModel.Brand" />
+                                <input type="hidden" name="FilterModel.Severity" value="@Model.FilterModel.Severity" />
+
+                                <button type="submit" class="page-link">@i</button>
+                            </form>
+                        </li>
+                    }
+                </ul>
+            </nav>
+        }
+    </form>
 
 
         @if (Model != null)
@@ -61,7 +78,6 @@
                                 <p class="card-text">Car Brand: @accident.CarInfo.Brand</p>
                                 <p class="card-text">Car Model: @accident.CarInfo.CarModels</p>
                                 <p class="card-text">Car Engine Type: @accident.CarInfo.EngineType</p>
-                                <p class="card-text">Car Mileage: @accident.CarInfo.Mileage</p>
                                 <a asp-area="" asp-controller="Accident" asp-action="AccidentDetails"
                                    asp-route-accidentId="@accident.Id" class="btn btn-@GetSeverityColor(accident.CollisionSeverity)">Click for details</a>
 
@@ -71,9 +87,8 @@
                 }
             </div>
             </div>
-            
-            }
-        
+       
+        }
         else
         {
         <h4 class="p-5">Fill Filter inputs to see accidents</h4>

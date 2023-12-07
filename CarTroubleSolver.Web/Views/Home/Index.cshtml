@@ -24,7 +24,7 @@
     {
         @if (pagedList != null)
         {
-        <div class="container mt-4">
+        <div class="container mt-2">
             <div class="row">
                     @foreach (var accident in pagedList)
                 {
@@ -36,7 +36,6 @@
                                 <p class="card-text">Car Brand: @accident.CarInfo.Brand</p>
                                 <p class="card-text">Car Model: @accident.CarInfo.CarModels</p>
                                 <p class="card-text">Car Engine Type: @accident.CarInfo.EngineType</p>
-                                <p class="card-text">Car Mileage: @accident.CarInfo.Mileage</p>
                                 <a asp-area="" asp-controller="Accident" asp-action="AccidentDetails"
                                    asp-route-accidentId="@accident.Id" class="btn btn-@GetSeverityColor(accident.CollisionSeverity)">Click for details</a>
 

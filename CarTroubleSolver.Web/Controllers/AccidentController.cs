@@ -1,11 +1,12 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
 using CarTroubleSolver.Logic.Dto.Accident;
 using CarTroubleSolver.Logic.Dto.Cars;
-using CarTroubleSolver.Logic.Services;
 using CarTroubleSolver.Logic.Services.Interfaces;
 using CarTroubleSolver.Logic.Validation;
 using CarTroubleSolver.Web.Models;
 using Microsoft.AspNetCore.Mvc;
+using PagedList;
+using System.Drawing.Printing;
 
 namespace CarTroubleSolver.Web.Controllers
 {
@@ -36,7 +37,7 @@ namespace CarTroubleSolver.Web.Controllers
             var validationResult = validator.Validate(accident);
             if (!validationResult.IsValid)
             {
-                foreach (var error in validationResult.Errors) 
+                foreach (var error in validationResult.Errors)
                 {
                     ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
                 }
@@ -50,7 +51,7 @@ namespace CarTroubleSolver.Web.Controllers
                 _toastNotification.Success("Accident Added Sucessfully");
                 return RedirectToAction("Index", "Home");
             }
-            
+
         }
         public IActionResult AccidentHistory()
         {
@@ -70,28 +71,33 @@ namespace CarTroubleSolver.Web.Controllers
         {
             _accidentService.HelpInAccident(User.Identity.Name, accident.Id);
             _toastNotification.Success("Your request for assistance has been granted");
-            _toastNotification.Information($"You have pledged to provide assistance to {accident.ApplicantUserInfo.Name} {accident.ApplicantUserInfo.Surname} enter your story to contact with {accident.ApplicantUserInfo.Name} {accident.ApplicantUserInfo.Surname}",12);
+            _toastNotification.Information($"You have pledged to provide assistance to {accident.ApplicantUserInfo.Name} {accident.ApplicantUserInfo.Surname} enter your story to contact with {accident.ApplicantUserInfo.Name} {accident.ApplicantUserInfo.Surname}", 12);
 
             return RedirectToAction("Index", "Home");
         }
 
-
-        public IActionResult FilterAccidents(HomeViewModel viewModel)
+        public IActionResult FilterAccidents(HomeViewModel viewModel, int pageSize = 6)
         {
             if (User.Identity.Name != null)
             {
                 if (viewModel.FilterModel != null)
                 {
-                    viewModel.Accidents = _accidentService.Filter(viewModel.FilterModel.Severity, viewModel.FilterModel.Brand, User.Identity.Name).ToList();
-                    if (viewModel.Accidents.Any())
-                    {
-                        return View(viewModel);
-                    }
-                }
+                    var accidents = _accidentService.Filter(viewModel.FilterModel.Severity, viewModel.FilterModel.Brand, User.Identity.Name).ToList();
 
-                
+                    viewModel.Accidents = accidents.Skip((viewModel.pageNumber - 1) * pageSize).Take(pageSize).ToList();
+
+                    ViewBag.CurrentPage = viewModel.pageNumber;
+                    ViewBag.TotalPages = (int)Math.Ceiling((double)accidents.Count / pageSize);
+
+
+                    return View(viewModel);
+
+                }
             }
+
             return View();
+
         }
+
     }
 }
